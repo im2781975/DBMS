@@ -674,10 +674,7 @@ VALUES (169, 'Harrison', 'Bloom', 'HBLOOM', '011.44.1343.829268',
 
 INSERT INTO employees
 VALUES (170, 'Tayler', 'Fox', 'TFOX', '011.44.1343.729268',
-	STR_TO_DATE('24-JAN-1998', '%d-%M-%Y'), 'SA_REP', 9600,.20,
-	148,
-	80
-	);
+	STR_TO_DATE('24-JAN-1998', '%d-%M-%Y'), 'SA_REP', 9600,.20, 148, 80);
 
 INSERT INTO employees
 VALUES (171, 'William', 'Smith', 'WSMITH', '011.44.1343.629268',
@@ -871,3 +868,26 @@ ALTER TABLE departments ADD FOREIGN KEY (manager_id) REFERENCES employees (emplo
 ALTER TABLE job_history ADD FOREIGN KEY (employee_id) REFERENCES employees(employee_id);
 ALTER TABLE job_history ADD FOREIGN KEY (job_id) REFERENCES jobs(job_id);
 ALTER TABLE job_history ADD FOREIGN KEY (department_id) REFERENCES departments(department_id);
+
+#query
+select last_name, job_id, salary from employees where job_id != 'IT_PROGRAM' AND salary < ANY(
+        select salary from employee where job_id == 'IT_PROGRAM'
+    );
+/* retrieve those salary whose salary greater than other three employees */
+select * from employee E1 where 3 <= (
+        select (count*) from employee E2  where E2.salary < E1.salary
+    );
+/* Find Those employes who earn maximum salary in his Department */
+select last_name, departments, salary from employees E1 where Not Exists(
+        select * from employees E2 where E2.departments = E1.departments AND E2.salary > E1.salary
+    );
+/* show employee id, employee name, Dept id */
+select e.employee_id, e.first_name, d.department_name from employees e, departments d
+    where e.department_id = d.department_id
+
+select e.employee_id, e.first_name, d.department_id
+    from employees e join departments d using (department_id)
+select e.employee_id, e.first_name, d.department_id 
+    from employees e join departments d ON(e.department_id = d.department_id)
+select e.first_name, m.first_name 
+    from employees e join employees m ON (e.manager_id = m.employee_id)
