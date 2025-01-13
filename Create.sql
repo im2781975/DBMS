@@ -1,8 +1,8 @@
-""" union """
+"""                union                """
 select id, name from Branch1 union select id, name from Branch2
 select id, name from Branch1 union All select id, name from Branch2
 select id, name from Branch1 MINUS select id, name from Branch2
-""" Trigger """
+"""                Trigger                """
 CREATE TRIGGER trigger_name
 AFTER INSERT OR UPDATE OR DELETE ON table_name
 FOR EACH ROW
@@ -20,7 +20,7 @@ BEGIN
     INSERT INTO StudentLog (student_id)
     VALUES (NEW.id);
 END;
-""" project """
+"""              project                """
 CREATE TABLE student(
     serial int PRIMARY KEY,
     name VARCHAR(20), age INT );
@@ -43,3 +43,31 @@ CREATE TABLE enroll(
 INSERT INTO enroll(serial, course_id, admit_date)
 VALUES(1, 101, "06-01-21"), (1, 102, "06-01-21"), (2, 103, "06-01-21");
 select * from enroll
+SET SQL_SAFE_UPDATES = 0;
+DELETE from student where name = "mollavai"
+SET SQL_SAFE_UPDATES = 1;
+"""               project               """
+CREATE TABLE student(
+    serial INT PRIMARY KEY,
+    name VARCHAR(30) NOT NULL );
+CREATE TABLE course(
+    course_id INT, course_name VARCHAR(30),
+    PRIMARY KEY(course_id)
+);
+CREATE TABLE enroll(
+    serial INT, course_id INT, admitDate date,
+    PRIMARY KEY(serial, course_id),
+    FOREIGN KEY(serial) REFERENCES student,
+    FOREIGN KEY(course_id) REFERENCES course
+);
+"""             Rename Table            """
+RENAME TABLE student to person;
+ALTER TABLE student RENAME person;
+ALTER TABLE person ADD email VARCHAR(30);
+ALTER TABLE person MODIFY email VRCHAR(100);
+ALTER TABLE person  DROP column email;
+"""             DROP TABLE            """
+DROP TABLE person;
+DROP TABLE If EXISTS person;
+DELETE from person where name = "rahim";
+TRUBCATE TABLE person;
