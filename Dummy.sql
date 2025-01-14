@@ -868,8 +868,7 @@ ALTER TABLE departments ADD FOREIGN KEY (manager_id) REFERENCES employees (emplo
 ALTER TABLE job_history ADD FOREIGN KEY (employee_id) REFERENCES employees(employee_id);
 ALTER TABLE job_history ADD FOREIGN KEY (job_id) REFERENCES jobs(job_id);
 ALTER TABLE job_history ADD FOREIGN KEY (department_id) REFERENCES departments(department_id);
-
-#query
+"""                QUERY               """
 select last_name, job_id, salary from employees where job_id != 'IT_PROGRAM' AND salary < ANY(
         select salary from employee where job_id == 'IT_PROGRAM'
     );
@@ -884,10 +883,32 @@ select last_name, departments, salary from employees E1 where Not Exists(
 /* show employee id, employee name, Dept id */
 select e.employee_id, e.first_name, d.department_name from employees e, departments d
     where e.department_id = d.department_id
-
 select e.employee_id, e.first_name, d.department_id
     from employees e join departments d using (department_id)
 select e.employee_id, e.first_name, d.department_id 
     from employees e join departments d ON(e.department_id = d.department_id)
 select e.first_name, m.first_name 
     from employees e join employees m ON (e.manager_id = m.employee_id)
+    
+SELECT DISTINCT name from employees;
+SELECT employee_id from employees ORDER BY ASC;
+SELECT employee_id from employees ORDER BY DESC;
+SELECT * from employees LIMIT 5;
+SELECT * from employees LIMIT 5 OFFSET 10;
+SELECT * from employees LIMIT 5, 10;
+SELECT MAX(employee_id) from employees;
+SELECT MIN(employee_id) from employees;
+SELECT COUNT(salary) from employees;
+SELECT COUNT(*) from employees;
+SELECT salary, COUNT(*) from student GROUP BY SALARY;
+SELECT salary, count(*) from student GROUP BY SALARY HAVING COUNT(*) > 1;
+SELECT employee_id, MAX(salary), from student GROUP BY roll;
+ALTER TABLE from student ADD email VARCHAR(11);
+SELECT first_name from employees where job_id = (
+    SELECT job_id from employees where employee_id = 107) AND 
+	(SELECT salary from employees where employee_id = 109
+    );
+SELECT first_name from employees where job_id = (
+    SELECT job_id from employees where (SELECT employee_id from employees where first_name = 'Diana' LIMIT 1) AND 
+	(SELECT salary from employees where employee_id = 109
+    );
