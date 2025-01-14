@@ -912,3 +912,11 @@ SELECT first_name from employees where job_id = (
     SELECT job_id from employees where (SELECT employee_id from employees where first_name = 'Diana' LIMIT 1) AND 
 	(SELECT salary from employees where employee_id = 109
     );
+SELECT 3 * 5 from employees
+SELECT first_name from employees where employee_id != 101 OR employee_id > 101 OR employee_id < 101 OR employee_id >= 101 ;
+SELECT first_name AS n from employees where employee_id between 150 AND 200;
+SELECT * from employees where first_name = "Sundita" AND employee_id < 200;
+SELECT * from employees where (first_name = "Sundita" OR employee_id < 200) OR (first_name = "Jonathon" AND employee_id < 200);  
+SELECT * from employees where first_name in ("Sundita", "Jonathon")
+SELECT * from employees where first_name not in ("Sundita", "Jonathon")
+SELECT * from employees where first_name like "%s" OR "s%"
