@@ -998,3 +998,281 @@ ORDER BY
     WHEN Country  IS 'India' THEN Country
     ELSE Age
 END);
+
+#Aggregiate
+CREATE TABLE Employee (
+  Id INT PRIMARY KEY,
+  Name CHAR(1),  -- Adjust data type and length if names can be longer than a single character
+  Salary DECIMAL(10,2)  -- Adjust precision and scale if needed for salaries
+);
+
+INSERT INTO Employee (Id, Name, Salary)
+VALUES (1, 'A', 802),
+       (2, 'B', 403),
+       (3, 'C', 604),
+       (4, 'D', 705),
+       (5, 'E', 606),
+       (6, 'F', NULL);
+--Count the number of employees
+SELECT COUNT(*) AS TotalEmployees FROM Employee;
+
+-- Calculate the total salary
+SELECT SUM(Salary) AS TotalSalary FROM Employee;
+
+-- Find the average salary
+SELECT AVG(Salary) AS AverageSalary FROM Employee;
+
+-- Get the highest salary
+SELECT MAX(Salary) AS HighestSalary FROM Employee;
+
+-- Determine the lowest salary
+SELECT MIN(Salary) AS LowestSalary FROM Employee;
+SELECT Name, SUM(Salary) AS TotalSalary
+FROM Employee
+GROUP BY Name;
+SELECT Name, SUM(Salary) AS TotalSalary
+FROM Employee
+GROUP BY Name
+HAVING SUM(Salary) > 600;
+
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age int(2),
+  Phone int(10)
+);
+-- Insert some sample data into the Customers table
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+       (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+       (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+       (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx');
+SELECT MIN(Age) FROM Customer ;
+SELECT Max(Age) FROM Customer;
+SELECT CustomerName,
+  MIN(Age) AS min_age 
+FROM Customer;
+SELECT CustomerName,
+  MAX(Age) AS max_age 
+FROM Customer
+HAVING MIN(Age)>22;
+Courses @90% Refund
+Databases
+SQL
+MySQL
+PostgreSQL
+PL/SQL
+MongoDB
+SQL Cheat Sheet
+SQL Interview Questions
+MySQL Interview Questions
+PL/SQL Interview Questions
+Learn SQL and Database
+▲
+Open In App
+SQL MIN() and MAX() Functions
+Last Updated : 11 Dec, 2024
+The SQL MIN() and MAX() functions are essential aggregate functions in SQL used for data analysis. They allow you to extract the minimum and maximum values from a specified column, respectively, making them invaluable when working with numerical, string, or date-based data.
+
+In this article, we will learn the SQL MIN() and MAX() functions in detail, provide syntax examples, and illustrate how these functions can be applied in different scenarios.
+
+
+SQL MIN() Function
+SQL MIN() function returns the smallest value in the column. It can be used with various data types, including numbers, strings, and dates.
+
+The MIN() function can be used with the DISTINCT keyword to return the minimum value among unique values in a column. It allows for efficiently finding the minimum value in a dataset, making it essential for data manipulation and analysis.
+
+Syntax:
+
+
+SELECT MIN(column_name)
+FROM table_name
+WHERE condition;
+
+
+SQL MAX() Functions 
+SQL MAX() function returns the largest value in the column. It can can be used with various data types, including numbers, strings, and dates.
+
+The MAX() function in SQL can be used in combination with other SQL clauses and functions, such as GROUP BY, HAVING, and subqueries which can be useful for data analysis and reporting
+
+Syntax:
+
+
+SELECT MAX(column_name)
+FROM table_name
+WHERE condition;
+
+
+SQL MIN() and MAX() Function Examples
+Let’s look at some examples of MIN() and MAX() functions in SQL to understand the concept better. We will be using the following table to in the examples. To create this table, write the given SQL queries.
+
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age int(2),
+  Phone int(10)
+);
+-- Insert some sample data into the Customers table
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+       (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+       (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+       (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx');
+SELECT MIN(Age) FROM Customer ;
+SELECT Max(Age) FROM Customer;
+SELECT CustomerName,
+  MIN(Age) AS min_age 
+FROM Customer;
+SELECT CustomerName,
+  MAX(Age) AS max_age 
+FROM Customer
+HAVING MIN(Age)>22;
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+SELECT AVG(column_name) 
+FROM table_name 
+WHERE condition;
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+
+CREATE TABLE GeeksTab (
+    Name VARCHAR(50),
+    City VARCHAR(50),
+    Salary INT,
+    ID INT,
+    DOJ VARCHAR(50)
+);
+
+INSERT INTO GeeksTab (Name, City, Salary, ID, DOJ) VALUES
+('Abc', 'Delhi', 4500, 134, '6-Aug'),
+('Dfe', 'Noida', 6500, 245, '4-March'),
+('Def', 'Jaipur', 5400, 546, '2-July'),
+('Mno', 'Noida', 7800, 432, '7-June'),
+('Jkl', 'Jaipur', 5400, 768, '9-July'),
+('Lmn', 'Delhi', 7800, 987, '8-June'),
+('Ijk', 'Jaipur', 6700, 654, '5-June');
+SELECT COUNT(Name)
+FROM GeeksTab; 
+SELECT AVG(Salary)
+FROM GeeksTab;
+SELECT SUM(Salary)
+FROM GeeksTab; 
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+SELECT AVG(column_name) 
+FROM table_name 
+WHERE condition;
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+CREATE TABLE GeeksTab (
+    Name VARCHAR(50),
+    City VARCHAR(50),
+    Salary INT,
+    ID INT,
+    DOJ VARCHAR(50)
+);
+
+INSERT INTO GeeksTab (Name, City, Salary, ID, DOJ) VALUES
+('Abc', 'Delhi', 4500, 134, '6-Aug'),
+('Dfe', 'Noida', 6500, 245, '4-March'),
+('Def', 'Jaipur', 5400, 546, '2-July'),
+('Mno', 'Noida', 7800, 432, '7-June'),
+('Jkl', 'Jaipur', 5400, 768, '9-July'),
+('Lmn', 'Delhi', 7800, 987, '8-June'),
+('Ijk', 'Jaipur', 6700, 654, '5-June');
+SELECT COUNT(Name)
+FROM GeeksTab; 
+SELECT AVG(Salary)
+FROM GeeksTab; 
+SELECT SUM(Salary)
+FROM GeeksTab; 
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+SELECT AVG(column_name) 
+FROM table_name 
+WHERE condition;
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+Courses @90% Refund
+Databases
+SQL
+MySQL
+PostgreSQL
+PL/SQL
+MongoDB
+SQL Cheat Sheet
+SQL Interview Questions
+MySQL Interview Questions
+PL/SQL Interview Questions
+Learn SQL and Database
+▲
+Open In App
+SQL COUNT(), AVG() and SUM() Function
+Last Updated : 11 Dec, 2024
+SQL aggregate functions, such as COUNT(), AVG(), and SUM(), are essential tools for performing mathematical analysis on data. These functions allow you to gather valuable insights from your database, such as calculating totals, and averages, and counting specific rows.
+
+In this article, we’ll explain how to use these functions in SQL with examples and explore best practices for applying them in your queries.
+
+SQL COUNT() Function
+The COUNT() function provides the number of rows that match a specified condition. This function is particularly useful for understanding the volume of data entries and identifying trends based on countable metrics.
+
+Syntax:
+
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+SQL AVG() Function
+The AVG() function provides the average value of a numeric column, helping you determine central tendencies in your data. This is useful for understanding the mean value of a set of numbers, such as salaries, prices, or scores.
+
+Syntax:
+
+SELECT AVG(column_name) 
+FROM table_name 
+WHERE condition;
+SQL SUM() Function
+The SUM() function provides the total sum of a numeric column. This function is ideal for calculating totals such as sales, revenue, or any other cumulative numeric value.
+
+Syntax:
+
+SELECT SUM(column_name)
+FROM table_name
+WHERE condition;
+Examples of SQL COUNT(), AVG() and SUM() Function
+Let’s look at some examples of the COUNT(), AVG() and SUM() Function in SQL to understand them better.
+
+To demonstrate this, let us create a table “GeeksTab“.
+
+CREATE TABLE GeeksTab (
+    Name VARCHAR(50),
+    City VARCHAR(50),
+    Salary INT,
+    ID INT,
+    DOJ VARCHAR(50)
+);
+
+INSERT INTO GeeksTab (Name, City, Salary, ID, DOJ) VALUES
+('Abc', 'Delhi', 4500, 134, '6-Aug'),
+('Dfe', 'Noida', 6500, 245, '4-March'),
+('Def', 'Jaipur', 5400, 546, '2-July'),
+('Mno', 'Noida', 7800, 432, '7-June'),
+('Jkl', 'Jaipur', 5400, 768, '9-July'),
+('Lmn', 'Delhi', 7800, 987, '8-June'),
+('Ijk', 'Jaipur', 6700, 654, '5-June');
+SELECT COUNT(Name)
+FROM GeeksTab; 
+SELECT AVG(Salary)
+FROM GeeksTab; 
+SELECT SUM(Salary)
+FROM GeeksTab;
