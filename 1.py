@@ -1276,3 +1276,160 @@ SELECT AVG(Salary)
 FROM GeeksTab; 
 SELECT SUM(Salary)
 FROM GeeksTab;
+
+#Data CONSTRAIN
+CREATE TABLE Emp(
+    EmpID INT NOT NULL PRIMARY KEY,
+    Name VARCHAR (50),
+    Country VARCHAR(50),
+    Age int(2),
+  Salary int(10));
+ALTER TABLE Emp modify Name Varchar(50) NOT NULL;
+CREATE TABLE Persons ( 
+  PersonID int,
+  LastName varchar(255) NOT NULL,
+  FirstName varchar(255),  Age int);
+ALTER TABLE Persons
+ADD CONSTRAINT PK_Person PRIMARY KEY (PersonID);
+CREATE TABLE STUDENT(
+     STUDENT_ID INT PRIMARY KEY,
+     NAME VARCHAR(20),
+     ADDRESS VARCHAR(20),
+     AGE INT,
+     DOB DATE);
+DESC STUDENTS;
+CREATE TABLE COURSES(
+     COURSE_NAME VARCHAR(20),
+     INSTRUCTOR VARCHAR(20),
+     REFERENCE_ID INT,
+     CONSTRAINT FK_REFER FOREIGN KEY (REFERENCE_ID)
+     REFERENCES STUDENT(STUDENT_ID));
+DESC COURSES;
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  CustomerName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Orders (
+  OrderID INT PRIMARY KEY,
+  OrderNumber INT NOT NULL,
+  CustomerID INT,
+  FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+INSERT INTO Customers (CustomerID, CustomerName)
+VALUES (1, 'John'), (2, 'Jane'), (3, 'Bob');
+
+INSERT INTO Orders (OrderID, OrderNumber, CustomerID)
+VALUES (1, 101, 1), (2, 102, 2), (3, 103, 3);
+INSERT INTO Orders (OrderID, OrderNumber, CustomerID)
+VALUES (4, 104, 4);
+DELETE FROM Customers 
+WHERE CustomerID = "3";
+
+CREATE School;
+USE School;
+CREATE TABLE student
+(rollNumber INT, 
+name VARCHAR(30), 
+class VARCHAR(30), 
+section VARCHAR(1), 
+mobile VARCHAR(10),
+PRIMARY KEY (rollNumber, mobile));
+INSERT INTO student (rollNumber, name, class, section, mobile) 
+VALUES (1, "AMAN","FOURTH", "B", "9988774455");
+INSERT INTO student (rollNumber, name, class, section, mobile) 
+VALUES (2, "JOHN","FIRST", "A", "9988112233");
+INSERT INTO student (rollNumber, name, class, section, mobile) 
+VALUES (3, "TOM","FOURTH", "B", "9988777755");
+INSERT INTO student (rollNumber, name, class, section, mobile) 
+VALUES (4, "RICHARD","SECOND", "C", "9955663322");
+SELECT * FROM student;
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Email VARCHAR(100) UNIQUE,
+    Country VARCHAR(50)
+);
+INSERT INTO Customers (CustomerID, Name, Email, Country)
+VALUES (1, 'John Doe', 'john.doe@example.com', 'USA');
+
+INSERT INTO Customers (CustomerID, Name, Email, Country)
+VALUES (2, 'Jane Smith', 'jane.smith@example.com', 'Canada');
+
+-- This will fail because 'john.doe@example.com' already exists
+INSERT INTO Customers (CustomerID, Name, Email, Country)
+VALUES (3, 'Alice Johnson', 'john.doe@example.com', 'UK');
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    ProductID INT,
+    OrderDate DATE,
+    UNIQUE (CustomerID, ProductID)
+);
+SELECT CustomerID
+FROM Orders
+WHERE UNIQUE (
+    SELECT OrderID
+    FROM OrderDetails
+    WHERE Orders.CustomerID = OrderDetails.CustomerID
+);
+
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Age INT CHECK (Age >= 18 AND Age <= 120)
+);
+
+
+-- Valid insert
+INSERT INTO Customers (CustomerID, Name, Age)
+VALUES (1, 'John Doe', 25);
+
+-- Invalid insert
+INSERT INTO Customers (CustomerID, Name, Age)
+VALUES (2, 'Jane Smith', 15);  -- This will fail due to the CHECK constraint
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Age INT,
+    Salary DECIMAL(10, 2),
+    CHECK (Age >= 18 AND Salary > 0)
+);
+
+
+-- Valid insert
+INSERT INTO Employee (EmployeeID, Name, Age, Salary)
+VALUES (1, 'Alice Johnson', 30, 50000);
+
+-- Invalid insert (age < 18)
+INSERT INTO Employee (EmployeeID, Name, Age, Salary)
+VALUES (2, 'Bob Lee', 16, 45000);  -- This will fail due to the CHECK constraint
+ALTER TABLE Employee
+ADD CONSTRAINT chk_salary CHECK (Salary >= 30000);
+
+CREATE TABLE Geeks (
+    ID INT NOT NULL,
+    Name VARCHAR(255),
+    Age INT,
+    Location VARCHAR(255) DEFAULT 'Noida'
+);
+
+-- Explicit value
+INSERT INTO Geeks (ID, Name, Age, Location) VALUES (4, 'Mira', 23, 'Delhi');
+
+-- Using the DEFAULT constraint
+INSERT INTO Geeks (ID, Name, Age, Location) VALUES (5, 'Hema', 27);
+
+-- Explicit value again
+INSERT INTO Geeks (ID, Name, Age, Location) VALUES (6, 'Neha', 25, 'Delhi');
+
+-- Using DEFAULT constraint again
+INSERT INTO Geeks (ID, Name, Age, Location) VALUES (7, 'Khushi', 26, DEFAULT);
+ALTER TABLE Geeks
+ALTER COLUMN Location
+DROP DEFAULT;
+INSERT INTO Geeks VALUES (8, 'Komal', 24, 'Delhi');
+INSERT INTO Geeks VALUES (9, 'Payal', 26,NULL);
+Select * from Geeks;
