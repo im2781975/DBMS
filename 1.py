@@ -1,0 +1,599 @@
+#create
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    hire_date DATE
+);
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE department = 'Sales'
+ORDER BY hire_date DESC;
+
+INSERT INTO employees (first_name, last_name, department) 
+VALUES ('Jane', 'Smith', 'HR');
+
+GRANT SELECT, UPDATE ON employees TO user_name;
+
+CREATE DATABASE GeeksForGeeks;
+USE database_name
+DROP DATABASE GeeksForGeeks;
+DROP DATABASE database_name;
+CREATE DATABASE GeeksForGeeks;
+SHOW DATABASES;
+DROP DATABASE GeeksForGeeks;
+SHOW DATABASES;
+DROP DATABASE IF EXISTS Database_Name;
+DROP DATABASE IF EXISTS GeeksForGeeks;
+USE database_name;
+CREATE DATABASE GeeksforGeeks;
+USE GeeksforGeeks;
+
+SELECT * FROM employees;
+SELECT name, age FROM employees;
+SELECT name, age FROM employees WHERE age >= 35;
+SELECT name, age FROM employees ORDER BY age DESC;
+SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;
+SELECT department, AVG(salary) AS average_salary FROM employees GROUP BY department;
+#Table
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT CHECK (Age >= 0 AND Age <= 99),
+    Phone int(10)
+);
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+       (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+       (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+       (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx');
+       
+CREATE TABLE SubTable AS
+SELECT CustomerID, CustomerName
+FROM customer;
+DROP TABLE table_name;
+
+CREATE DATABASE NewCafe;
+USE NewCafe;
+CREATE TABLE categories (
+    CategoryID INT NOT NULL PRIMARY KEY, 
+    CategoryName NVARCHAR(50) NOT NULL,
+    ItemDescription NVARCHAR(50) NOT NULL
+);
+INSERT INTO categories (CategoryID, CategoryName, ItemDescription)
+VALUES
+(1, 'Beverages', 'Soft Drinks'),
+(2, 'Condiments', 'Sweet and Savory Sauces'), 
+(3, 'Confections', 'Sweet Breads');
+SELECT * FROM categories;
+DROP TABLE categories;
+
+CREATE TABLE Student_details (
+ROLL_NO INT,
+NAME VARCHAR(25),
+ADDRESS VARCHAR(25),
+PHONE INT ,
+AGE INT); 
+INSERT INTO Student_details(ROLL_NO,NAME,ADDRESS,PHONE,AGE) VALUES 
+(1,'Ram','Delhi',9415536635,24),
+(2,'Ramesh','Gurgaon',9414576635,21),
+(3,'Sujit','Delhi',9815532635,20),
+(4,'Suresh','Noida',9115536695,21),
+(5,'Kajal','Gurgaon',8915536735,28),
+(6,'Garima','Rohtak',7015535635,23);
+DROP DATABASE student_data;
+TRUNCATE TABLE Student_details;
+
+CREATE TABLE Table_Name AS SELECT * FROM Source_Table_Name;
+CREATE TABLE stud_1 AS SELECT * FROM student_information;
+SELECT * FROM stud_1;
+CREATE TABLE stud_2 AS
+SELECT id,student_name FROM student_information;
+SELECT * FROM stud_2;
+CREATE TABLE geeks_student AS SELECT * FROM student_information
+WHERE 1!=1;
+SELECT * FROM geeks_student;
+CREATE TABLE specific_empty_backup AS
+SELECT ID, Student_Name FROM student_information WHERE 1=2;
+SELECT * FROM specific_empty_backup;
+CREATE TABLE student_backup AS SELECT * FROM student_information;
+ALTER TABLE student_backup ADD PRIMARY KEY (ID);
+CREATE TABLE student_backup (
+    ID INT PRIMARY KEY,
+    Age INT,
+    Student_Name VARCHAR(50),
+    Sex VARCHAR(10)
+);
+INSERT INTO student_backup SELECT * FROM student_information;
+
+CREATE TABLE #EmpDetails (id INT, name VARCHAR(25))  
+INSERT INTO #EmpDetails VALUES (01, 'Lalit'), (02, 'Atharva') 
+SELECT * FROM #EmpDetails 
+CREATE PROCEDURE ProcTemp 
+AS
+BEGIN
+CREATE TABLE #EmpDetails
+INSERT INTO #EmpDetails VALUES ( 01, 'Lalit'), ( 02, 'Atharva')
+SELECT * FROM #EmpDetails
+END
+EXECUTE ProcTemp 
+
+ALTER TABLE table_name
+clause [column_name] [datatype];
+ALTER TABLE table_name
+ADD column_name datatype;
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+ALTER TABLE table_name
+DROP COLUMN column_name;
+ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name;
+ALTER TABLE table_name
+RENAME TO new_table_name;
+ALTER TABLE Students
+DROP COLUMN Email;
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+ALTER TABLE Student ADD 
+ (AGE number(3),COURSE varchar(40));
+ALTER TABLE Student 
+ MODIFY COURSE varchar(20);
+ALTER TABLE Student 
+DROP COLUMN COURSE;
+
+#CEUD OPERATION
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age int(2),
+  Phone int(10)
+);
+-- Insert some sample data into the Customers table
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+       (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+       (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+       (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx');
+SELECT CustomerName, LastName FROM Customer;
+SELECT * FROM Customer;
+SELECT CustomerName FROM Customer where Age = '21'; 
+SELECT COUNT (item), Customer_id FROM Orders GROUP BY order_id;  
+SELECT Department, sum(Salary) as Salary
+FROM employee
+GROUP BY department
+HAVING SUM(Salary) >= 50000;  
+SELECT * FROM Customer ORDER BY Age DESC;
+
+INSERT INTO table_name 
+VALUES (value1, value2, value); 
+INSERT INTO table_name (column1, column2, column3) 
+VALUES ( value1, value2, value); 
+CREATE DATABASE StudentDB;
+USE StudentDB;
+
+CREATE TABLE Student (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    ADDRESS VARCHAR(100),
+    PHONE VARCHAR(15),
+    AGE INT
+);
+
+INSERT INTO Student (ROLL_NO, NAME, ADDRESS, PHONE, AGE) VALUES
+(1, 'Ram', 'Delhi', 'XXXXXXXXXX', 18),
+(2, 'Ramesh', 'Gurgaon', 'XXXXXXXXXX', 18),
+(3, 'Sujit', 'Rohtak', 'XXXXXXXXXX', 20),
+(4, 'Suresh', 'Rohtak', 'XXXXXXXXXX', 18);
+INSERT INTO Student 
+VALUES ('5','HARSH','WEST BENGAL', 'XXXXXXXXXX','19');
+INSERT INTO Student (ROLL_NO, NAME, Age) 
+VALUES ('5','PRATIK','19');
+INSERT INTO Student (ROLL_NO, NAME, AGE, ADDRESS, PHONE) 
+VALUES
+(6, 'Amit Kumar', 15, 'Delhi', 'XXXXXXXXXX'),
+(7, 'Gauri Rao', 18, 'Bangalore', 'XXXXXXXXXX'),
+(8, 'Manav Bhatt', 17, 'New Delhi', 'XXXXXXXXXX'),
+(9, 'Riya Kapoor', 10, 'Udaipur', 'XXXXXXXXXX');
+INSERT INTO first_table 
+SELECT * 
+FROM second_table;
+INSERT INTO first_table(names_of_columns1) 
+SELECT names_of_columns2 
+FROM second_table; 
+INSERT INTO table1 
+SELECT * FROM table2 
+WHERE condition; 
+INSERT INTO Student 
+SELECT * FROM LateralStudent;
+INSERT INTO Student(ROLL_NO,NAME,Age) 
+SELECT ROLL_NO, NAME, Age FROM LateralStudent;
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    Age INT,
+    Department VARCHAR(50)
+);
+INSERT INTO Employees (EmployeeID, EmployeeName, Age, Department)
+VALUES
+    (1, 'John Doe', 30, 'Engineering'),
+    (2, 'Jane Smith', 28, 'Marketing'),
+    (3, 'Sam Brown', 35, 'Sales'),
+    (4, 'Lucy Green', 25, 'Human Resources');
+CREATE TABLE NewEmployees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    Age INT,
+    Department VARCHAR(50)
+);
+INSERT INTO NewEmployees (EmployeeID, EmployeeName, Age, Department)
+VALUES
+    (5, 'Alice Johnson', 29, 'HR'),
+    (6, 'Bob Martin', 32, 'Finance'),
+    (7, 'Charlie Baker', 28, 'Marketing'),
+    (8, 'David Lee', 40, 'Engineering'),
+    (9, 'Eva Davis', 22, 'Sales');
+INSERT INTO Employees (EmployeeID, EmployeeName, Age, Department)
+SELECT EmployeeID, EmployeeName, Age, Department
+FROM NewEmployees
+WHERE Age > 30;
+
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age int(2),
+  Phone int(10)
+);
+
+-- Insert some sample data into the Customers table
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+       (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+       (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+       (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+       (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx'); 
+UPDATE Customer 
+SET CustomerName  = 'Nitin' 
+WHERE Age = 22;
+UPDATE Customer 
+SET 
+CustomerName = 'Satyam', 
+Country = 'USA' 
+WHERE CustomerID = 1;
+UPDATE Customer SET CustomerName = 'Shubham';
+
+CREATE TABLE GFG_Employees (
+   id INT PRIMARY KEY,
+   name VARCHAR (20) ,
+   email VARCHAR (25),
+   department VARCHAR(20)
+);
+INSERT INTO GFG_Employees (id, name, email, department) VALUES 
+(1, 'Jessie', 'jessie23@gmail.com', 'Development'),
+(2, 'Praveen', 'praveen_dagger@yahoo.com', 'HR'),
+(3, 'Bisa', 'dragonBall@gmail.com', 'Sales'),
+(4, 'Rithvik', 'msvv@hotmail.com', 'IT'),
+(5, 'Suraj', 'srjsunny@gmail.com', 'Quality Assurance'),
+(6, 'Om', 'OmShukla@yahoo.com', 'IT'),
+(7, 'Naruto', 'uzumaki@konoha.com', 'Development');
+Select * From GFG_Employees
+DELETE FROM GFG_Employees WHERE NAME = 'Rithvik';  
+DELETE FROM GFG_Employees 
+WHERE department = 'Development';
+DELETE FROM GFG_EMPLOyees;
+Or
+DELETE * FROM GFG_EMPLOyees; 
+
+CREATE TABLE DETAILS (
+    SN INT IDENTITY(1,1) PRIMARY KEY,
+    EMPNAME VARCHAR(25) NOT NULL,
+    DEPT VARCHAR(20) NOT NULL,
+    CONTACTNO BIGINT NOT NULL,
+    CITY VARCHAR(15) NOT NULL
+);
+INSERT INTO DETAILS (EMPNAME, DEPT, CONTACTNO, CITY)
+VALUES 
+    ('VISHAL', 'SALES', 9193458625, 'GAZIABAD'),
+    ('VIPIN', 'MANAGER', 7352158944, 'BAREILLY'),
+    ('ROHIT', 'IT', 7830246946, 'KANPUR'),
+    ('RAHUL', 'MARKETING', 9635688441, 'MEERUT'),
+    ('SANJAY', 'SALES', 9149335694, 'MORADABAD'),
+    ('VIPIN', 'MANAGER', 7352158944, 'BAREILLY'),
+    ('VISHAL', 'SALES', 9193458625, 'GAZIABAD'),
+    ('AMAN', 'IT', 78359941265, 'RAMPUR');
+SELECT EMPNAME,DEPT,CONTACTNO,CITY, 
+COUNT(*) FROM DETAILS
+GROUP BY EMPNAME,DEPT,CONTACTNO,CITY
+HAVING COUNT(*)>1
+SELECT EMPNAME,DEPT,CONTACTNO,CITY, 
+COUNT(*) FROM DETAILS
+GROUP BY EMPNAME,DEPT,CONTACTNO,CITY
+DELETE FROM DETAILS
+WHERE SN NOT IN (
+    SELECT MIN(SN)
+    FROM DETAILS
+    GROUP BY EMPNAME, DEPT, CONTACTNO, CITY
+);
+Select * FROM DETAILS;
+WITH CTE AS (
+    SELECT SN, EMPNAME, DEPT, CONTACTNO, CITY,
+           ROW_NUMBER() OVER (PARTITION BY EMPNAME, DEPT, CONTACTNO, CITY ORDER BY SN) AS RowNum
+    FROM DETAILS
+)
+DELETE FROM CTE WHERE RowNum > 1;
+#CLAUSES
+CREATE TABLE Emp1(
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Country VARCHAR(50),
+    Age int(2),
+  mob int(10)
+);
+-- Insert some sample data into the Customers table
+INSERT INTO Emp1 (EmpID, Name,Country, Age, mob)
+VALUES (1, 'Shubham',  'India','23','738479734'),
+       (2, 'Aman ',  'Australia','21','436789555'),
+       (3, 'Naveen', 'Sri lanka','24','34873847'),
+       (4, 'Aditya',  'Austria','21','328440934'),
+       (5, 'Nishant', 'Spain','22','73248679');
+SELECT * FROM Emp1 WHERE Age=24;
+SELECT EmpID, Name, Country FROM Emp1 WHERE Age > 21;
+SELECT * FROM Emp1 WHERE Age BETWEEN 22 AND 24;
+SELECT * FROM Emp1 WHERE Name LIKE 'S%'; 
+SELECT * FROM Emp1 WHERE Name LIKE '%M%';
+SELECT Name FROM Emp1 WHERE Age IN (21,23);
+
+WITH temporaryTable (averageValue) AS (
+    SELECT AVG (Attr1)
+    FROM Table
+)
+    SELECT Attr1
+    FROM Table, temporaryTable
+    WHERE Table.Attr1 > temporaryTable.averageValue;
+WITH temporaryTable (averageValue) AS (
+    SELECT AVG(Salary)
+    FROM Employee
+)
+        SELECT EmployeeID,Name, Salary 
+        FROM Employee, temporaryTable 
+        WHERE Employee.Salary > temporaryTable.averageValue;
+WITH totalSalary(Airline, total) AS (
+    SELECT Airline, SUM(Salary)
+    FROM Pilot
+    GROUP BY Airline
+),
+    airlineAverage (avgSalary) AS (
+    SELECT avg(Salary)
+    FROM Pilot 
+)
+    SELECT Airline
+    FROM totalSalary, airlineAverage
+    WHERE totalSalary.total > airlineAverage.avgSalary;
+WITH totalSalary(Airline, total) AS (
+    SELECT Airline, SUM(Salary)
+    FROM Pilot
+    GROUP BY Airline
+),
+    airlineAverage (avgSalary) AS (
+    SELECT avg(Salary)
+    FROM Pilot 
+)
+    SELECT Airline
+    FROM totalSalary, airlineAverage
+    WHERE totalSalary.total > airlineAverage.avgSalary;
+-- Create the Employee table with appropriate data types
+CREATE TABLE Employee (
+  EmployeeId int,
+  Name varchar(50),
+  Gender varchar(10),
+  Salary int,
+  Department varchar(20),
+  Experience int -- Changed to int for years of experience
+);
+
+-- Insert multiple rows into the Employee table in a single query
+INSERT INTO Employee (EmployeeId, Name, Gender, Salary, Department, Experience)
+VALUES 
+  (5, 'Priya Sharma', 'Female', 45000, 'IT', 2),
+  (6, 'Rahul Patel', 'Male', 65000, 'Sales', 5),
+  (7, 'Nisha Gupta', 'Female', 55000, 'Marketing', 4),
+  (8, 'Vikram Singh', 'Male', 75000, 'Finance', 7),
+  (9, 'Aarti Desai', 'Female', 50000, 'IT', 3);
+SELECT * FROM Employee;
+SELECT Department, sum(Salary) as Salary
+FROM Employee
+GROUP BY department;
+SELECT Department, sum(Salary) as Salary
+FROM Employee
+GROUP BY department
+HAVING SUM(Salary) >= 50000;  
+SELECT Department, SUM(Salary) AS Total_Salary, AVG(Salary) AS Average_Salary
+FROM Employee
+GROUP BY Department
+HAVING SUM(Salary) >= 50000 AND AVG(Salary) > 55000;
+SELECT Department, COUNT(EmployeeId) AS Employee_Count
+FROM Employee
+GROUP BY Department
+HAVING COUNT(EmployeeId) >= 2;
+SELECT Department, AVG(Salary) AS Average_Salary
+FROM Employee
+GROUP BY Department
+HAVING AVG(Salary) > 50000;
+SELECT * FROM students ORDER BY ROLL_NO DESC;
+SELECT * FROM students ORDER BY age DESC , name ASC;
+CREATE TABLE studentinfo
+( Roll_no INT,
+NAME VARCHAR(25),
+Address VARCHAR(20),
+CONTACTNO BIGINT NOT NULL,
+Age INT ); 
+
+INSERT INTO studentinfo
+VALUES (7,'ROHIT','GHAZIABAD',9193458625,18),
+(4,'DEEP','RAMNAGAR',9193458546,18),
+(1,'HARSH','DELHI',9193342625,18),
+(8,'NIRAJ','ALIPUR',9193678625,19),
+(5,'SAPTARHI','KOLKATA',9193789625,19),
+(2,'PRATIK','BIHAR',9193457825,19),
+(6,'DHANRAJ','BARABAJAR',9193358625,20),
+(3,'RIYANKA','SILIGURI',9193218625,20);
+
+SELECT Roll_no, Name, Address
+FROM studentinfo
+ORDER BY 1
+
+CREATE TABLE emp (
+  emp_no INT PRIMARY KEY,
+  name VARCHAR(50),
+  sal DECIMAL(10,2),
+  age INT
+);
+INSERT INTO emp (emp_no, name, sal, age) VALUES
+(1, 'Aarav', 50000.00, 25),
+(2, 'Aditi', 60000.50, 30),
+(3, 'Aarav', 75000.75, 35),
+(4, 'Anjali', 45000.25, 28),
+(5, 'Chetan', 80000.00, 32),
+(6, 'Divya', 65000.00, 27),
+(7, 'Gaurav', 55000.50, 29),
+(8, 'Divya', 72000.75, 31),
+(9, 'Gaurav', 48000.25, 26),
+(10, 'Divya', 83000.00, 33);
+SELECT * from emp;
+
+CREATE TABLE student (
+  name VARCHAR(50),
+  year INT,
+  subject VARCHAR(50)
+);
+INSERT INTO student (name, year, subject) VALUES
+('Alice', 1, 'Mathematics'),
+('Bob', 2, 'English'),
+('Charlie', 3, 'Science'),
+('David', 1, 'Mathematics'),
+('Emily', 2, 'English'),
+('Frank', 3, 'Science');
+SELECT name, SUM(sal) FROM emp 
+GROUP BY name;
+SELECT SUBJECT, YEAR, Count(*)
+FROM Student
+GROUP BY SUBJECT, YEAR;
+SELECT NAME, SUM(sal) FROM Emp
+GROUP BY name
+HAVING SUM(sal)>50000; 
+
+CREATE TABLE student (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  age INT
+);
+INSERT INTO student (id, name, age)
+VALUES (1, 'Shubham Thakur', 18),
+       (2, 'Aman Chopra', 19),
+       (3, 'Bhavika uppala', 20),
+       (4,'Anshi Shrivastava',22);
+SELECT * FROM student 
+LIMIT 3;
+SELECT * FROM Student
+ORDER BY Grade DESC
+LIMIT 3;
+SELECT * 
+FROM Student 
+ORDER BY age 
+LIMIT 3 OFFSET 2;
+SELECT age FROM Student  
+ORDER BY age LIMIT 2, 1;  
+SELECT age
+FROM Student
+WHERE id<4
+ORDER BY age
+LIMIT 2, 1;
+
+CREATE TABLE students (
+  ROLL_NO INT,
+  NAME VARCHAR(50),
+  ADDRESS VARCHAR(100),
+  PHONE VARCHAR(20),
+  AGE INT
+);
+
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)
+VALUES 
+  (1, 'Shubham Kumar', '123 Main Street, Bangalore', '9876543210', 23),
+  (2, 'Shreya Gupta', '456 Park Road, Mumbai', '9876543211', 23),
+  (3, 'Naveen Singh', '789 Market Lane, Delhi', '9876543212', 26),
+  (4, 'Aman Chopra', '246 Forest Avenue, Kolkata', '9876543213', 22),
+  (5, 'Aditya Patel', '7898 Ocean Drive, Chennai', '9876543214', 27),
+  (6, 'Avdeep Desai', '34 River View, Hyderabad', '9876543215', 24),
+  (7, 'Shubham Kumar', '123 Main Street, Bangalore', '9876543210', 23),  -- Duplicate
+  (8, 'Shreya Gupta', '456 Park Road, Mumbai', '9876543211', 23),  -- Duplicate
+  (9, 'Naveen Singh', '789 Market Lane, Delhi', '9876543212', 26),  -- Duplicate
+  (10, 'Aditya Patel', '7898 Ocean Drive, Chennai', '9876543214', 27),  -- Duplicate
+  (11, 'Aman Chopra', '246 Forest Avenue, Kolkata', '9876543213', 22),  -- Duplicate
+  (12, 'Avdeep Desai', '34 River View, Hyderabad', '9876543215', 24);
+SELECT DISTINCT NAME FROM students;
+SELECT DISTINCT NAME, AGE FROM students;
+SELECT DISTINCT AGE FROM students ORDER BY AGE;
+SELECT COUNT(DISTINCT ROLL_NO)  FROM Students ;
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)
+VALUES (13, 'John Doe', '123 Unknown Street', '9876543216', NULL);
+
+SELECT DISTINCT AGE FROM students;
+
+CREATE TABLE MarkList
+(
+    id int,
+    name varchar(20),
+    mathematics int, 
+    physics int,
+    chemistry int
+);
+INSERT INTO MarkList VALUES(501,'Surya',99,97,85);
+INSERT INTO MarkList VALUES(502,'Charan',99,93,88);
+INSERT INTO MarkList VALUES(503,'Sravan',91,98,94);
+INSERT INTO MarkList VALUES(504,'Ram',92,99,82);
+INSERT INTO MarkList VALUES(505,'Aryan',94,99,88);
+INSERT INTO MarkList VALUES(506,'Sathwik',91,88,91);
+INSERT INTO MarkList VALUES(507,'Madhav',90,97,89);
+SELECT id, name, (mathematics + physics + chemistry) AS total
+FROM MarkList
+ORDER BY (mathematics + physics + chemistry) DESC
+OFFSET 0 ROWS
+FETCH NEXT 3 ROWS ONLY;
+
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT,
+    Phone VARCHAR(15)
+);
+
+-- Inserting sample data into the Customer table
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES 
+(1, 'Shubham', 'Thakur', 'India', 23, '9876543210'),
+(2, 'Aman', 'Chopra', 'Australia', 21, '9876543211'),
+(3, 'Naveen', 'Tulasi', 'Sri Lanka', 24, '9876543212'),
+(4, 'Aditya', 'Arpan', 'Austria', 21, '9876543213'),
+(5, 'Nishant', 'Jain', 'Spain', 22, '9876543214');
+SELECT CustomerID AS id
+FROM Customer;
+SELECT c1.CustomerName, c1.Country
+FROM Customer AS c1, Customer AS c2
+WHERE c1.Age = c2.Age AND c1.Country = c2.Country;
+SELECT c.CustomerName AS Name, c.Country AS Location
+FROM Customer AS c
+WHERE c.Age >= 21;
+SELECT c.CustomerName AS Name, c.Country AS Location
+FROM Customer AS c
+WHERE c.Age >= 21;
