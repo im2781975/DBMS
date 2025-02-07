@@ -331,3 +331,26 @@ SELECT * FROM Table1 FULL JOIN Table2     ON 1 = 2
 WITH RECURSIVE MyDescendants AS (    SELECT Name    FROM People    WHERE Name = 'John Doe'    UNION ALL    SELECT People.Name    FROM People    JOIN MyDescendants ON People.Name = MyDescendants.Parent ) SELECT * FROM MyDescendants;
 SELECT Employees.FName, Departments.Name FROM   Employees JOIN   DepartmentsON Employees.DepartmentId = Departments.Id
 
+#update
+UPDATE   
+Employees SET PhoneNumber =(SELECT  c.PhoneNumber FROM Customers c WHERE         c.FName = Employees.FName         AND c.LName = Employees.LName) 
+WHERE Employees.PhoneNumber IS NULL
+MERGE INTO Employees e USING Customers c 
+ON e.FName = c.Fname AND e.LName = c.LName    
+AND e.PhoneNumber IS NULL WHEN MATCHED THEN   UPDATE SET PhoneNumber = c.PhoneNumber
+UPDATE Cars SET TotalCost = TotalCost + 100 WHERE Id = 3 or Id = 4
+UPDATE    Cars SET Status = 'READY' WHERE    Id = 4
+UPDATE Cars SET Status = 'READY'
+
+CREATE TABLE ClonedEmployees AS SELECT * FROM Employees;
+CREATE TABLE ModifiedEmployees AS SELECT Id, CONCAT(FName," ",LName) AS FullName FROM Employees WHERE Id > 10;
+CREATE TABLE Employees(    Id int identity(1,1) primary key not null,    FName varchar(20) not null,    LName varchar(20) not null,    PhoneNumber varchar(10) not null );
+CREATE TABLE Cities( CityID INT IDENTITY(1,1) NOT NULL,    Name VARCHAR(20) NOT NULL,    Zip VARCHAR(10) NOT NULL ); 
+CREATE TABLE Employees(    EmployeeID INT IDENTITY (1,1) NOT NULL,    FirstName VARCHAR(20) NOT NULL,    LastName VARCHAR(20) NOT NULL,    PhoneNumber VARCHAR(10) NOT NULL,    CityID INT FOREIGN KEY REFERENCES Cities(CityID) );
+CREATE TABLE newtable LIKE oldtable; INSERT newtable SELECT * FROM oldtable;
+CREATE FUNCTION FirstWord (@input varchar(1000)) RETURNS varchar(1000) AS BEGIN DECLARE @output varchar(1000) SET @output = SUBSTRING(@input, 0, CASE CHARINDEX(' ', @input) WHEN 0 THEN LEN(@input) + 1 ELSE CHARINDEX(' ', @input) END) RETURN @output END
+BEGIN TRANSACTION
+BEGIN TRY    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GETDATE(), 1)    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, 'not a date', 1)    COMMIT TRANSACTION END TRY BEGIN CATCH    THROW    ROLLBACK TRANSACTION
+END CATCH
+BEGIN TRANSACTION BEGIN TRY    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GETDATE(), 1)    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GETDATE(), 1)    COMMIT TRANSACTION END TRY BEGIN CATCH    THROW    ROLLBACK TRANSACTION 
+END CATCH
