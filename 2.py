@@ -207,3 +207,16 @@ SELECT Name FROM Customers WHERE PhoneNumber IS NULL
 SELECT DISTINCT ContinentCode FROM Countries;
 SELECT * FROM table1,table2
 SELECT table1.column1, table1.column2,  table2.column1 FROM table1, table2
+//Group by
+SELECT EmpID, SUM (MonthlySalary) FROM Employee GROUP BY EmpID
+SELECT  a.Id,  a.Name,  COUNT(*) BooksWritten 
+    FROM BooksAuthors ba  INNER JOIN Authors a ON a.id = ba.authorid GROUP BY  a.Id,  a.Name HAVING COUNT(*) > 1
+SELECT  b.Id,  b.Title,  COUNT(*) NumberOfAuthors FROM BooksAuthors ba  INNER JOIN Books b ON b.id = ba.bookid GROUP BY  b.Id,  b.Title HAVING COUNT(*) > 3
+SELECT GreatHouseAllegience House, Count(*) Number_of_Westerosians FROM Westerosians GROUP BY GreatHouseAllegience
+SELECT GreatHouseAllegience House, Count(*) Number_of_Westerosians FROM Westerosians GROUP BY GreatHouseAllegience ORDER BY Number_of_Westerosians Desc
+SELECT TOP 5 DisplayName, Reputation FROM Users
+SELECT TOP 5 DisplayName, Reputation FROM Users ORDER BY Reputation desc
+SELECT DisplayName, Reputation FROM Users ORDER BY Reputation DESC LIMIT 5
+SELECT * FROM Employee ORDER BY CASE Department WHEN 'HR'         THEN 1 WHEN 'Accountant' THEN 2 ELSE                   3 END;
+SELECT DisplayName, JoinDate as jd, Reputation as rep FROM Users ORDER BY jd, rep
+SELECT DisplayName, JoinDate as jd, Reputation as rep FROM Users ORDER BY 2, 3
