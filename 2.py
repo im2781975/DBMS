@@ -97,3 +97,83 @@ CREATE TABLE Countries (
     PRIMARY KEY(Id) ) ;
 INSERT INTO Countries (ISO, ISO3, ISONumeric, CountryName, Capital, ContinentCode, CurrencyCode) 
 VALUES ('AU', 'AUS', 36, 'Australia', 'Canberra', 'OC', 'AUD'),    ('DE', 'DEU', 276, 'Germany', 'Berlin', 'EU', 'EUR'),    ('IN', 'IND', 356, 'India', 'New Delhi', 'AS', 'INR'),    ('LA', 'LAO', 418, 'Laos', 'Vientiane', 'AS', 'LAK'),    ('US', 'USA', 840, 'United States', 'Washington', 'NA', 'USD'),    ('ZW', 'ZWE', 716, 'Zimbabwe', 'Harare', 'AF', 'ZWL')
+
+// Group by
+SELECT 
+    FName AS "First Name",   
+    MName AS "Middle Name",   
+    LName AS "Last Name" FROM Employees  
+SELECT    
+    FName AS "First Name",    
+    MName AS 'Middle Name',   
+    LName AS [Last Name] FROM Employees  
+SELECT    
+    FName "First Name",   
+    MName "Middle Name",    
+    LName "Last Name" FROM Employees
+SELECT   
+    FName AS FirstName,    
+    LName AS LastName FROM Employees  
+SELECT 
+    FullName = FirstName + ' ' + LastName,
+    Addr1 = FullStreetAddress,      
+    Addr2 = TownName FROM CustomerDetails 
+SELECT 
+    FirstName + ' ' + LastName As FullName      
+    FullStreetAddress As Addr1,       
+    TownName As Addr2 FROM CustomerDetails
+SELECT    
+    FName as "SELECT",   
+    MName as "FROM",   
+    LName as "WHERE" FROM Employees
+SELECT    
+    FName AS "SELECT",    
+    MName AS 'FROM',   
+    LName AS [WHERE] FROM Employees  
+SELECT    
+    FName AS FirstName,   
+    LName AS LastName FROM Employees ORDER BY LastName DESC
+SELECT    
+    FName AS SELECT,    
+    LName AS FROM FROM   
+    Employees ORDER BY LastName DESC
+#select column
+SELECT    
+    PhoneNumber,Email,PreferredContact FROM Customers
+SELECT Customers.PhoneNumber, Customers.Email, Customers.PreferredContact,    Orders.Id AS OrderId FROM Customers 
+    LEFT JOIN   
+    Orders ON Orders.CustomerId = Customers.Id
+SELECT c.PhoneNumber, c.Email, c.PreferredContact, o.Id AS OrderId 
+    FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.Id
+#select record
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC FETCH FIRST 10 ROWS ONLY
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC OFFSET 5 ROWS FETCH FIRST 10 ROWS ONLY
+SELECT TOP 10 Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC LIMIT 10
+SELECT Id, ProductName, UnitPrice, Package FROM Product WHERE ROWNUM <= 10 ORDER BY UnitPrice DESC    
+#select conditions
+SELECT column1, column2, columnN FROM table_name WHERE [condition]
+SELECT * FROM Cars WHERE status = 'READY'
+SELECT CASE WHEN Col1 < 50 THEN 'under' ELSE 'over' END threshold FROM TableName
+SELECT    
+    CASE WHEN Col1 < 50 THEN 'under'         
+        WHEN Col1 > 50 AND Col1 <100 THEN 'between'         
+        ELSE 'over'    
+    END threshold
+FROM TableName
+SELECT    
+    CASE WHEN Col1 < 50 THEN 'under'         ELSE            
+                CASE WHEN Col1 > 50 AND Col1 <100 THEN Col1            
+                ELSE 'over' END   
+    END threshold
+FROM TableName
+SELECT    "ORDER",    ID FROM ORDERS
+SELECT    [Order],    ID FROM ORDERS
+SELECT    `Order`,    id FROM orders
+SELECT e.Fname, e.LName FROM Employees e
+SELECT e.Fname, e.LName, m.Fname AS ManagerFirstName FROM Employees e    JOIN 
+Managers m ON e.ManagerId = m.Id
+SELECT e.Fname, Employees.LName, m.Fname AS ManagerFirstName FROM Employees e 
+JOIN Managers m ON e.ManagerId = m.Id
+SELECT Fname, LName, ManagerFirstName FROM Employees NATURAL
+JOIN ( SELECT Id AS ManagerId, Fname AS ManagerFirstName FROM Managers ) m;
