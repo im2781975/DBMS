@@ -256,3 +256,25 @@ SELECT * FROM Customers WHERE City LIKE '[adl]%';
 SELECT * FROM Customers WHERE City LIKE '[a-c]%'
 SELECT * FROM Customers WHERE City LIKE '[^apl]%';
 SELECT * FROM Customers WHERE City NOT LIKE '[apl]%' and city like '_%';
+
+select * from products where id in (1,8,3)
+select * from products where id = 1 or id = 8 or id = 3
+SELECT * FROM customers WHERE id IN ( SELECT DISTINCT customer_id FROM orders );
+SELECT * From ItemSales WHERE Quantity BETWEEN 10 AND 17
+SELECT * From ItemSales WHERE SaleDate BETWEEN '2013-07-11' AND '2013-05-24'
+SELECT Id, FName, LName FROM Customers WHERE LName BETWEEN 'D' AND 'L';
+SELECT CustomerId, COUNT(Id) AS [Number of Cars] FROM Cars GROUP BY CustomerId HAVING COUNT(Id) > 1
+SELECT * FROM Employees WHERE ManagerId IS NULL
+SELECT * FROM Employees WHERE ManagerId IS NOT NULL
+SELECT * FROM Employees WHERE DepartmentId = 1
+SELECT * FROM Items WHERE Price < 10
+SELECT * FROM Employees WHERE DepartmentId = 1 AND ManagerId = 1
+SELECT * FROM Employees WHERE DepartmentId = 2 OR ManagerId = 2
+SELECT * FROM Cars WHERE TotalCost IN (100, 200, 300)
+SELECT * FROM Cars WHERE TotalCost = 100 OR TotalCost = 200 OR TotalCost = 300
+SELECT * FROM Employees WHERE FName LIKE 'John'
+SELECT * FROM Employees WHERE FName like 'John%'
+SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
+select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
+select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
+SELECT * FROM TableName FETCH FIRST 20 ROWS ONLY;
