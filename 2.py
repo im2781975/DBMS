@@ -220,3 +220,39 @@ SELECT DisplayName, Reputation FROM Users ORDER BY Reputation DESC LIMIT 5
 SELECT * FROM Employee ORDER BY CASE Department WHEN 'HR'         THEN 1 WHEN 'Accountant' THEN 2 ELSE                   3 END;
 SELECT DisplayName, JoinDate as jd, Reputation as rep FROM Users ORDER BY jd, rep
 SELECT DisplayName, JoinDate as jd, Reputation as rep FROM Users ORDER BY 2, 3
+
+//Operator
+select Name from table where Age>10 AND City='Prague'
+select Name from table where Age=10 OR City='Prague'
+//CASE
+SELECT COUNT(Id) AS ItemsCount, SUM ( CASE WHEN PriceRating = 'Expensive' THEN 1 ELSE 0 END ) AS ExpensiveItemsCount FROM ItemSales
+SELECT COUNT(Id) as ItemsCount, SUM ( CASE PriceRating WHEN 'Expensive' THEN 1 ELSE 0 END ) AS ExpensiveItemsCount FROM ItemSales
+SELECT Id, ItemId, Price, CASE WHEN Price < 10 THEN 'CHEAP' WHEN Price < 20 THEN 'AFFORDABLE' ELSE 'EXPENSIVE' END AS PriceRating FROM ItemSales
+SELECT * FROM DEPT ORDER BY CASE DEPARTMENT WHEN 'MARKETING' THEN  1 WHEN 'SALES' THEN 2 WHEN 'RESEARCH' THEN 3 WHEN 'INNOVATION' THEN 4 ELSE        5 END,
+SELECT Id, ItemId, Price, CASE Price WHEN 5  THEN 'CHEAP' WHEN 15 THEN 'AFFORDABLE'ELSE         'EXPENSIVE'  END as PriceRating FROM ItemSales
+SELECT    CASE ABS(CHECKSUM(NEWID())) % 4        WHEN 0 THEN 'Dr'        WHEN 1 THEN 'Master'        WHEN 2 THEN 'Mr'        WHEN 3 THEN 'Mrs'    END
+SELECT    CASE        WHEN ABS(CHECKSUM(NEWID())) % 4 = 0 THEN 'Dr'        WHEN ABS(CHECKSUM(NEWID())) % 4 = 1 THEN 'Master'        WHEN ABS(CHECKSUM(NEWID())) % 4 = 2 THEN 'Mr'        WHEN ABS(CHECKSUM(NEWID())) % 4 = 3 THEN 'Mrs'    END
+UPDATE ItemPrice SET Price = Price *  CASE ItemId    WHEN 1 THEN 1.05    WHEN 2 THEN 1.10    WHEN 3 THEN 1.15    ELSE 1.00  END
+SELECT ID      ,REGION      ,CITY      ,DEPARTMENT      ,EMPLOYEES_NUMBER  FROM DEPT  ORDER BY  CASE WHEN REGION IS NULL THEN 1  ELSE 0  END,
+SELECT Id, Date1, Date2 FROM YourTable ORDER BY CASE           WHEN COALESCE(Date1, '1753-01-01') < COALESCE(Date2, '1753-01-01') THEN Date1           ELSE Date2         END
+//Like Operator
+SELECT * FROM Employees WHERE FName LIKE '%on%';
+SELECT * FROM Employees WHERE PhoneNumber LIKE '246%';
+SELECT * FROM Employees WHERE PhoneNumber LIKE '%11'
+SELECT * FROM Employees WHERE FName LIKE '__n%';
+SELECT * FROM Employees WHERE FName LIKE 'j_n'
+SELECT * FROM Employees WHERE FName LIKE '_A_T'
+SELECT * FROM T_Whatever WHERE SomeField LIKE CONCAT('%', @in_SearchText, '%')
+SELECT * FROM T_Whatever WHERE SomeField LIKE CONCAT('%', @in_SearchText, '%') ESCAPE '\'
+SELECT * FROM Employees WHERE FName LIKE '[A-F]%'
+SELECT * FROM Employees WHERE FName LIKE '[a-g]ary'
+SELECT * FROM Employees WHERE Fname LIKE '[lmnop]ary'
+SELECT * FROM Employees WHERE FName LIKE '[^a-g]ary'
+SELECT * FROM Employees WHERE Fname LIKE '[^lmnop]ary'
+SELECT * FROM Customers WHERE City LIKE 'Lo%';
+SELECT * FROM Customers WHERE City LIKE '%es%';
+SELECT * FROM Customers WHERE City LIKE '_erlin';
+SELECT * FROM Customers WHERE City LIKE '[adl]%';
+SELECT * FROM Customers WHERE City LIKE '[a-c]%'
+SELECT * FROM Customers WHERE City LIKE '[^apl]%';
+SELECT * FROM Customers WHERE City NOT LIKE '[apl]%' and city like '_%';
