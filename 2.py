@@ -278,3 +278,56 @@ SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id 
 select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
 select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
 SELECT * FROM TableName FETCH FIRST 20 ROWS ONLY;
+SELECT * FROM TableName FETCH FIRST 20 ROWS ONLY;
+SELECT * FROM TableName LIMIT 20;
+SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS FETCH NEXT 20 ROWS ONLY;
+SELECT * FROM TableName LIMIT 20, 20;
+SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS
+SELECT * FROM TableName LIMIT 20, 42424242424242;
+SELECT 'Data1' as 'Column' UNION ALL
+SELECT 'Data2' as 'Column' UNION ALL 
+SELECT 'Data3' as 'Column' UNION ALL 
+SELECT 'Data4' as 'Column' UNION ALL 
+SELECT 'Data5' as 'Column' EXCEPT 
+SELECT 'Data3' as 'Column'
+//Exits
+SELECT * FROM Customer WHERE EXISTS ( SELECT * FROM Order WHERE Order.CustomerId=Customer.Id )
+SELECT * FROM Customer WHERE NOT EXISTS ( SELECT * FROM Order WHERE Order.CustomerId = Customer.Id )
+//JOIN
+SELECT e.FName AS "Employee", m.FName AS "Manager" 
+FROM Employees e JOIN Employees m ON e.ManagerId = m.Id
+select * from a INNER JOIN b on a.a = b.b; select a.*,b.* from a,b where a.a = b.b;
+select * from a LEFT OUTER JOIN b on a.a = b.b;
+select * from a RIGHT OUTER JOIN b on a.a = b.b;
+select * from a FULL OUTER JOIN b on a.a = b.b;
+
+CREATE TABLE A (   
+    X varchar(255) PRIMARY KEY); 
+CREATE TABLE B (   
+    Y varchar(255) PRIMARY KEY ); 
+    INSERT INTO A VALUES ('Amy'), ('John'), ('Lisa'), ('Marco'), ('Phil');
+INSERT INTO B VALUES ('Lisa'), ('Marco'), ('Phil'),('Tim'), ('Vincent');
+SELECT * FROM A JOIN B ON X = Y;
+SELECT * FROM A LEFT JOIN B ON X = Y;
+SELECT * FROM A RIGHT JOIN B ON X = Y;
+SELECT * FROM A FULL JOIN B ON X = Y;
+SELECT * FROM A WHERE X IN (SELECT Y FROM B);
+SELECT * FROM B WHERE Y IN (SELECT X FROM A);
+SELECT * FROM A WHERE X NOT IN (SELECT Y FROM B);
+SELECT * FROM B WHERE Y NOT IN (SELECT X FROM A);
+SELECT * FROM A CROSS JOIN B;
+SELECT * FROM A JOIN B ON 1 = 1;
+SELECT * FROM A A1 JOIN A A2 ON LEN(A1.X) < LEN(A2.X);
+SELECT Departments.Name, Employees.FName 
+FROM Departments LEFT OUTER JOIN Employees 
+ON Departments.Id = Employees.DepartmentId
+SELECT e.FName, d.Name 
+FROM Employee e, Departments d 
+WHERE  e.DeptartmentId = d.Id
+SELECT d.Name, e.FName 
+FROM Departments d 
+CROSS JOIN Employees e;
+SELECT * FROM Table1 FULL JOIN Table2     ON 1 = 2
+WITH RECURSIVE MyDescendants AS (    SELECT Name    FROM People    WHERE Name = 'John Doe'    UNION ALL    SELECT People.Name    FROM People    JOIN MyDescendants ON People.Name = MyDescendants.Parent ) SELECT * FROM MyDescendants;
+SELECT Employees.FName, Departments.Name FROM   Employees JOIN   DepartmentsON Employees.DepartmentId = Departments.Id
+
