@@ -177,3 +177,33 @@ SELECT e.Fname, Employees.LName, m.Fname AS ManagerFirstName FROM Employees e
 JOIN Managers m ON e.ManagerId = m.Id
 SELECT Fname, LName, ManagerFirstName FROM Employees NATURAL
 JOIN ( SELECT Id AS ManagerId, Fname AS ManagerFirstName FROM Managers ) m;
+//Aggregate
+SELECT AVG(Salary) FROM Employees
+SELECT AVG(Salary) FROM Employees where DepartmentId = 1
+SELECT AVG(Salary) FROM Employees GROUP BY DepartmentId
+SELECT AVG(Salary) FROM Employees GROUP BY DepartmentId
+SELECT MIN(Salary) FROM Employees
+SELECT MAX(Salary) FROM Employees
+SELECT Count(*) FROM Employees
+SELECT Count(*) FROM Employees where ManagerId IS NOT NULL
+Select Count(ManagerId) from Employees
+Select Count(DISTINCT DepartmentId) from Employees
+SELECT SUM(Salary) FROM Employees
+//select multiple
+SELECT * FROM Cars  WHERE status IN ( 'Waiting', 'Working' )
+SELECT * FROM Cars  WHERE ( status = 'Waiting' OR status = 'Working' )
+SELECT category, COUNT(*) AS item_count FROM item GROUP BY category;
+SELECT department, AVG(income) FROM employees GROUP BY department;
+SELECT department, AVG(income) FROM employees WHERE department <> 'ACCOUNTING' GROUP BY department;
+SELECT department, AVG(income) FROM employees WHERE department <> 'ACCOUNTING' GROUP BY department HAVING avg(income) > 1000;
+
+SELECT * FROM Employees ORDER BY LName
+SELECT * FROM Employees ORDER BY LName DESC
+SELECT * FROM Employees ORDER BY LName ASC
+SELECT * FROM Employees ORDER BY LName ASC, FName ASC
+SELECT Id, FName, LName, PhoneNumber FROM Employees ORDER BY 3
+SELECT Id, FName, LName, PhoneNumber FROM Employees ORDER BY CASE WHEN LName='Jones' THEN 0 ELSE 1 END ASC
+SELECT Name FROM Customers WHERE PhoneNumber IS NULL
+SELECT DISTINCT ContinentCode FROM Countries;
+SELECT * FROM table1,table2
+SELECT table1.column1, table1.column2,  table2.column1 FROM table1, table2
