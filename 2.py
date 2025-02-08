@@ -354,3 +354,34 @@ BEGIN TRY    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GET
 END CATCH
 BEGIN TRANSACTION BEGIN TRY    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GETDATE(), 1)    INSERT INTO dbo.Sale(Price, SaleDate, Quantity)    VALUES (5.2, GETDATE(), 1)    COMMIT TRANSACTION END TRY BEGIN CATCH    THROW    ROLLBACK TRANSACTION 
 END CATCH
+
+//UNION
+CREATE TABLE HR_EMPLOYEES (PersonID int,    LastName VARCHAR(30),    FirstName VARCHAR(30),    Position VARCHAR(30) ); 
+CREATE TABLE FINANCE_EMPLOYEES (    PersonID INT,    LastName VARCHAR(30),    FirstName VARCHAR(30),    Position VARCHAR(30) );
+SELEC FirstName, LastName FROM    HR_EMPLOYEES  WHERE    Position = 'manager'  UNION ALL 
+SELECT    FirstName, LastName  FROM    FINANCE_EMPLOYEES  WHERE    Position = 'manager'
+SELECT    FirstName as 'First Name', LastName as 'Last Name' FROM    HR_EMPLOYEES  WHERE    Position = 'manager'  UNION ALL 
+SELECT    FirstName, LastName  FROM FINANCE_EMPLOYEES  WHERE    Position = 'manager' 
+SELECT C1, C2, C3 FROM Table1 WHERE C1 = @Param1 UNION 
+SELECT C1, C2, C3 FROM Table1 WHERE C2 = @Param2
+SELECT C1 FROM Table1 UNION ALL SELECT C1 FROM Table2
+ALTER TABLE Employees ADD StartingDate date NOT NULL DEFAULT GetDate(),    DateOfBirth date NULL
+ALTER TABLE Employees DROP COLUMN salary;
+ALTER TABLE EMPLOYEES ADD pk_EmployeeID PRIMARY KEY (ID)
+ALTER TABLE EMPLOYEES ADD pk_EmployeeID PRIMARY KEY (ID, FName)
+ALTER TABLE Employees ALTER COLUMN StartingDate DATETIME NOT NULL DEFAULT (GETDATE())
+ALTER TABLE Employees DROP CONSTRAINT DefaultSalary
+//INSERT
+INSERT INTO Customers (FName, LName, PhoneNumber) SELECT FName, LName, PhoneNumber FROM Employees
+INSERT INTO Table1 SELECT * FROM Table2
+INSERT INTO Customers VALUES ('Zack', 'Smith', 'zack@example.com', '7049989942', 'EMAIL');
+INSERT INTO Customers (FName, LName, Email, PreferredContact) VALUES ('Zack', 'Smith', 'zack@example.com', 'EMAIL');
+INSERT INTO tbl_name ( field1, field2, field3) VALUES (1,2,3), (4,5,6), (7,8,9);
+//apply
+SELECT * FROM Department D CROSS APPLY (    SELECT *    FROM Employee E    WHERE E.DepartmentID = D.DepartmentID ) A GO SELECT * FROM Department D INNER JOIN Employee E  ON D.DepartmentID = E.DepartmentID
+SELECT * FROM Department D OUTER APPLY (    SELECT *    FROM Employee E    WHERE E.DepartmentID = D.DepartmentID ) A GO SELECT * FROM Department D LEFT OUTER JOIN Employee E  ON D.DepartmentID = E.DepartmentID GO
+//DELETE
+DELETE FROM Employees WHERE FName = 'John'
+TRUNCATE TABLE Employees
+DELETE FROM Source WHERE  EXISTS ( SELECT 1 FROM Target Where Source.ID = Target.ID
+)
