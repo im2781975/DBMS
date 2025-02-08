@@ -385,3 +385,82 @@ DELETE FROM Employees WHERE FName = 'John'
 TRUNCATE TABLE Employees
 DELETE FROM Source WHERE  EXISTS ( SELECT 1 FROM Target Where Source.ID = Target.ID
 )
+Drop Table MyTable;
+DROP DATABASE [dbo].[Employees]
+// CASCADE
+ALTER TABLE dbo.T_Room  WITH CHECK ADD  CONSTRAINT FK_T_Room_T_Client FOREIGN KEY(RM_CLI_ID) REFERENCES dbo.T_Client (CLI_ID) GO
+DELETE FROM T_Client WHERE CLI_ID = x
+ALTER TABLE dbo.T_Room  ADD  CONSTRAINT FK_T_Room_T_Client FOREIGN KEY(RM_CLI_ID) REFERENCES dbo.T_Client (CLI_ID) ON DELETE CASCADE
+DELETE FROM T_Client WHERE CLI_ID = x
+// GRANT
+GRANT SELECT, UPDATE ON Employees TO User1, User2;
+REVOKE SELECT, UPDATE ON Employees FROM User1, User2;
+//PRIMARY KEY
+CREATE TABLE Employees (    Id int NOT NULL,    PRIMARY KEY (Id) );
+CREATE TABLE EMPLOYEE (    e1_id INT,    e2_id INT,    PRIMARY KEY (e1_id, e2_id) )
+CREATE INDEX ix_scoreboard_score ON scoreboard (score DESC);
+SELECT * FROM scoreboard ORDER BY score DESC;
+SELECT id, comment FROM orders WHERE order_state_id =  1 AND product_id = @some_value;
+CREATE INDEX Started_Orders ON orders(product_id) WHERE order_state_id = 1;
+CREATE INDEX ix_cars_employee_id ON Cars (EmployeeId);
+SELECT * FROM Cars WHERE EmployeeId = 1
+CREATE INDEX ix_cars_e_c_o_ids ON Cars (EmployeeId, CarId, OwnerId);
+SELECT * FROM Cars WHERE EmployeeId = 1 Order by CarId DESC
+SELECT * FROM Cars WHERE OwnerId = 17 Order by CarId DESC
+DROP INDEX ix_cars_employee_id ON Cars;  
+ALTER INDEX ix_cars_employee_id ON Cars DISABLE;
+ALTER INDEX ix_cars_employee_id ON Cars REBUILD;
+CREATE CLUSTERED INDEX ix_clust_employee_id ON Employees(EmployeeId, Email);  
+CREATE UNIQUE INDEX uq_customers_email ON Customers(Email);
+CREATE UNIQUE INDEX ix_eid_desc ON Customers(EmployeeID);
+CREATE INDEX ix_eid_desc ON Customers(EmployeeID Desc);
+//REBUILD INDEX
+ALTER INDEX index_name REBUILD;
+UPDATE Customers SET Email = "richard0123@example.com" WHERE id = 1;
+UPDATE Customers SET Email = "richard0123@example.com" WHERE id = 1 ON DUPLICATE KEY;
+// ROW NUMBER
+WITH cte AS ( SELECT ProjectID, ROW_NUMBER() OVER (PARTITION BY ProjectID ORDER BY InsertDate DESC) AS rn FROM ProjectNotes ) DELETE FROM cte WHERE rn > 1;
+SELECT ROW_NUMBER() OVER(ORDER BY Fname ASC) AS RowNumber,  Fname,  LName FROM Employees
+SELECT ROW_NUMBER() OVER(PARTITION BY DepartmentId ORDER BY DepartmentId ASC) AS RowNumber,  DepartmentId, Fname, LName FROM Employees
+SELECT    storeName,    COUNT(*) AS total_nr_orders,    COUNT(DISTINCT userId) AS nr_unique_customers,    AVG(orderValue) AS average_order_value,    MIN(orderDate) AS first_order,    MAX(orderDate) AS lastOrder FROM    orders GROUP BY    storeName;
+SELECT DISTINCT    storeName,    userId FROM    orders;
+WITH CTE (StudentId, Fname, LName, DOB, RowCnt) as ( SELECT StudentId, FirstName, LastName, DateOfBirth as DOB, SUM(1) OVER (Partition By FirstName, LastName, DateOfBirth) as RowCnt FROM tblStudent ) SELECT * from CTE where RowCnt > 1 ORDER BY DOB, LName
+// string
+SELECT 'Hello' || 'World' || '!';
+SELECT CONCAT('Hello', 'World');
+SELECT CONCAT('Hello', 'World', '!');
+SELECT CONCAT('Foo', CAST(42 AS VARCHAR(5)), 'Bar'); 
+SELECT CONCAT(CONCAT('Foo', 42), 'Bar') FROM dual;
+SELECT 'Foo' + CAST(42 AS VARCHAR(5)) + 'Bar';
+SELECT LEN('Hello ');
+SELECT DATALENGTH('Hello ');
+DECLARE @str varchar(100) = 'Hello '
+SELECT DATALENGTH(@str)
+DECLARE @nstr nvarchar(100)
+SELECT DATALENGTH(@nstr)
+SELECT LTRIM('  Hello  ') 
+SELECT RTRIM('  Hello  ') 
+SELECT LTRIM(RTRIM('  Hello  '))
+SELECT UPPER('HelloWorld') 
+SELECT LOWER('HelloWorld') 
+SELECT value FROM STRING_SPLIT('Lorem ipsum dolor sit amet.', ' ');
+SELECT REPLACE( 'Peter Steve Tom', 'Steve', 'Billy' )
+SELECT 'bedded' REGEXP '[a-f]'
+SELECT 'beam' REGEXP '[a-f]'
+SELECT SUBSTRING('Hello', 1, 2) 
+SELECT SUBSTRING('Hello', 3, 3)
+DECLARE @str1 VARCHAR(10) = 'Hello', @str2 VARCHAR(10) = 'FooBarBaz'; 
+SELECT SUBSTRING(@str1, LEN(@str1) - 2, 3) 
+SELECT SUBSTRING(@str2, LEN(@str2) - 2, 3)
+SELECT STUFF('FooBarBaz', 4, 3, 'Hello')
+SELECT LEFT('Hello',2)  
+SELECT RIGHT('Hello',2)
+SELECT SUBSTR('Hello',1,2)  
+SELECT SUBSTR('Hello',LENGTH('Hello')-2+1,2)
+SELECT REVERSE('Hello')
+SELECT REPLICATE ('Hello',4)
+SELECT    FirstName, REPLACE (Address, 'South', 'Southern') Address FROM Employees ORDER BY FirstName
+Update Employees Set city = (Address, 'South', 'Southern');
+Update Employees Set Address = (Address, 'South', 'Southern') Where Address LIKE 'South%';
+SELECT INSTR('FooBarBar', 'Bar') 
+SELECT INSTR('FooBarBar', 'Xar') 
