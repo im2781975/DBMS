@@ -411,3 +411,69 @@ SELECT * FROM LateralStudent;
 -- Insert specific columns from LateralStudent into Student table
 INSERT INTO Student(ROLL_NO, NAME, AGE) 
 SELECT ROLL_NO, NAME, AGE FROM LateralStudent;
+
+-- Create the Emp1 Table with Correct Data Types
+CREATE TABLE Emp1 (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT, 
+    mob VARCHAR(15)  
+);
+INSERT INTO Emp1 (EmpID, Name, Country, Age, mob)
+VALUES 
+    (1, 'Shubham', 'India', 23, '738479734'),
+    (2, 'Aman', 'Australia', 21, '436789555'),
+    (3, 'Naveen', 'Sri Lanka', 24, '34873847'),
+    (4, 'Aditya', 'Austria', 21, '328440934'),
+    (5, 'Nishant', 'Spain', 22, '73248679');
+SELECT * FROM Emp1 WHERE Age = 24;  -- Employees with Age = 24
+SELECT EmpID, Name, Country FROM Emp1 WHERE Age > 21; 
+SELECT * FROM Emp1 WHERE Age BETWEEN 22 AND 24;  
+SELECT * FROM Emp1 WHERE Name LIKE 'S%';  
+SELECT * FROM Emp1 WHERE Name LIKE '%M%';
+SELECT Name FROM Emp1 WHERE Age IN (21, 23);  
+-- Create Employee Table for Salary Queries
+CREATE TABLE Employee (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+INSERT INTO Employee (EmployeeID, Name, Salary)
+VALUES 
+    (1, 'John Doe', 50000),
+    (2, 'Jane Smith', 60000),
+    (3, 'Sam Brown', 55000),
+    (4, 'Alice Johnson', 70000),
+    (5, 'Bob Martin', 48000);
+-- Using CTE to Compare Employee Salaries with the Average Salary
+WITH TemporaryTable AS (
+    SELECT AVG(Salary) AS AverageValue FROM Employee  
+)
+SELECT EmployeeID, Name, Salary
+FROM Employee, TemporaryTable
+WHERE Employee.Salary > TemporaryTable.AverageValue; 
+-- Create Pilot Table for Airline Salary Queries
+CREATE TABLE Pilot (
+    PilotID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Airline VARCHAR(50),
+    Salary DECIMAL(10,2)
+);
+INSERT INTO Pilot (PilotID, Name, Airline, Salary)
+VALUES 
+    (1, 'Captain Smith', 'Air India', 120000),
+    (2, 'Captain John', 'Delta Airlines', 95000),
+    (3, 'Captain Lee', 'Emirates', 130000),
+    (4, 'Captain Jane', 'Qatar Airways', 110000),
+    (5, 'Captain Brown', 'Lufthansa', 98000);
+-- Find Airlines Where Total Salary Exceeds the Average Salary
+WITH TotalSalary AS (
+    SELECT Airline, SUM(Salary) AS Total
+    FROM Pilot GROUP BY Airline
+),
+AirlineAverage AS (
+    SELECT AVG(Salary) AS AvgSalary FROM Pilot
+)
+SELECT Airline FROM TotalSalary, AirlineAverage
+WHERE TotalSalary.Total > AirlineAverage.AvgSalary;  
