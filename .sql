@@ -80,3 +80,37 @@ FROM Customer;
 SELECT * FROM SubTable;
 DROP TABLE IF EXISTS SubTable;
 SHOW TABLES;
+--                COFFE MACHINE
+-- Create the database
+CREATE DATABASE IF NOT EXISTS NewCafe;
+USE NewCafe;
+CREATE TABLE IF NOT EXISTS categories (
+    CategoryID INT NOT NULL PRIMARY KEY, 
+    CategoryName NVARCHAR(50) NOT NULL,
+    ItemDescription NVARCHAR(100) NOT NULL
+);
+INSERT INTO categories (CategoryID, CategoryName, ItemDescription)
+VALUES
+    (1, 'Beverages', 'Soft Drinks'),
+    (2, 'Condiments', 'Sweet and Savory Sauces'), 
+    (3, 'Confections', 'Sweet Breads')
+ON DUPLICATE KEY UPDATE 
+    CategoryName = VALUES(CategoryName), 
+    ItemDescription = VALUES(ItemDescription);
+CREATE TABLE IF NOT EXISTS products (
+    ProductID INT NOT NULL PRIMARY KEY,
+    ProductName NVARCHAR(100) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES categories(CategoryID) ON DELETE CASCADE
+);
+INSERT INTO products (ProductID, ProductName, Price, CategoryID)
+VALUES
+    (1, 'Coca Cola', 1.50, 1),
+    (2, 'Tomato Ketchup', 2.00, 2),
+    (3, 'Chocolate Cake', 3.75, 3);
+SELECT * FROM categories;
+SELECT * FROM products;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+SHOW TABLES;
