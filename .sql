@@ -20,6 +20,26 @@ SHOW DATABASES;
 DROP DATABASE IF EXISTS GeeksForGeeks;
 SHOW DATABASES;
 DROP DATABASE IF EXISTS database_name;
+
+CREATE TABLE employee (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    emp_city VARCHAR(100),
+    emp_country VARCHAR(100)
+);
+SELECT * FROM employee WHERE emp_city = 'Allahabad' AND emp_country = 'India';
+SELECT * FROM employee WHERE emp_city IN ('Allahabad', 'Patna');
+SELECT * FROM employee WHERE emp_city NOT LIKE 'A%';
+SELECT * FROM employee WHERE emp_city = 'Varanasi' OR emp_country = 'India';
+SELECT * FROM employee WHERE emp_city LIKE 'P%';
+SELECT * FROM employee WHERE emp_id BETWEEN 101 AND 104;
+SELECT * FROM employee WHERE emp_id = ALL 
+    (SELECT emp_id FROM employee WHERE emp_city = 'Varanasi');
+SELECT * FROM employee WHERE emp_id = ANY 
+    (SELECT emp_id FROM employee WHERE emp_city = 'Varanasi');
+SELECT emp_name FROM employee WHERE EXISTS 
+    (SELECT emp_id FROM employee WHERE emp_city = 'Patna');
+
 CREATE DATABASE GeeksForGeeks;
 USE GeeksForGeeks;
 -- Create the employees table
