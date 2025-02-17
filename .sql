@@ -180,3 +180,36 @@ BEGIN
     SELECT * FROM #EmpDetails;
 END;
 EXEC ProcTemp;
+
+-- Alter table to add a new column
+ALTER TABLE table_name 
+ADD column_name datatype;  
+-- Example: ALTER TABLE Students ADD Email VARCHAR(50);
+-- Modify an existing column's datatype or size
+ALTER TABLE table_name 
+MODIFY COLUMN column_name datatype;
+-- Example: ALTER TABLE Students MODIFY COLUMN Age INT(3);
+-- Drop a column from the table
+ALTER TABLE table_name 
+DROP COLUMN column_name;
+-- Example: ALTER TABLE Students DROP COLUMN Email;
+-- Rename an existing column
+ALTER TABLE table_name
+RENAME COLUMN old_name TO new_name;
+-- Example: ALTER TABLE Students RENAME COLUMN Age TO Student_Age;
+-- Rename the table itself
+ALTER TABLE table_name 
+RENAME TO new_table_name;
+-- Example: ALTER TABLE Students RENAME TO StudentRecords;
+-- Add multiple columns at once
+ALTER TABLE Student 
+ADD (AGE NUMBER(3), COURSE VARCHAR(40));
+-- This adds 'AGE' and 'COURSE' columns to the 'Student' table.
+-- Modify an existing column (change datatype or size)
+ALTER TABLE Student 
+MODIFY COLUMN COURSE VARCHAR(20);
+-- This reduces the size of 'COURSE' column to 20 characters.
+-- Drop a column from the table
+ALTER TABLE Student 
+DROP COLUMN COURSE;
+-- This removes the 'COURSE' column from the 'Student' table.
