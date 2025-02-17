@@ -73,6 +73,23 @@ SELECT * FROM Customer ORDER BY Age DESC LIMIT 1;
 SELECT * FROM Customer WHERE Phone LIKE '98%';
 SELECT AVG(Age) AS AverageAge FROM Customer;
 DELETE FROM Customer WHERE Country = 'Sri Lanka';
+SELECT CustomerName, LastName FROM Customer;
+SELECT * FROM Customer;
+SELECT CustomerName FROM Customer WHERE Age = 21;
+SELECT COUNT(item), CustomerID FROM Orders GROUP BY CustomerID;
+SELECT Department, SUM(Salary) AS Salary FROM Employee
+GROUP BY Department HAVING SUM(Salary) >= 50000;
+SELECT * FROM Customer ORDER BY Age DESC;
+-- Insert values into the Customer table
+INSERT INTO Customer
+VALUES (6, 'Raj', 'Kumar', 'India', 30, 'xxxxxxxxxx');
+-- Insert data into Customer table with specified columns
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES (7, 'Kavya', 'Sharma', 'Nepal', 25, 'xxxxxxxxxx');
+-- Create a new database called StudentDB
+CREATE DATABASE StudentDB;
+-- Switch to the newly created StudentDB database
+USE StudentDB;
 --Create a new table `SubTable` with specific columns from `Customer
 CREATE TABLE SubTable AS
 SELECT CustomerID, CustomerName
