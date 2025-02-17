@@ -105,6 +105,24 @@ VALUES
     (3, 'Naveen', 'Tulasi', 'Sri Lanka', 24, '7654321098'),
     (4, 'Aditya', 'Arpan', 'Austria', 21, '6543210987'),
     (5, 'Nishant', 'Jain', 'Spain', 22, '5432109876')
+ON DUPLICATE KEY UPDATE 
+    CustomerName = VALUES(CustomerName), 
+    LastName = VALUES(LastName), 
+    Country = VALUES(Country), 
+    Age = VALUES(Age), 
+    Phone = VALUES(Phone);
+-- Update CustomerName where Age is 22
+UPDATE Customer SET CustomerName = 'Nitin' 
+WHERE Age = 22;
+
+-- Update multiple columns for a specific CustomerID
+UPDATE Customer SET 
+    CustomerName = 'Satyam', 
+    Country = 'USA' 
+WHERE CustomerID = 1;
+-- Update a specific customer's name
+UPDATE Customer SET CustomerName = 'Shubham' 
+WHERE CustomerID = 3;  
 SELECT * FROM Customer;
 SELECT CustomerName, Country FROM Customer;
 SELECT * FROM Customer WHERE Country = 'India'
