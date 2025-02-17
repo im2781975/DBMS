@@ -146,6 +146,11 @@ VALUES (6, 'Raj', 'Kumar', 'India', 30, 'xxxxxxxxxx');
 -- Insert data into Customer table with specified columns
 INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
 VALUES (7, 'Kavya', 'Sharma', 'Nepal', 25, 'xxxxxxxxxx');
+Select * From Customer
+DELETE FROM Customer WHERE LastNAME = 'Sharma';  
+DELETE FROM Customer
+WHERE Age = 25;
+DELETE FROM Customer;
 --Create a new table `SubTable` with specific columns from `Customer
 CREATE TABLE SubTable AS
 SELECT CustomerID, CustomerName
