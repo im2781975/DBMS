@@ -892,3 +892,61 @@ WHERE ProductID = ANY (
     SELECT ProductID FROM OrderDetails WHERE Quantity = 9
 );
 --                --
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Address VARCHAR(200) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    State VARCHAR(50) NOT NULL,
+    ZipCode VARCHAR(10) NOT NULL
+);
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT NOT NULL,
+    OrderDate DATE NOT NULL,
+    ShipDate DATE,
+    TotalAmount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Phone, Address, City, State, ZipCode) VALUES
+(101, 'John', 'Doe', 'john.doe@example.com', '1234567890', '123 Main St', 'New York', 'NY', '10001'),
+(102, 'Alice', 'Brown', 'alice.brown@example.com', '2345678901', '456 Elm St', 'Los Angeles', 'CA', '90001'),
+(103, 'Bob', 'Smith', 'bob.smith@example.com', '3456789012', '789 Pine St', 'Chicago', 'IL', '60601');
+INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipDate, TotalAmount) VALUES
+(1, 101, '2024-01-10', '2024-01-15', 250.50),
+(2, 102, '2024-02-05', '2024-02-10', 100.75);
+
+SELECT Customer.CustomerID, Customer.FirstName, Customer.LastName FROM Customer
+LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID 
+UNION
+SELECT Customer.CustomerID, Customer.FirstName, Customer.LastName FROM Customer
+LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID WHERE Orders.OrderID IS NULL;
+SELECT CustomerID, FirstName, LastName FROM Customer WHERE CustomerID BETWEEN 100 AND 200
+INTERSECT
+SELECT CustomerID, FirstName, LastName FROM Customer WHERE LastName BETWEEN 'A' AND 'M';
+SELECT FirstName, LastName FROM Customer WHERE FirstName LIKE 'V%'
+INTERSECT
+SELECT FirstName, LastName FROM Customer WHERE CustomerID IN (SELECT CustomerID FROM Orders);
+SELECT 'John' FROM Customer WHERE FirstName LIKE 'v%' INTERSECT SELECT 'Bob' FROM orders WHERE FirstName LIKE 'v%';
+SELECT FirstName, LastName FROM Customer 
+WHERE EXISTS (
+    SELECT 1 FROM Orders WHERE Customer.CustomerID = Orders.CustomerID
+);
+SELECT LastName, FirstName FROM Customer
+WHERE NOT EXISTS (
+    SELECT 1 FROM Orders WHERE Customer.CustomerID = Orders.CustomerID
+);
+DELETE FROM Orders WHERE EXISTS (
+    SELECT 1 FROM Customer
+    WHERE Customer.CustomerID = Orders.CustomerID AND Customer.LastName = 'Mehra'
+);
+SELECT * FROM Orders;
+UPDATE Customer SET LastName = 'Kumari'
+WHERE EXISTS (
+    SELECT 1 FROM Customer WHERE CustomerID = 401
+);
+SELECT * FROM Customer;
+--                --
