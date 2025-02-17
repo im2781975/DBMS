@@ -263,6 +263,24 @@ INSERT IGNORE INTO Employees (EmployeeID, EmployeeName, Age, Department)
 SELECT EmployeeID, EmployeeName, Age, Department
 FROM NewEmployees WHERE Age > 30;
 
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    City VARCHAR(50),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(50)
+);
+INSERT INTO Customers (CustomerID, CustomerName, City, PostalCode, Country)
+VALUES
+    (1, 'John Wick', 'New York', '1248', 'USA'),
+    (2, 'Around the Horn', 'London', 'WA1 1DP', 'UK'),
+    (3, 'Rohan', 'New Delhi', '100084', 'India');
+SELECT * FROM Customers WHERE Country <> 'UK';
+SELECT * FROM Customers WHERE Country NOT IN ('USA', 'UK');
+SELECT * FROM Customers WHERE CustomerName NOT LIKE 'R%';
+SELECT * FROM Customers WHERE PostalCode IS NOT NULL;
+SELECT * FROM Customers WHERE Country <> 'USA' AND Country <> 'UK';
+
 -- Creating the Customer table with proper data types
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY,
