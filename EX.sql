@@ -1,4 +1,4 @@
-"""              project                """
+--              project                
 CREATE TABLE student(
     serial int PRIMARY KEY,
     name VARCHAR(20), age INT );
@@ -24,7 +24,7 @@ select * from enroll
 SET SQL_SAFE_UPDATES = 0;
 DELETE from student where name = "mollavai"
 SET SQL_SAFE_UPDATES = 1;
-"""               project               """
+--            project               
 CREATE TABLE student(
     serial INT PRIMARY KEY,
     name VARCHAR(30) NOT NULL );
@@ -38,3 +38,35 @@ CREATE TABLE enroll(
     FOREIGN KEY(serial) REFERENCES student,
     FOREIGN KEY(course_id) REFERENCES course
 );
+-- Creating the employees table
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY AUTO_INCREMENT, 
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),  
+    hire_date DATE
+);
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE department = 'Sales'
+ORDER BY hire_date DESC;
+INSERT INTO employees (first_name, last_name, department, hire_date) 
+VALUES ('Jane', 'Smith', 'HR', CURDATE());
+GRANT SELECT, UPDATE ON employees TO user_name;
+
+-- Create the database if it doesn't already exist
+CREATE DATABASE IF NOT EXISTS GeeksForGeeks;
+-- Use the GeeksForGeeks database
+USE GeeksForGeeks;
+-- Show all available databases
+SHOW DATABASES;
+-- Drop the GeeksForGeeks database if it exists
+DROP DATABASE IF EXISTS GeeksForGeeks;
+-- Show databases again to confirm deletion
+SHOW DATABASES;
+-- Drop a generic database if it exists (replace 'database_name' with an actual name)
+DROP DATABASE IF EXISTS database_name;
+-- Recreate the GeeksForGeeks database
+CREATE DATABASE GeeksForGeeks;
+-- Switch to the newly created database
+USE GeeksForGeeks;
