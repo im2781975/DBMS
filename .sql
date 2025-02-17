@@ -73,4 +73,10 @@ SELECT * FROM Customer ORDER BY Age DESC LIMIT 1;
 SELECT * FROM Customer WHERE Phone LIKE '98%';
 SELECT AVG(Age) AS AverageAge FROM Customer;
 DELETE FROM Customer WHERE Country = 'Sri Lanka';
-
+--Create a new table `SubTable` with specific columns from `Customer
+CREATE TABLE SubTable AS
+SELECT CustomerID, CustomerName
+FROM Customer;
+SELECT * FROM SubTable;
+DROP TABLE IF EXISTS SubTable;
+SHOW TABLES;
