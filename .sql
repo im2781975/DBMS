@@ -114,3 +114,29 @@ SELECT * FROM products;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS categories;
 SHOW TABLES;
+--                Student Detail
+CREATE DATABASE IF NOT EXISTS student_data;
+USE student_data;
+CREATE TABLE IF NOT EXISTS Student_details (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50) NOT NULL,
+    ADDRESS VARCHAR(50) NOT NULL,
+    PHONE BIGINT NOT NULL, 
+    AGE INT CHECK (AGE >= 18 AND AGE <= 100) 
+);
+INSERT INTO Student_details (ROLL_NO, NAME, ADDRESS, PHONE, AGE) VALUES 
+    (1, 'Ram', 'Delhi', 9415536635, 24),
+    (2, 'Ramesh', 'Gurgaon', 9414576635, 21),
+    (3, 'Sujit', 'Delhi', 9815532635, 20),
+    (4, 'Suresh', 'Noida', 9115536695, 21),
+    (5, 'Kajal', 'Gurgaon', 8915536735, 28),
+    (6, 'Garima', 'Rohtak', 7015535635, 23)
+ON DUPLICATE KEY UPDATE 
+    NAME = VALUES(NAME), 
+    ADDRESS = VALUES(ADDRESS), 
+    PHONE = VALUES(PHONE), 
+    AGE = VALUES(AGE);
+SELECT * FROM Student_details;
+TRUNCATE TABLE Student_details;
+SELECT * FROM Student_details;
+DROP DATABASE IF EXISTS student_data;
