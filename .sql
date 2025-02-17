@@ -86,10 +86,6 @@ VALUES (6, 'Raj', 'Kumar', 'India', 30, 'xxxxxxxxxx');
 -- Insert data into Customer table with specified columns
 INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
 VALUES (7, 'Kavya', 'Sharma', 'Nepal', 25, 'xxxxxxxxxx');
--- Create a new database called StudentDB
-CREATE DATABASE StudentDB;
--- Switch to the newly created StudentDB database
-USE StudentDB;
 --Create a new table `SubTable` with specific columns from `Customer
 CREATE TABLE SubTable AS
 SELECT CustomerID, CustomerName
