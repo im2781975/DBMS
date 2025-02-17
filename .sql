@@ -721,3 +721,45 @@ SELECT SupplierID, Name, Address FROM Supplier WHERE Name LIKE 'Ca%';
 SELECT SupplierID, Name, Address FROM Supplier WHERE Name LIKE '_ango%';
 SELECT SupplierID, Name, Address FROM Supplier WHERE Address LIKE '%Delhi%' AND Name LIKE 'C%';
 SELECT SupplierID, Name, Address FROM Supplier WHERE Name NOT LIKE '%Mango%';
+
+CREATE TABLE org(
+    user_id VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(100),
+    contest_score INT,
+    `rank` INT,
+    coding_streak INT
+);
+INSERT INTO org (user_id, name, contest_score, `rank`, coding_streak)
+VALUES 
+    ('vish3001', 'Vishu', 100, 1, 150),
+    ('neeraj119', 'Neeraj', 99, 2, 125),
+    ('ayush105', 'Aayush', 98, 3, 110),
+    ('sumit85', 'Sumit', 99, 2, 100),
+    ('harsh05', 'Harsh', 98, 3, 95);
+SELECT * FROM org WHERE name <> 'Harsh';
+SELECT * FROM org WHERE contest_score <> 98 AND `rank` <> 3 AND coding_streak >= 100;
+SELECT `rank`, COUNT(*) AS count_score FROM org WHERE contest_score <> 100 GROUP BY `rank`;
+
+CREATE TABLE ORG (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    problems_solved INT,
+    coding_score INT,
+    email VARCHAR(100)
+);
+INSERT INTO ORG (user_id, name, problems_solved, coding_score, email)
+VALUES
+    (101, 'Vishu', 20, 100, 'example1@gmail.com'),
+    (102, 'Sumit', 19, 99, NULL),
+    (103, 'Neeraj', 18, 98, 'example2@gmail.com'),
+    (104, 'Aayush', 17, 97, NULL),
+    (105, 'Harsh', 16, NULL, 'example3@gmail.com'),
+    (106, 'Rahul', 15, NULL, 'example4@gmail.com'),
+    (107, 'Vivek', 14, 90, NULL);
+SELECT * FROM ORG;
+SELECT * FROM ORG WHERE email IS NULL;
+SELECT * FROM ORG WHERE email IS NULL OR coding_score IS NULL;
+SELECT COUNT(*) AS count_empty_coding_score FROM ORG WHERE coding_score IS NULL;
+UPDATE ORG
+SET email = 'default@gmail.com' WHERE email IS NULL;
+DELETE FROM ORG WHERE coding_score IS NULL;
