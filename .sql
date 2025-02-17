@@ -1019,3 +1019,31 @@ SELECT Max(Age) FROM Customer;
 SELECT CustomerName, MIN(Age) AS min_age  FROM Customer;
 SELECT CustomerName, MAX(Age) AS max_age  FROM Customer HAVING MIN(Age)>22;
 --                    --
+CREATE TABLE Tab (
+    Name VARCHAR(50),
+    City VARCHAR(50),
+    Salary INT,
+    ID INT,
+    DOJ VARCHAR(50)
+);
+INSERT INTO Tab (Name, City, Salary, ID, DOJ) VALUES
+('Abc', 'Delhi', 4500, 134, '6-Aug'),
+('Dfe', 'Noida', 6500, 245, '4-March'),
+('Def', 'Jaipur', 5400, 546, '2-July'),
+('Mno', 'Noida', 7800, 432, '7-June'),
+('Jkl', 'Jaipur', 5400, 768, '9-July'),
+('Lmn', 'Delhi', 7800, 987, '8-June'),
+('Ijk', 'Jaipur', 6700, 654, '5-June');
+SELECT COUNT(Name) FROM Tab; 
+SELECT AVG(Salary) FROM Tab;
+SELECT SUM(Salary) FROM Tab; 
+SELECT COUNT(column_name) FROM table_name WHERE condition;
+SELECT AVG(Salary) FROM Tab WHERE Salary > 5000;
+SELECT SUM(Salary) FROM Tab WHERE Salary > 4500;
+SELECT COUNT(Name) FROM Tab; 
+SELECT AVG(Salary) FROM Tab; 
+SELECT SUM(Salary) FROM Tab; 
+SELECT COUNT(Salary) FROM Tab WHERE Salary <> 4500;
+SELECT AVG(Salary) FROM Tab WHERE Salary <> 4500;
+SELECT SUM(Salary) FROM Tab WHERE Salary <> 4500;
+--				--
