@@ -981,3 +981,37 @@ CASE
     ELSE 2 
 END, Age ASC;
 --					--
+CREATE TABLE Employee (
+    Id INT PRIMARY KEY,
+    Name CHAR(1),  
+    Salary DECIMAL(10,2)  
+);
+INSERT INTO Employee (Id, Name, Salary) VALUES 
+    (1, 'A', 802), (2, 'B', 403), (3, 'C', 604),
+    (4, 'D', 705), (5, 'E', 606), (6, 'F', NULL);
+SELECT COUNT(*) AS TotalEmployees FROM Employee;
+SELECT SUM(Salary) AS TotalSalary FROM Employee;
+SELECT AVG(Salary) AS AverageSalary FROM Employee;
+SELECT MAX(Salary) AS HighestSalary FROM Employee;
+SELECT MIN(Salary) AS LowestSalary FROM Employee;
+SELECT Name, SUM(Salary) AS TotalSalary
+FROM Employee GROUP BY Name;-- HAVING SUM(Salary) > 600;
+CREATE TABLE Customer(
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    LastName VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT(2),
+    Phone INT(10)
+    );
+INSERT INTO Customer(CustomerID, CustomerName, LastName, Country, Age, Phone)VALUES 
+    (1, 'Shubham', 'Thakur', 'India','23','xxxxxxxxxx'),
+    (2, 'Aman ', 'Chopra', 'Australia','21','xxxxxxxxxx'),
+    (3, 'Naveen', 'Tulasi', 'Sri lanka','24','xxxxxxxxxx'),
+    (4, 'Aditya', 'Arpan', 'Austria','21','xxxxxxxxxx'),
+    (5, 'Nishant. Salchichas S.A.', 'Jain', 'Spain','22','xxxxxxxxxx');
+SELECT MIN(Age) FROM Customer ;
+SELECT Max(Age) FROM Customer;
+SELECT CustomerName, MIN(Age) AS min_age  FROM Customer;
+SELECT CustomerName, MAX(Age) AS max_age  FROM Customer HAVING MIN(Age)>22;
+--                    --
