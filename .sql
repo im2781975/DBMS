@@ -21,6 +21,37 @@ DROP DATABASE IF EXISTS GeeksForGeeks;
 SHOW DATABASES;
 DROP DATABASE IF EXISTS database_name;
 
+CREATE TABLE Employee (
+    Fname VARCHAR(50),
+    Lname VARCHAR(50),
+    Ssn INT PRIMARY KEY,
+    Bdate DATE,
+    Address VARCHAR(100),
+    Sex CHAR(1),
+    Salary DECIMAL(10, 2)
+);
+INSERT INTO Employee (Fname, Lname, Ssn, Bdate, Address, Sex, Salary) VALUES 
+('Chiranjeev', 'Singh', 1, '2002-07-31', 'Delhi', 'M', 1111789.00),
+('Harry', 'Stark', 2, '1990-07-31', 'Delhi', 'M', 3333.00),
+('Meghna', 'Gururaani', 5, '2002-04-04', 'Almora', 'F', 3433.00),
+('Aniket', 'Bhardwaj', 6, '2001-05-05', 'Ponta', 'M', 56564.00),
+('Vritti', 'Goel', 7, '2002-03-05', 'Delhi', 'F', 7565.00),
+('Aashish', 'Kumar', 8, '2002-08-04', 'Himachal', 'M', 44657.00),
+('Siddharth', 'Chaturvedi', 9, '2003-11-10', 'Lucknow', 'M', 244322.00);
+SELECT Fname, Lname FROM Employee
+WHERE Address IN ('Delhi', 'Himachal');
+SELECT Fname FROM Employee
+WHERE Address NOT IN ('Delhi', 'Lucknow');
+CREATE TABLE Manager (
+    Ssn INT PRIMARY KEY, 
+    Dept VARCHAR(50),
+    FOREIGN KEY (Ssn) REFERENCES Employee(Ssn)
+);
+INSERT INTO Manager (Ssn, Dept) 
+VALUES (1, 'Finance'), (2, 'HR'), (7, 'Operations');
+SELECT * FROM Employee WHERE Ssn IN (SELECT Ssn FROM Manager);
+
+
 CREATE TABLE employee (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(100),
