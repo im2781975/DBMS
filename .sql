@@ -168,3 +168,15 @@ CREATE TABLE student_backup (
 INSERT INTO student_backup (ID, Age, Student_Name, Sex)
 SELECT ID, Age, Student_Name, Sex FROM student_information;
 SELECT * FROM student_backup;
+-- demonstrate the use of temporary tables and stored procedures
+CREATE TABLE #EmpDetails (id INT, name VARCHAR(25));  
+INSERT INTO #EmpDetails VALUES (1, 'Lalit'), (2, 'Atharva'); 
+SELECT * FROM #EmpDetails;
+DROP TABLE #EmpDetails;
+CREATE PROCEDURE ProcTemp AS
+BEGIN
+    CREATE TABLE #EmpDetails (id INT, name VARCHAR(25));  
+    INSERT INTO #EmpDetails VALUES (1, 'Lalit'), (2, 'Atharva'); 
+    SELECT * FROM #EmpDetails;
+END;
+EXEC ProcTemp;
