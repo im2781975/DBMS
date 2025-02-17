@@ -801,3 +801,34 @@ SELECT Country, Name FROM Emp1 WHERE Name = 'Aditya' UNION ALL
 SELECT Country, Name FROM Emp2 WHERE Country = 'Ireland' ORDER BY Country;
 SELECT Name FROM Emp1 UNION ALL SELECT Name FROM Emp2;
 SELECT EmpID AS Identifier FROM Emp1 UNION ALL SELECT EmpID AS Identifier FROM Emp2;
+
+-- Create Students Table
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Course VARCHAR(100)
+);
+INSERT INTO Students (StudentID, Name, Course) VALUES
+    (1, 'Rohan', 'DBMS'),
+    (2, 'Kevin', 'OS'),
+    (3, 'Mansi', 'DBMS'),
+    (4, 'Mansi', 'ADA'),
+    (5, 'Rekha', 'ADA'),
+    (6, 'Megha', 'OS');
+CREATE TABLE TA (
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Course VARCHAR(100),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID) ON DELETE CASCADE
+);
+INSERT INTO TA (StudentID, Name, Course) VALUES
+    (7, 'Kevin', 'TOC'),
+    (8, 'Sita', 'IP'),
+    (9, 'Manik', 'AP'),
+    (10, 'Rekha', 'SNS');
+SELECT Students.Name
+FROM Students
+LEFT JOIN TA ON Students.Name = TA.Name
+WHERE TA.Name IS NULL;
+SELECT Name FROM Students WHERE Name NOT IN (SELECT Name FROM TA);
+SELECT * FROM Students WHERE StudentID BETWEEN 2 AND 5;
