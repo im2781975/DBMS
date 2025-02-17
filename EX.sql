@@ -54,6 +54,7 @@ INSERT INTO employees (first_name, last_name, department, hire_date)
 VALUES ('Jane', 'Smith', 'HR', CURDATE());
 GRANT SELECT, UPDATE ON employees TO user_name;
 
+
 -- Create the database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS GeeksForGeeks;
 -- Use the GeeksForGeeks database
