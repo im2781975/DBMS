@@ -226,3 +226,88 @@ MODIFY COLUMN COURSE VARCHAR(20);
 ALTER TABLE Student 
 DROP COLUMN COURSE;
 -- This removes the 'COURSE' column from the 'Student' table.
+
+-- Create the StudentDB database
+CREATE DATABASE IF NOT EXISTS StudentDB;
+USE StudentDB;
+-- Create Student table if not exists
+CREATE TABLE IF NOT EXISTS Student (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    ADDRESS VARCHAR(100),
+    PHONE VARCHAR(15),
+    AGE INT
+);
+INSERT INTO Student (ROLL_NO, NAME, ADDRESS, PHONE, AGE) VALUES
+(1, 'Ram', 'Delhi', 'XXXXXXXXXX', 18),
+(2, 'Ramesh', 'Gurgaon', 'XXXXXXXXXX', 18),
+(3, 'Sujit', 'Rohtak', 'XXXXXXXXXX', 20),
+(4, 'Suresh', 'Rohtak', 'XXXXXXXXXX', 18);
+INSERT INTO Student 
+VALUES (5, 'HARSH', 'WEST BENGAL', 'XXXXXXXXXX', 19);
+
+-- Insert specific columns (Address and Phone will be NULL)
+INSERT INTO Student (ROLL_NO, NAME, AGE) 
+VALUES (6, 'PRATIK', 19);
+-- Insert multiple rows into Student table
+INSERT INTO Student (ROLL_NO, NAME, AGE, ADDRESS, PHONE) 
+VALUES
+(7, 'Amit Kumar', 15, 'Delhi', 'XXXXXXXXXX'),
+(8, 'Gauri Rao', 18, 'Bangalore', 'XXXXXXXXXX'),
+(9, 'Manav Bhatt', 17, 'New Delhi', 'XXXXXXXXXX'),
+(10, 'Riya Kapoor', 10, 'Udaipur', 'XXXXXXXXXX');
+-- Create first_table and second_table if they do not exist
+CREATE TABLE IF NOT EXISTS first_table (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Age INT
+);
+CREATE TABLE IF NOT EXISTS second_table (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Age INT
+);
+-- Insert sample data into second_table
+INSERT INTO second_table (Name, Age) VALUES
+('Alex', 22),
+('Bob', 23);
+--  Insert all data from second_table into first_table
+INSERT INTO first_table 
+SELECT * FROM second_table
+-- Insert specific columns from second_table into first_table
+INSERT INTO first_table(Name, Age) 
+SELECT Name, Age FROM second_table; 
+-- Create table1 and table2 if they do not exist
+CREATE TABLE IF NOT EXISTS table1 (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Age INT
+);
+CREATE TABLE IF NOT EXISTS table2 (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Age INT
+);
+-- Insert sample data into table2
+INSERT INTO table2 (Name, Age)
+VALUES ('Chris', 25), ('David', 26);
+-- Insert data based on a condition
+INSERT INTO table1 SELECT * FROM table2 
+WHERE Age > 24;
+
+-- Create LateralStudent table if it does not exist
+CREATE TABLE IF NOT EXISTS LateralStudent (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    AGE INT
+);
+-- Insert sample data into LateralStudent
+INSERT INTO LateralStudent (ROLL_NO, NAME, AGE) VALUES
+(11, 'Ethan', 21),
+(12, 'Sophia', 22);
+-- Insert all data from LateralStudent into Student table
+INSERT INTO Student 
+SELECT * FROM LateralStudent;
+-- Insert specific columns from LateralStudent into Student table
+INSERT INTO Student(ROLL_NO, NAME, AGE) 
+SELECT ROLL_NO, NAME, AGE FROM LateralStudent;
