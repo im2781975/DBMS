@@ -600,3 +600,26 @@ AirlineAverage AS (
 )
 SELECT Airline FROM TotalSalary, AirlineAverage
 WHERE TotalSalary.Total > AirlineAverage.AvgSalary;  
+
+-- Create the MarkList table
+CREATE TABLE MarkList(
+    id INT,
+    name VARCHAR(20),
+    mathematics INT, 
+    physics INT,
+    chemistry INT
+);
+INSERT INTO MarkList VALUES(501, 'Surya', 99, 97, 85);
+INSERT INTO MarkList VALUES(502, 'Charan', 99, 93, 88);
+INSERT INTO MarkList VALUES(503, 'Sravan', 91, 98, 94);
+INSERT INTO MarkList VALUES(504, 'Ram', 92, 99, 82);
+INSERT INTO MarkList VALUES(505, 'Aryan', 94, 99, 88);
+INSERT INTO MarkList VALUES(506, 'Sathwik', 91, 88, 91);
+INSERT INTO MarkList VALUES(507, 'Madhav', 90, 97, 89);
+-- Query to fetch the top 3 students based on total marks (mathematics + physics + chemistry)
+SELECT id, name, (mathematics + physics + chemistry) AS total
+FROM MarkList ORDER BY total DESC OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY;
+WITH RankedMarkList AS (
+    SELECT id, name, (mathematics + physics + chemistry) AS total, ROW_NUMBER() OVER
+    (ORDER BY (mathematics + physics + chemistry) DESC) AS Rank FROM MarkList)
+SELECT id, name, total FROM RankedMarkList WHERE Rank <= 3;
