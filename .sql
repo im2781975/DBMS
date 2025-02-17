@@ -48,6 +48,50 @@ SELECT name, age FROM employees ORDER BY age DESC;
 SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;
 SELECT department, AVG(salary) AS average_salary FROM employees GROUP BY department;
 
+CREATE TABLE Employee (
+    EmployeeId INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Gender VARCHAR(10),
+    Salary INT,
+    Department VARCHAR(20),
+    Experience INT 
+);
+INSERT INTO Employee (EmployeeId, Name, Gender, Salary, Department, Experience)
+VALUES 
+    (5, 'Priya Sharma', 'Female', 45000, 'IT', 2),
+    (6, 'Rahul Patel', 'Male', 65000, 'Sales', 5),
+    (7, 'Nisha Gupta', 'Female', 55000, 'Marketing', 4),
+    (8, 'Vikram Singh', 'Male', 75000, 'Finance', 7),
+    (9, 'Aarti Desai', 'Female', 50000, 'IT', 3);
+SELECT * FROM Employee;
+SELECT Department, SUM(Salary) AS Total_Salary
+FROM Employee GROUP BY Department;
+SELECT Department, SUM(Salary) AS Total_Salary
+FROM Employee GROUP BY Department HAVING SUM(Salary) >= 50000;
+SELECT Department, SUM(Salary) AS Total_Salary, AVG(Salary) AS Average_Salary
+FROM Employee GROUP BY Department HAVING SUM(Salary) >= 50000 AND AVG(Salary) > 55000;
+SELECT Department, COUNT(EmployeeId) AS Employee_Count
+FROM Employee GROUP BY Department HAVING COUNT(EmployeeId) >= 2;
+SELECT Department, AVG(Salary) AS Average_Salary
+FROM Employee GROUP BY Department HAVING AVG(Salary) > 50000;
+CREATE TABLE students (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(50),
+    ADDRESS VARCHAR(100),
+    PHONE VARCHAR(15),
+    AGE INT
+);
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE) 
+VALUES
+    (1, 'Ram', 'Delhi', 'XXXXXXXXXX', 18),
+    (2, 'Ramesh', 'Gurgaon', 'XXXXXXXXXX', 18),
+    (3, 'Sujit', 'Rohtak', 'XXXXXXXXXX', 20),
+    (4, 'Suresh', 'Rohtak', 'XXXXXXXXXX', 18),
+    (5, 'Harsh', 'West Bengal', 'XXXXXXXXXX', 19);
+SELECT ROLL_NO, NAME, ADDRESS FROM students ORDER BY 1
+SELECT * FROM students ORDER BY ROLL_NO DESC;
+SELECT * FROM students ORDER BY AGE DESC, NAME ASC;
+
 CREATE TABLE IF NOT EXISTS Employees (
     EmployeeID INT PRIMARY KEY,
     EmployeeName VARCHAR(100),
