@@ -950,3 +950,34 @@ WHERE EXISTS (
 );
 SELECT * FROM Customer;
 --                --
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Country VARCHAR(50) NOT NULL,
+    Age INT CHECK(Age >= 0 AND Age <= 120),
+    Phone VARCHAR(15) NOT NULL -- Changed to VARCHAR to support different formats);
+INSERT INTO Customer (CustomerID, CustomerName, LastName, Country, Age, Phone)
+VALUES 
+    (1, 'Shubham', 'Thakur', 'India', 23, '9876543210'),
+    (2, 'Aman', 'Chopra', 'Australia', 21, '8765432109'),
+    (3, 'Naveen', 'Tulasi', 'Sri Lanka', 24, '7654321098'),
+    (4, 'Aditya', 'Arpan', 'Austria', 21, '6543210987'),
+    (5, 'Nishant', 'Jain', 'Spain', 22, '5432109876');
+SELECT CustomerName, Age,
+CASE
+    WHEN Country = 'India' THEN 'Indian'
+    ELSE 'Foreign'
+END AS Nationality FROM Customer;
+SELECT CustomerName, Age,
+CASE
+    WHEN Age > 22 THEN 'The Age is greater than 22'
+    WHEN Age = 21 THEN 'The Age is 21'
+    ELSE 'The Age is 22 or below'
+END AS AgeCategory FROM Customer;
+SELECT CustomerName, Country, Age FROM Customer ORDER BY 
+CASE 
+    WHEN Country = 'India' THEN 1
+    ELSE 2 
+END, Age ASC;
+--					--
