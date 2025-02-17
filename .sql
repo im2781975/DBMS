@@ -654,3 +654,21 @@ WITH RankedMarkList AS (
     SELECT id, name, (mathematics + physics + chemistry) AS total, ROW_NUMBER() OVER
     (ORDER BY (mathematics + physics + chemistry) DESC) AS Rank FROM MarkList)
 SELECT id, name, total FROM RankedMarkList WHERE Rank <= 3;
+
+CREATE TABLE Supplier (
+    SupplierID CHAR(2) PRIMARY KEY,
+    Name VARCHAR(50),
+    Address VARCHAR(100)
+);
+INSERT INTO Supplier (SupplierID, Name, Address)
+VALUES
+    ('S1', 'Paragon Suppliers', '21-3, Okhla, Delhi'),
+    ('S2', 'Mango Nation', '21, Faridabad, Haryana'),
+    ('S3', 'Canadian Biz', '6/7, Okhla Phase II, Delhi'),
+    ('S4', 'Caravan Traders', '2-A, Pitampura, Delhi'),
+    ('S5', 'Harish and Sons', 'Gurgaon, NCR'),
+    ('S6', 'Om Suppliers', '2/1, Faridabad, Haryana');
+SELECT SupplierID, Name, Address FROM Supplier WHERE Name LIKE 'Ca%';
+SELECT SupplierID, Name, Address FROM Supplier WHERE Name LIKE '_ango%';
+SELECT SupplierID, Name, Address FROM Supplier WHERE Address LIKE '%Delhi%' AND Name LIKE 'C%';
+SELECT SupplierID, Name, Address FROM Supplier WHERE Name NOT LIKE '%Mango%';
