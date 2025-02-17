@@ -315,6 +315,10 @@ WHERE CustomerID = 1;
 -- Update a specific customer's name
 UPDATE Customer SET CustomerName = 'Shubham' 
 WHERE CustomerID = 3;  
+SELECT MIN(Age) FROM Customer;
+SELECT MAX(Age) FROM Customer;
+SELECT CustomerName, MIN(Age) AS min_age FROM Customer;
+SELECT CustomerName, MAX(Age) AS max_age FROM Customer HAVING MIN(Age) > 22;
 SELECT * FROM Customer;
 SELECT CustomerName, Country FROM Customer;
 SELECT * FROM Customer WHERE Country = 'India'
