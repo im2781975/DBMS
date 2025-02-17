@@ -1,3 +1,27 @@
+-- Creating the employees table
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY AUTO_INCREMENT, 
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    department VARCHAR(50),  
+    hire_date DATE
+);
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE department = 'Sales'
+ORDER BY hire_date DESC;
+INSERT INTO employees (first_name, last_name, department, hire_date) 
+VALUES ('Jane', 'Smith', 'HR', CURDATE());
+GRANT SELECT, UPDATE ON employees TO user_name;
+-- Create the database if it doesn't already exist
+CREATE DATABASE IF NOT EXISTS GeeksForGeeks;
+USE GeeksForGeeks;
+SHOW DATABASES;
+DROP DATABASE IF EXISTS GeeksForGeeks;
+SHOW DATABASES;
+DROP DATABASE IF EXISTS database_name;
+CREATE DATABASE GeeksForGeeks;
+USE GeeksForGeeks;
 -- Create the employees table
 CREATE TABLE employees (
     employee_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -23,7 +47,6 @@ SELECT name, age FROM employees WHERE age >= 35;
 SELECT name, age FROM employees ORDER BY age DESC;
 SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;
 SELECT department, AVG(salary) AS average_salary FROM employees GROUP BY department;
-
 -- Creating the Customer table with proper data types
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY,
