@@ -832,3 +832,63 @@ LEFT JOIN TA ON Students.Name = TA.Name
 WHERE TA.Name IS NULL;
 SELECT Name FROM Students WHERE Name NOT IN (SELECT Name FROM TA);
 SELECT * FROM Students WHERE StudentID BETWEEN 2 AND 5;
+--                       --
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    HireDate DATE,
+    Age INT,
+    Salary DECIMAL(10,2)
+);
+INSERT INTO Employees (EmployeeID, FirstName, LastName, HireDate, Age, Salary) VALUES
+(1, 'John', 'Doe', '2020-05-10', 35, 55000),
+(2, 'Sue', 'Smith', '2019-07-15', 28, 62000),
+(3, 'Tom', 'Brown', '2021-02-20', 40, 70000),
+(4, 'Alice', 'Williams', '2018-09-30', 45, 48000);
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    CategoryID INT
+);
+INSERT INTO Products (ProductID, ProductName, CategoryID) VALUES
+(1, 'Laptop', 101),
+(2, 'Phone', 102),
+(3, 'Tablet', 101),
+(4, 'Monitor', 103);
+CREATE TABLE OrderDetails (
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity) VALUES
+(1, 1, 6), (2, 2, 2), (3, 3, 9), (4, 4, 5);
+
+SELECT FirstName, LastName FROM Employees 
+WHERE LastName NOT BETWEEN 'B' AND 'S';
+SELECT FirstName, LastName, HireDate 
+FROM Employees WHERE HireDate BETWEEN '2020-01-01' AND '2021-12-31';
+SELECT FirstName, LastName, Age 
+FROM Employees WHERE Age NOT BETWEEN 30 AND 40;
+SELECT FirstName, LastName, Salary FROM Employees 
+WHERE Salary BETWEEN 50000 AND 70000 
+  AND FirstName IN ('John', 'Sue', 'Tom');
+
+SELECT ProductName FROM Products
+WHERE ProductID = ALL (
+    SELECT ProductID FROM OrderDetails WHERE Quantity = 6 OR Quantity = 2
+);
+SELECT OrderID FROM OrderDetails GROUP BY OrderID
+HAVING MAX(Quantity) > ALL (
+    SELECT AVG(Quantity) FROM OrderDetails GROUP BY OrderID
+);
+SELECT DISTINCT CategoryID FROM Products 
+WHERE ProductID = ANY (
+    SELECT ProductID FROM OrderDetails
+);
+SELECT ProductName FROM Products
+WHERE ProductID = ANY (
+    SELECT ProductID FROM OrderDetails WHERE Quantity = 9
+);
+--                --
