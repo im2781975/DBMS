@@ -74,6 +74,85 @@ SELECT Department, COUNT(EmployeeId) AS Employee_Count
 FROM Employee GROUP BY Department HAVING COUNT(EmployeeId) >= 2;
 SELECT Department, AVG(Salary) AS Average_Salary
 FROM Employee GROUP BY Department HAVING AVG(Salary) > 50000;
+-- Create Student Table
+CREATE TABLE Student (
+    Name VARCHAR(50),
+    Year INT,
+    Subject VARCHAR(50)
+);
+INSERT INTO Student (Name, Year, Subject) VALUES
+    ('Alice', 1, 'Mathematics'),
+    ('Bob', 2, 'English'),
+    ('Charlie', 3, 'Science'),
+    ('David', 1, 'Mathematics'),
+    ('Emily', 2, 'English'),
+    ('Frank', 3, 'Science');
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary INT
+);
+INSERT INTO Employee (EmpID, Name, Salary) VALUES
+    (1, 'Alice', 60000),
+    (2, 'Bob', 45000),
+    (3, 'Charlie', 70000),
+    (4, 'David', 50000),
+    (5, 'Emily', 55000),
+    (6, 'Frank', 75000);
+SELECT Name, SUM(Salary) AS Total_Salary
+FROM Employee GROUP BY Name;
+SELECT Subject, Year, COUNT(*) AS Student_Count
+FROM Student GROUP BY Subject, Year;
+SELECT Name, SUM(Salary) AS Total_Salary
+FROM Employee GROUP BY Name HAVING SUM(Salary) > 50000;
+
+-- Create the Student table
+CREATE TABLE student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT
+);
+INSERT INTO student (id, name, age)
+VALUES (1, 'Shubham Thakur', 18),
+       (2, 'Aman Chopra', 19),
+       (3, 'Bhavika Uppala', 20),
+       (4, 'Anshi Shrivastava', 22);
+SELECT * FROM student LIMIT 3;
+SELECT * FROM student ORDER BY Grade DESC LIMIT 3;
+SELECT * FROM student ORDER BY age LIMIT 3 OFFSET 2; 
+SELECT age FROM student ORDER BY age LIMIT 2, 1;  
+SELECT age FROM student WHERE id < 4 ORDER BY age LIMIT 2 OFFSET 1;
+
+-- Create the Students table
+CREATE TABLE students (
+    ROLL_NO INT,
+    NAME VARCHAR(50),
+    ADDRESS VARCHAR(100),
+    PHONE VARCHAR(20),
+    AGE INT
+);
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)
+VALUES 
+    (1, 'Shubham Kumar', '123 Main Street, Bangalore', '9876543210', 23),
+    (2, 'Shreya Gupta', '456 Park Road, Mumbai', '9876543211', 23),
+    (3, 'Naveen Singh', '789 Market Lane, Delhi', '9876543212', 26),
+    (4, 'Aman Chopra', '246 Forest Avenue, Kolkata', '9876543213', 22),
+    (5, 'Aditya Patel', '7898 Ocean Drive, Chennai', '9876543214', 27),
+    (6, 'Avdeep Desai', '34 River View, Hyderabad', '9876543215', 24),
+    (7, 'Shubham Kumar', '123 Main Street, Bangalore', '9876543210', 23),  
+    (8, 'Shreya Gupta', '456 Park Road, Mumbai', '9876543211', 23),  
+    (9, 'Naveen Singh', '789 Market Lane, Delhi', '9876543212', 26), 
+    (10, 'Aditya Patel', '7898 Ocean Drive, Chennai', '9876543214', 27),  
+    (11, 'Aman Chopra', '246 Forest Avenue, Kolkata', '9876543213', 22),
+    (12, 'Avdeep Desai', '34 River View, Hyderabad', '9876543215', 24); 
+SELECT DISTINCT NAME FROM students;
+SELECT DISTINCT NAME, AGE FROM students;
+SELECT DISTINCT AGE FROM students ORDER BY AGE;
+SELECT COUNT(DISTINCT ROLL_NO) FROM students;
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)
+VALUES (13, 'John Doe', '123 Unknown Street', '9876543216', NULL);
+SELECT DISTINCT AGE FROM students;
+
 CREATE TABLE students (
     ROLL_NO INT PRIMARY KEY,
     NAME VARCHAR(50),
