@@ -263,6 +263,17 @@ SELECT COUNT(item), CustomerID FROM Orders GROUP BY CustomerID;
 SELECT Department, SUM(Salary) AS Salary FROM Employee
 GROUP BY Department HAVING SUM(Salary) >= 50000;
 SELECT * FROM Customer ORDER BY Age DESC;
+SELECT CustomerID AS id FROM Customer;
+SELECT c1.CustomerName, c1.Country
+FROM Customer AS c1 JOIN Customer AS c2 
+  ON c1.Age = c2.Age AND c1.Country = c2.Country WHERE c1.CustomerID <> c2.CustomerID;
+  
+SELECT c.CustomerName AS Name, c.Country AS Location
+FROM Customer AS c
+WHERE c.Age >= 21;
+SELECT DISTINCT c.CustomerName AS Name, c.Country AS Location
+FROM Customer AS c WHERE c.Age >= 21;
+
 -- Insert values into the Customer table
 INSERT INTO Customer
 VALUES (6, 'Raj', 'Kumar', 'India', 30, 'xxxxxxxxxx');
