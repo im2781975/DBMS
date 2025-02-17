@@ -140,3 +140,31 @@ SELECT * FROM Student_details;
 TRUNCATE TABLE Student_details;
 SELECT * FROM Student_details;
 DROP DATABASE IF EXISTS student_data;
+-- Create tables by copying data from an existing table
+CREATE TABLE IF NOT EXISTS stud_1 AS 
+SELECT * FROM student_information;
+SELECT * FROM stud_1;
+CREATE TABLE IF NOT EXISTS stud_2 AS
+SELECT ID, Student_Name FROM student_information;
+SELECT * FROM stud_2;
+
+CREATE TABLE IF NOT EXISTS geeks_student AS
+SELECT * FROM student_information WHERE 1=2;
+SELECT * FROM geeks_student;
+CREATE TABLE IF NOT EXISTS empty_backup AS
+SELECT ID, Student_Name FROM student_information WHERE 1=2;
+
+SELECT * FROM empty_backup;
+CREATE TABLE IF NOT EXISTS student_backup AS 
+SELECT * FROM student_information;
+ALTER TABLE student_backup ADD PRIMARY KEY (ID);
+DROP TABLE IF EXISTS student_backup;  
+CREATE TABLE student_backup (
+    ID INT PRIMARY KEY,
+    Age INT,
+    Student_Name VARCHAR(50),
+    Sex VARCHAR(10)
+);
+INSERT INTO student_backup (ID, Age, Student_Name, Sex)
+SELECT ID, Age, Student_Name, Sex FROM student_information;
+SELECT * FROM student_backup;
