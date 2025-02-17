@@ -763,3 +763,41 @@ SELECT COUNT(*) AS count_empty_coding_score FROM ORG WHERE coding_score IS NULL;
 UPDATE ORG
 SET email = 'default@gmail.com' WHERE email IS NULL;
 DELETE FROM ORG WHERE coding_score IS NULL;
+
+-- Create Table Emp1
+CREATE TABLE Emp1 (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT,
+    mob BIGINT
+);
+INSERT INTO Emp1 (EmpID, Name, Country, Age, mob)
+VALUES 
+    (1, 'Shubham',  'India', 23, 738479734),
+    (2, 'Aman',  'Australia', 21, 436789555),
+    (3, 'Naveen', 'Sri Lanka', 24, 34873847),
+    (4, 'Aditya',  'Austria', 21, 328440934),
+    (5, 'Nishant', 'Spain', 22, 73248679);
+SELECT * FROM Emp1;
+CREATE TABLE Emp2 (
+    EmpID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Country VARCHAR(50),
+    Age INT,
+    mob BIGINT
+);
+INSERT INTO Emp2 (EmpID, Name, Country, Age, mob)
+VALUES 
+    (1, 'Tommy',  'England', 23, 738985734),
+    (2, 'Allen',  'France', 21, 43678055),
+    (3, 'Nancy', 'India', 24, 34873847),
+    (4, 'Adi',  'Ireland', 21, 320254934),
+    (5, 'Sandy', 'Spain', 22, 70248679);
+SELECT * FROM Emp2;
+SELECT Country FROM Emp1 UNION SELECT Country FROM Emp2 ORDER BY Country;
+SELECT Country FROM Emp1 UNION ALL SELECT Country FROM Emp2 ORDER BY Country;
+SELECT Country, Name FROM Emp1 WHERE Name = 'Aditya' UNION ALL
+SELECT Country, Name FROM Emp2 WHERE Country = 'Ireland' ORDER BY Country;
+SELECT Name FROM Emp1 UNION ALL SELECT Name FROM Emp2;
+SELECT EmpID AS Identifier FROM Emp1 UNION ALL SELECT EmpID AS Identifier FROM Emp2;
