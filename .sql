@@ -47,6 +47,48 @@ SELECT name, age FROM employees WHERE age >= 35;
 SELECT name, age FROM employees ORDER BY age DESC;
 SELECT name, salary FROM employees ORDER BY salary DESC LIMIT 3;
 SELECT department, AVG(salary) AS average_salary FROM employees GROUP BY department;
+
+CREATE TABLE IF NOT EXISTS Employees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    Age INT,
+    Department VARCHAR(50)
+);
+-- Insert initial data into Employees table
+INSERT INTO Employees (EmployeeID, EmployeeName, Age, Department)
+VALUES
+    (1, 'John Doe', 30, 'Engineering'),
+    (2, 'Jane Smith', 28, 'Marketing'),
+    (3, 'Sam Brown', 35, 'Sales'),
+    (4, 'Lucy Green', 25, 'Human Resources')
+ON DUPLICATE KEY UPDATE 
+    EmployeeName = VALUES(EmployeeName), 
+    Age = VALUES(Age), 
+    Department = VALUES(Department);
+-- Create NewEmployees table if it does not exist
+CREATE TABLE IF NOT EXISTS NewEmployees (
+    EmployeeID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    Age INT,
+    Department VARCHAR(50)
+);
+-- Insert new employees into NewEmployees table
+INSERT INTO NewEmployees (EmployeeID, EmployeeName, Age, Department)
+VALUES
+    (5, 'Alice Johnson', 29, 'Human Resources'),
+    (6, 'Bob Martin', 32, 'Finance'),
+    (7, 'Charlie Baker', 28, 'Marketing'),
+    (8, 'David Lee', 40, 'Engineering'),
+    (9, 'Eva Davis', 22, 'Sales')
+ON DUPLICATE KEY UPDATE 
+    EmployeeName = VALUES(EmployeeName), 
+    Age = VALUES(Age), 
+    Department = VALUES(Department);
+-- Insert employees from NewEmployees to Employees where Age > 30
+INSERT IGNORE INTO Employees (EmployeeID, EmployeeName, Age, Department)
+SELECT EmployeeID, EmployeeName, Age, Department
+FROM NewEmployees WHERE Age > 30;
+
 -- Creating the Customer table with proper data types
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY,
