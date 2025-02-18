@@ -1434,6 +1434,8 @@ SELECT * FROM Cars LIMIT 20, 20;
 UPDATE Cars SET TotalCost = TotalCost + 100 WHERE Id = 3 or Id = 4
 UPDATE    Cars SET Status = 'READY' WHERE    Id = 4
 UPDATE Cars SET Status = 'READY'
+WITH ReadyCars AS (  SELECT *  FROM Cars  WHERE Status = 'READY' ) SELECT ID, Model, TotalCost FROM ReadyCars ORDER BY TotalCost;
+SELECT ID, Model, TotalCost FROM (  SELECT *  FROM Cars  WHERE Status = 'READY' ) AS ReadyCars ORDER BY TotalCost
 CREATE TABLE Authors(
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(70) NOT NULL,   
