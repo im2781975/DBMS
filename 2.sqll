@@ -122,45 +122,11 @@ SELECT ROW_NUMBER() OVER(PARTITION BY DepartmentId ORDER BY DepartmentId ASC) AS
 SELECT    storeName,    COUNT(*) AS total_nr_orders,    COUNT(DISTINCT userId) AS nr_unique_customers,    AVG(orderValue) AS average_order_value,    MIN(orderDate) AS first_order,    MAX(orderDate) AS lastOrder FROM    orders GROUP BY    storeName;
 SELECT DISTINCT    storeName,    userId FROM    orders;
 WITH CTE (StudentId, Fname, LName, DOB, RowCnt) as ( SELECT StudentId, FirstName, LastName, DateOfBirth as DOB, SUM(1) OVER (Partition By FirstName, LastName, DateOfBirth) as RowCnt FROM tblStudent ) SELECT * from CTE where RowCnt > 1 ORDER BY DOB, LName
-// string
-SELECT 'Hello' || 'World' || '!';
-SELECT CONCAT('Hello', 'World');
-SELECT CONCAT('Hello', 'World', '!');
-SELECT CONCAT('Foo', CAST(42 AS VARCHAR(5)), 'Bar'); 
-SELECT CONCAT(CONCAT('Foo', 42), 'Bar') FROM dual;
-SELECT 'Foo' + CAST(42 AS VARCHAR(5)) + 'Bar';
-SELECT LEN('Hello ');
-SELECT DATALENGTH('Hello ');
-DECLARE @str varchar(100) = 'Hello '
-SELECT DATALENGTH(@str)
-DECLARE @nstr nvarchar(100)
-SELECT DATALENGTH(@nstr)
-SELECT LTRIM('  Hello  ') 
-SELECT RTRIM('  Hello  ') 
-SELECT LTRIM(RTRIM('  Hello  '))
-SELECT UPPER('HelloWorld') 
-SELECT LOWER('HelloWorld') 
-SELECT value FROM STRING_SPLIT('Lorem ipsum dolor sit amet.', ' ');
-SELECT REPLACE( 'Peter Steve Tom', 'Steve', 'Billy' )
-SELECT 'bedded' REGEXP '[a-f]'
-SELECT 'beam' REGEXP '[a-f]'
-SELECT SUBSTRING('Hello', 1, 2) 
-SELECT SUBSTRING('Hello', 3, 3)
-DECLARE @str1 VARCHAR(10) = 'Hello', @str2 VARCHAR(10) = 'FooBarBaz'; 
-SELECT SUBSTRING(@str1, LEN(@str1) - 2, 3) 
-SELECT SUBSTRING(@str2, LEN(@str2) - 2, 3)
-SELECT STUFF('FooBarBaz', 4, 3, 'Hello')
-SELECT LEFT('Hello',2)  
-SELECT RIGHT('Hello',2)
-SELECT SUBSTR('Hello',1,2)  
-SELECT SUBSTR('Hello',LENGTH('Hello')-2+1,2)
-SELECT REVERSE('Hello')
-SELECT REPLICATE ('Hello',4)
+
 SELECT    FirstName, REPLACE (Address, 'South', 'Southern') Address FROM Employees ORDER BY FirstName
 Update Employees Set city = (Address, 'South', 'Southern');
 Update Employees Set Address = (Address, 'South', 'Southern') Where Address LIKE 'South%';
-SELECT INSTR('FooBarBar', 'Bar') 
-SELECT INSTR('FooBarBar', 'Xar') 
+
 
 select customer, sum(case when payment_type = 'credit' then amount else 0 end) as credit, sum(case when payment_type = 'debit' then amount else 0 end) as debit from payments group by customer
 select customer, sum(case when payment_type = 'credit' then 1 else 0 end) as credit_transaction_count, sum(case when payment_type = 'debit' then 1 else 0 end) as debit_transaction_count from payments group by customer
