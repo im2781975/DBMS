@@ -81,6 +81,24 @@ JOIN Managers m ON e.ManagerId = m.Id;
 SELECT Fname, LName, ManagerFirstName
 FROM Employees
 NATURAL JOIN (SELECT Id AS ManagerId, Fname AS ManagerFirstName FROM Managers) m;
+CREATE TABLE employees (
+    EmployeeID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Department VARCHAR(50),
+    Income DECIMAL(10,2)
+);
+INSERT INTO employees (EmployeeID, Name, Department, Income) VALUES
+(1, 'Alice', 'HR', 1200.00),
+(2, 'Bob', 'IT', 1500.00),
+(3, 'Charlie', 'Accounting', 1100.00),
+(4, 'David', 'IT', 2000.00),
+(5, 'Eva', 'HR', 900.00),
+(6, 'Frank', 'Sales', 1300.00),
+(7, 'Grace', 'Accounting', 950.00),
+(8, 'Hannah', 'Sales', 1100.00);
+SELECT department, AVG(income) AS avg_income FROM employees GROUP BY department;
+SELECT department, AVG(income) AS avg_income FROM employees WHERE department <> 'Accounting' GROUP BY department;
+SELECT department, AVG(income) AS avg_income FROM employees WHERE department <> 'Accounting' GROUP BY department HAVING AVG(income) > 1000;
 CREATE TABLE Departments(    
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(25) NOT NULL,
@@ -261,4 +279,3 @@ INSERT INTO item (ItemID, ItemName, Category, Price) VALUES
 (6, 'Blender', 'Home Appliances', 60.00),
 (7, 'Microwave', 'Home Appliances', 120.00);
 SELECT category, COUNT(*) AS item_count FROM item GROUP BY category;
-
