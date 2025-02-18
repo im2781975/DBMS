@@ -137,4 +137,28 @@ INSERT INTO Countries (ISO, ISO3, ISONumeric, CountryName, Capital, ContinentCod
     ('LA', 'LAO', 418, 'Laos', 'Vientiane', 'AS', 'LAK'),   
     ('US', 'USA', 840, 'United States', 'Washington', 'NA', 'USD'),   
     ('ZW', 'ZWE', 716, 'Zimbabwe', 'Harare', 'AF', 'ZWL')
+CREATE TABLE Product (
+    Id INT PRIMARY KEY,
+    ProductName VARCHAR(255) NOT NULL,
+    UnitPrice DECIMAL(10,2) NOT NULL,
+    Package VARCHAR(255) NOT NULL
+);
+INSERT INTO Product (Id, ProductName, UnitPrice, Package) VALUES
+(1, 'Laptop', 1200.00, 'Box'),
+(2, 'Smartphone', 800.00, 'Box'),
+(3, 'Tablet', 500.00, 'Box'),
+(4, 'Monitor', 250.00, 'Box'),
+(5, 'Keyboard', 50.00, 'Box'),
+(6, 'Mouse', 30.00, 'Box'),
+(7, 'Headphones', 70.00, 'Box'),
+(8, 'Printer', 150.00, 'Box'),
+(9, 'Speaker', 120.00, 'Box'),
+(10, 'Webcam', 80.00, 'Box'),
+(11, 'External Hard Drive', 200.00, 'Box'),
+(12, 'SSD', 250.00, 'Box');
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC FETCH FIRST 10 ROWS ONLY
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC OFFSET 5 ROWS FETCH FIRST 10 ROWS ONLY
+SELECT TOP 10 Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC
+SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC LIMIT 10
+SELECT Id, ProductName, UnitPrice, Package FROM Product WHERE ROWNUM <= 10 ORDER BY UnitPrice DESC    
 
