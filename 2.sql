@@ -361,3 +361,90 @@ SELECT * FROM Employee ORDER BY
     END;
 SELECT DisplayName, JoinDate AS jd, Reputation AS rep FROM Users ORDER BY jd, rep;
 SELECT DisplayName, JoinDate AS jd, Reputation AS rep FROM Users ORDER BY 2, 3;
+--                ---
+CREATE TABLE ItemSales (
+    Id INT PRIMARY KEY,
+    ItemId INT NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    PriceRating VARCHAR(20)
+);
+--                --
+CREATE TABLE DEPT (
+    ID INT PRIMARY KEY,
+    REGION VARCHAR(50),
+    CITY VARCHAR(50),
+    DEPARTMENT VARCHAR(50),
+    EMPLOYEES_NUMBER INT
+);
+--                --
+CREATE TABLE ItemPrice (
+    ItemId INT PRIMARY KEY,
+    Price DECIMAL(10,2) NOT NULL
+);
+CREATE TABLE YourTable (
+    Id INT PRIMARY KEY,
+    Date1 DATE,
+    Date2 DATE
+);
+INSERT INTO ItemSales (Id, ItemId, Price) VALUES
+(1, 101, 5.00), (2, 102, 12.00),
+(3, 103, 22.00), (4, 104, 9.50), (5, 105, 18.75);
+INSERT INTO DEPT (ID, REGION, CITY, DEPARTMENT, EMPLOYEES_NUMBER) VALUES
+(1, 'North', 'New York', 'MARKETING', 50),
+(2, 'South', 'Los Angeles', 'SALES', 40),
+(3, 'East', 'Chicago', 'RESEARCH', 30),
+(4, 'West', 'San Francisco', 'INNOVATION', 20),
+(5, NULL, 'Houston', 'OPERATIONS', 60);
+INSERT INTO ItemPrice (ItemId, Price) VALUES
+(1, 100.00), (2, 200.00), (3, 300.00), (4, 400.00);
+INSERT INTO YourTable (Id, Date1, Date2) VALUES
+(1, '2023-01-10', '2023-05-15'),
+(2, '2022-06-20', '2023-02-25'),
+(3, NULL, '2021-11-30'),
+(4, '2023-07-01', NULL);
+SELECT COUNT(Id) AS ItemsCount, SUM(CASE WHEN PriceRating = 
+    'Expensive' THEN 1 ELSE 0 END) AS ExpensiveItemsCount FROM ItemSales;
+
+SELECT COUNT(Id) AS ItemsCount, SUM(CASE PriceRating
+    WHEN 'Expensive' THEN 1 ELSE 0 END) AS ExpensiveItemsCount FROM ItemSales;
+SELECT Id, ItemId, Price, 
+       CASE 
+           WHEN Price < 10 THEN 'CHEAP' 
+           WHEN Price < 20 THEN 'AFFORDABLE' 
+           ELSE 'EXPENSIVE' 
+       END AS PriceRating FROM ItemSales;
+SELECT * FROM DEPT ORDER BY 
+    CASE DEPARTMENT 
+        WHEN 'MARKETING' THEN 1 WHEN 'SALES' THEN 2
+        WHEN 'RESEARCH' THEN 3 WHEN 'INNOVATION' THEN 4
+        ELSE 5 
+    END;
+SELECT Id, ItemId, Price, 
+       CASE Price 
+           WHEN 5 THEN 'CHEAP' WHEN 15 THEN 'AFFORDABLE' 
+           ELSE 'EXPENSIVE'  
+       END AS PriceRating FROM ItemSales;
+SELECT CASE ABS(CHECKSUM(NEWID())) % 4 
+        WHEN 0 THEN 'Dr' WHEN 1 THEN 'Master' 
+        WHEN 2 THEN 'Mr' WHEN 3 THEN 'Mrs'
+    END AS Title;
+SELECT CASE 
+        WHEN ABS(CHECKSUM(NEWID())) % 4 = 0 THEN 'Dr' 
+        WHEN ABS(CHECKSUM(NEWID())) % 4 = 1 THEN 'Master' 
+        WHEN ABS(CHECKSUM(NEWID())) % 4 = 2 THEN 'Mr' 
+        WHEN ABS(CHECKSUM(NEWID())) % 4 = 3 THEN 'Mrs' 
+    END AS Title;
+UPDATE ItemPrice 
+SET Price = Price *  
+    CASE ItemId    
+        WHEN 1 THEN 1.05 WHEN 2 THEN 1.10 WHEN 3 THEN 1.15    
+        ELSE 1.00  
+    END;
+SELECT ID, REGION, CITY, DEPARTMENT, EMPLOYEES_NUMBER FROM DEPT  ORDER BY  
+    CASE WHEN REGION IS NULL THEN 1 ELSE 0 END, REGION;
+SELECT Id, Date1, Date2 FROM YourTable 
+ORDER BY CASE 
+        WHEN COALESCE(Date1, '1753-01-01') < COALESCE(Date2, '1753-01-01') THEN Date1 
+        ELSE Date2 
+    END;
+--                --
