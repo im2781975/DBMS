@@ -1677,7 +1677,7 @@ INSERT INTO YourTable (Id, Date1, Date2) VALUES
 (4, '2023-07-01', NULL);
 SELECT COUNT(Id) AS ItemsCount, SUM(CASE WHEN PriceRating = 
     'Expensive' THEN 1 ELSE 0 END) AS ExpensiveItemsCount FROM ItemSales;
-
+SELECT * FROM Items WHERE Price < 10
 SELECT COUNT(Id) AS ItemsCount, SUM(CASE PriceRating
     WHEN 'Expensive' THEN 1 ELSE 0 END) AS ExpensiveItemsCount FROM ItemSales;
 SELECT Id, ItemId, Price, 
