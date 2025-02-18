@@ -60,6 +60,12 @@ INSERT INTO Customers ([Id], [FName], [LName], [Email], [PhoneNumber], [Preferre
     (1, 'William', 'Jones', 'william.jones@example.com', '3347927472', 'PHONE'),    
     (2, 'David', 'Miller', 'dmiller@example.net', '2137921892', 'EMAIL'), 
     (3, 'Richard', 'Davis', 'richard0123@example.com', NULL, 'EMAIL')
+SELECT PhoneNumber,Email,PreferredContact FROM Customers
+SELECT Customers.PhoneNumber, Customers.Email, Customers.PreferredContact,    Orders.Id AS OrderId FROM Customers 
+    LEFT JOIN   
+    Orders ON Orders.CustomerId = Customers.Id
+SELECT c.PhoneNumber, c.Email, c.PreferredContact, o.Id AS OrderId 
+    FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.Id
 CREATE TABLE Cars( 
     INT NOT NULL AUTO_INCREMENT,    
     CustomerId INT NOT NULL,    
