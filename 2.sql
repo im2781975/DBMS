@@ -325,4 +325,39 @@ SELECT GreatHouseAllegience AS House, COUNT(*) AS Number_of_Westerosians FROM We
 SELECT GreatHouseAllegience AS House, COUNT(*) AS Number_of_Westerosians 
 FROM Westerosians GROUP BY GreatHouseAllegience ORDER BY Number_of_Westerosians DESC;
 
-    
+CREATE TABLE Users (
+    Id INT PRIMARY KEY,
+    DisplayName VARCHAR(100) NOT NULL,
+    Reputation INT NOT NULL,
+    JoinDate DATE NOT NULL
+);
+CREATE TABLE Employee (
+    Id INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Department VARCHAR(50) NOT NULL,
+    Salary DECIMAL(10,2) NOT NULL
+);
+INSERT INTO Users (Id, DisplayName, Reputation, JoinDate) VALUES
+(1, 'Alice', 1200, '2020-01-15'),
+(2, 'Bob', 950, '2019-05-22'),
+(3, 'Charlie', 1750, '2021-03-10'),
+(4, 'David', 800, '2018-07-30'),
+(5, 'Emma', 2200, '2022-09-18'),
+(6, 'Frank', 1350, '2021-12-25');
+INSERT INTO Employee (Id, Name, Department, Salary) VALUES
+(1, 'John Doe', 'HR', 60000),
+(2, 'Jane Smith', 'Accountant', 70000),
+(3, 'Alice Johnson', 'Engineering', 90000),
+(4, 'Bob Brown', 'HR', 62000),
+(5, 'Chris White', 'Marketing', 65000);
+SELECT TOP 5 DisplayName, Reputation FROM Users;
+SELECT TOP 5 DisplayName, Reputation FROM Users ORDER BY Reputation DESC;
+SELECT DisplayName, Reputation FROM Users ORDER BY Reputation DESC LIMIT 5;
+SELECT * FROM Employee ORDER BY 
+    CASE 
+        WHEN Department = 'HR' THEN 1 
+        WHEN Department = 'Accountant' THEN 2 
+        ELSE 3 
+    END;
+SELECT DisplayName, JoinDate AS jd, Reputation AS rep FROM Users ORDER BY jd, rep;
+SELECT DisplayName, JoinDate AS jd, Reputation AS rep FROM Users ORDER BY 2, 3;
