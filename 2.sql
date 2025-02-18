@@ -115,6 +115,8 @@ INSERT INTO Cars ([Id], [CustomerId], [EmployeeId], [Model], [Status], [TotalCos
     ('3', '2', '1', 'Ford Mustang', 'WAITING', '100'),   
     ('4', '3', '3', 'Toyota Prius', 'WORKING', '1254')
 SELECT * FROM Cars WHERE status = 'READY'
+SELECT * FROM Cars  WHERE status IN ( 'Waiting', 'Working' )
+SELECT * FROM Cars  WHERE ( status = 'Waiting' OR status = 'Working' )
 CREATE TABLE Authors(
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(70) NOT NULL,   
