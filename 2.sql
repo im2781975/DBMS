@@ -192,4 +192,17 @@ SELECT
             END   
     END AS threshold
 FROM TableName;
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    OrderName VARCHAR(100),  -- Renamed from 'ORDER' to 'OrderName' to avoid conflicts
+    CustomerID INT,
+    OrderDate DATE
+);
+INSERT INTO Orders (OrderID, OrderName, CustomerID, OrderDate) VALUES
+(1, 'Electronics', 101, '2024-02-01'),
+(2, 'Furniture', 102, '2024-02-05'),
+(3, 'Groceries', 103, '2024-02-10');
+SELECT "OrderName", OrderID FROM Orders;
+SELECT [OrderName], OrderID FROM Orders;
+SELECT `OrderName`, OrderID FROM Orders;
 
