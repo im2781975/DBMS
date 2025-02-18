@@ -29,7 +29,13 @@ INSERT INTO Employees (Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, S
 VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22');
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
-
+SELECT * FROM Employees ORDER BY LName
+SELECT * FROM Employees ORDER BY LName DESC
+SELECT * FROM Employees ORDER BY LName ASC
+SELECT * FROM Employees ORDER BY LName ASC, FName ASC
+SELECT Id, FName, LName, PhoneNumber FROM Employees ORDER BY 3
+SELECT Id, FName, LName, PhoneNumber FROM Employees 
+ORDER BY CASE WHEN LName='Jones' THEN 0 ELSE 1 END ASC
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
 SELECT FName AS "First Name", LName AS "Last Name" FROM Employees  
