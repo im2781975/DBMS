@@ -39,6 +39,17 @@ SELECT Id, FName, LName, PhoneNumber FROM Employees
 ORDER BY CASE WHEN LName='Jones' THEN 0 ELSE 1 END ASC
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
+SELECT * FROM Employees WHERE FName LIKE '%on%';
+SELECT * FROM Employees WHERE PhoneNumber LIKE '246%';
+SELECT * FROM Employees WHERE PhoneNumber LIKE '%11'
+SELECT * FROM Employees WHERE FName LIKE '__n%';
+SELECT * FROM Employees WHERE FName LIKE 'j_n'
+SELECT * FROM Employees WHERE FName LIKE '_A_T'
+SELECT * FROM Employees WHERE FName LIKE '[A-F]%'
+SELECT * FROM Employees WHERE FName LIKE '[a-g]ary'
+SELECT * FROM Employees WHERE Fname LIKE '[lmnop]ary'
+SELECT * FROM Employees WHERE FName LIKE '[^a-g]ary'
+SELECT * FROM Employees WHERE Fname LIKE '[^lmnop]ary'
 SELECT FName AS "First Name", LName AS "Last Name" FROM Employees  
 SELECT FName AS "First Name",LName AS [Last Name] FROM Employees  
 SELECT FName "First Name", LName "Last Name" FROM Employees
