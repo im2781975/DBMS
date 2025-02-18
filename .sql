@@ -1688,3 +1688,15 @@ INSERT INTO T_Whatever (SomeField) VALUES
 ('Special \% Character');
 SELECT * FROM T_Whatever 
 WHERE SomeField LIKE CONCAT('%', @in_SearchText, '%') ESCAPE '\';
+CREATE TABLE TempData (
+    ColumnData VARCHAR(50)
+);
+INSERT INTO TempData (ColumnData) VALUES 
+('Data1'), ('Data2'), ('Data3'), ('Data4'), ('Data5');
+SELECT ColumnData FROM TempData 
+UNION ALL 
+SELECT 'Data1' UNION ALL SELECT 'Data2' UNION ALL
+SELECT 'Data3' UNION ALL SELECT 'Data4' UNION ALL
+SELECT 'Data5'
+EXCEPT 
+SELECT 'Data3;
