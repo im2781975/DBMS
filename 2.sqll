@@ -13,26 +13,10 @@ SELECT * FROM TableName LIMIT 20, 42424242424242;
 SELECT * FROM Customer WHERE EXISTS ( SELECT * FROM Order WHERE Order.CustomerId=Customer.Id )
 SELECT * FROM Customer WHERE NOT EXISTS ( SELECT * FROM Order WHERE Order.CustomerId = Customer.Id )
 //JOIN
-SELECT Departments.Name, Employees.FName 
-FROM Departments LEFT OUTER JOIN Employees 
-ON Departments.Id = Employees.DepartmentId
-SELECT e.FName, d.Name 
-FROM Employee e, Departments d 
-WHERE  e.DeptartmentId = d.Id
-SELECT d.Name, e.FName 
-FROM Departments d 
-CROSS JOIN Employees e;
-SELECT * FROM Table1 FULL JOIN Table2     ON 1 = 2
-WITH RECURSIVE MyDescendants AS (    SELECT Name    FROM People    WHERE Name = 'John Doe'    UNION ALL    SELECT People.Name    FROM People    JOIN MyDescendants ON People.Name = MyDescendants.Parent ) SELECT * FROM MyDescendants;
-SELECT Employees.FName, Departments.Name FROM   Employees JOIN   DepartmentsON Employees.DepartmentId = Departments.Id
 
 #update
 UPDATE   
-Employees SET PhoneNumber =(SELECT  c.PhoneNumber FROM Customers c WHERE         c.FName = Employees.FName         AND c.LName = Employees.LName) 
-WHERE Employees.PhoneNumber IS NULL
-MERGE INTO Employees e USING Customers c 
-ON e.FName = c.Fname AND e.LName = c.LName    
-AND e.PhoneNumber IS NULL WHEN MATCHED THEN   UPDATE SET PhoneNumber = c.PhoneNumber
+
 UPDATE Cars SET TotalCost = TotalCost + 100 WHERE Id = 3 or Id = 4
 UPDATE    Cars SET Status = 'READY' WHERE    Id = 4
 UPDATE Cars SET Status = 'READY'
