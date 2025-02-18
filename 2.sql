@@ -117,6 +117,46 @@ CREATE TABLE Departments(
     PRIMARY KEY(Id) 
     );
 INSERT INTO Departments ([Id], [Name]) VALUES (1, 'HR'), (2, 'Sales'), (3, 'Tech') ;
+CREATE TABLE Customers (
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    FName VARCHAR(50),
+    LName VARCHAR(50),
+    City VARCHAR(100)
+);
+CREATE TABLE Cars (
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerId INT,
+    FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
+);
+CREATE TABLE Orders (
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    Customer_Id INT,
+    FOREIGN KEY (Customer_Id) REFERENCES Customers(Id)
+);
+INSERT INTO Customers (FName, LName, City) VALUES
+('John', 'Doe', 'London'),
+('Alice', 'Smith', 'Los Angeles'),
+('Bob', 'Johnson', 'Berlin'),
+('Charlie', 'Brown', 'Adelaide'),
+('David', 'White', 'New York');
+
+INSERT INTO Cars (CustomerId) VALUES
+(1), (1), (2), (3), (3), (4);
+
+INSERT INTO Orders (Customer_Id) VALUES
+(1), (2), (3), (3), (5);
+SELECT * FROM Customers WHERE City LIKE 'Lo%';
+SELECT * FROM Customers WHERE City LIKE '%es%';
+SELECT * FROM Customers WHERE City LIKE '_erlin';
+SELECT * FROM Customers WHERE City LIKE '[adl]%';
+SELECT * FROM Customers WHERE City LIKE '[a-c]%'
+SELECT * FROM Customers WHERE City LIKE '[^apl]%';
+SELECT Id, FName, LName FROM Customers WHERE LName BETWEEN 'D' AND 'L';
+SELECT * FROM Customers WHERE City NOT LIKE '[apl]%' and city like '_%';
+SELECT * FROM Customers WHERE id IN ( SELECT DISTINCT customer_id FROM orders );
+SELECT CustomerId, COUNT(Id) AS [Number of Cars] FROM Cars 
+GROUP BY CustomerId HAVING COUNT(Id) > 1;
+
 CREATE TABLE Customers (    
     Id INT NOT NULL AUTO_INCREMENT,    
     FName VARCHAR(35) NOT NULL,   
