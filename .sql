@@ -922,6 +922,18 @@ INSERT INTO Customer (CustomerID, FirstName, LastName, Email, Phone, Address, Ci
 INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipDate, TotalAmount) VALUES
 (1, 101, '2024-01-10', '2024-01-15', 250.50),
 (2, 102, '2024-02-05', '2024-02-10', 100.75);
+SELECT CustomerId FROM Orders WHERE OrderID  (2,3) 
+    GROUP BY CustomerId HAVING COUNT(DISTINCT OrderID) = 2;
+SELECT CustomerId FROM Orders GROUP BY CustomerId HAVING SUM
+    (CASE WHEN ProductID = 2 THEN 1 ELSE 0 END) > 0 AND SUM(CASE WHEN ProductID = 3 THEN 1 ELSE 0 END) > 0;
+SELECT OrderID, CustomerID, OrderDate, TotalAmount FROM Orders 
+    ORDER BY OrderID OFFSET 20 ROWS FETCH NEXT 20 ROWS ONLY;
+SELECT OrderID, CustomerID, OrderDate, TotalAmount FROM Orders 
+    ORDER BY OrderID OFFSET 20 ROWS; 
+SELECT * FROM Orders 
+LIMIT 20, 100;
+SELECT OrderID, CustomerID, OrderDate, TotalAmount FROM Orders ORDER BY OrderID LIMIT 20, 100;
+
 
 SELECT Customer.CustomerID, Customer.FirstName, Customer.LastName FROM Customer
 LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID 
