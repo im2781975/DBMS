@@ -1214,6 +1214,16 @@ SELECT * from a LEFT OUTER JOIN b on a.a = b.b;
 select * from a RIGHT OUTER JOIN b on a.a = b.b;
 select * from a FULL OUTER JOIN b on a.a = b.b;
 SELECT * FROM Employees FULL JOIN Departments ON Employees.DepartmentID = Departments.ID;
+SELECT Employees.FName, Departments.Name FROM Employees JOIN  Departments ON Employees.DepartmentId = Departments.Id
+SELECT Departments.Name, Employees.FName FROM Departments LEFT
+    OUTER JOIN Employees ON Departments.Id = Employees.DepartmentId;
+SELECT e.FName, d.Name FROM Employees e
+    JOIN Departments d ON e.DepartmentId = d.Id;
+SELECT d.Name, e.FName FROM Departments d CROSS JOIN Employees e;
+SELECT * FROM Departments FULL JOIN Employees ON 1 == 2
+SELECT Employees.FName, Departments.Name FROM Employees 
+JOIN Departments ON Employees.DepartmentId = Departments.Id;
+
 WITH RECURSIVE MyDescendants AS (
     SELECT Name, Parent FROM People WHERE Name = 'John Doe'
     UNION ALL
