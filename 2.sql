@@ -123,6 +123,7 @@ SELECT Customers.PhoneNumber, Customers.Email, Customers.PreferredContact,    Or
     Orders ON Orders.CustomerId = Customers.Id
 SELECT c.PhoneNumber, c.Email, c.PreferredContact, o.Id AS OrderId 
     FROM Customers c LEFT JOIN Orders o ON o.CustomerId = c.Id
+SELECT Name FROM Customers WHERE PhoneNumber IS NULL
 CREATE TABLE Cars( 
     INT NOT NULL AUTO_INCREMENT,    
     CustomerId INT NOT NULL,    
@@ -197,6 +198,7 @@ INSERT INTO Countries (ISO, ISO3, ISONumeric, CountryName, Capital, ContinentCod
     ('LA', 'LAO', 418, 'Laos', 'Vientiane', 'AS', 'LAK'),   
     ('US', 'USA', 840, 'United States', 'Washington', 'NA', 'USD'),   
     ('ZW', 'ZWE', 716, 'Zimbabwe', 'Harare', 'AF', 'ZWL')
+SELECT DISTINCT ContinentCode FROM Countries;
 CREATE TABLE Product (
     Id INT PRIMARY KEY,
     ProductName VARCHAR(255) NOT NULL,
