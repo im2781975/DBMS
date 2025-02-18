@@ -16,12 +16,6 @@ SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS FETCH NEXT 20 ROWS ONL
 SELECT * FROM TableName LIMIT 20, 20;
 SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS
 SELECT * FROM TableName LIMIT 20, 42424242424242;
-SELECT 'Data1' as 'Column' UNION ALL
-SELECT 'Data2' as 'Column' UNION ALL 
-SELECT 'Data3' as 'Column' UNION ALL 
-SELECT 'Data4' as 'Column' UNION ALL 
-SELECT 'Data5' as 'Column' EXCEPT 
-SELECT 'Data3' as 'Column'
 //Exits
 SELECT * FROM Customer WHERE EXISTS ( SELECT * FROM Order WHERE Order.CustomerId=Customer.Id )
 SELECT * FROM Customer WHERE NOT EXISTS ( SELECT * FROM Order WHERE Order.CustomerId = Customer.Id )
