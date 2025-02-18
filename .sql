@@ -1222,7 +1222,16 @@ SELECT e.FName, d.Name FROM Employees e
 SELECT d.Name, e.FName FROM Departments d CROSS JOIN Employees e;
 SELECT * FROM Departments FULL JOIN Employees ON 1 == 2
 SELECT Employees.FName, Departments.Name FROM Employees 
-JOIN Departments ON Employees.DepartmentId = Departments.Id;
+	JOIN Departments ON Employees.DepartmentId = Departments.Id;
+UPDATE Employees SET PhoneNumber = (
+    SELECT c.PhoneNumber FROM Customers c 
+    WHERE c.FName = Employees.FName AND c.LName = Employees.LName
+)
+WHERE Employees.PhoneNumber IS NULL;
+MERGE INTO Employees e USING Customers c 
+ON e.FName = c.FName AND e.LName = c.LName AND e.PhoneNumber IS NULL 
+    WHEN MATCHED THEN UPDATE SET e.PhoneNumber = c.PhoneNumber;
+
 
 WITH RECURSIVE MyDescendants AS (
     SELECT Name, Parent FROM People WHERE Name = 'John Doe'
