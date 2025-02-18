@@ -1,26 +1,15 @@
-
 SELECT * FROM Items WHERE Price < 10
-
 SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
 select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
 select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
-
 SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS FETCH NEXT 20 ROWS ONLY;
-
 SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS
 SELECT * FROM TableName LIMIT 20, 42424242424242;
-//Exits
 SELECT * FROM Customer WHERE EXISTS ( SELECT * FROM Order WHERE Order.CustomerId=Customer.Id )
 SELECT * FROM Customer WHERE NOT EXISTS ( SELECT * FROM Order WHERE Order.CustomerId = Customer.Id )
-//JOIN
-
-#update
-UPDATE   
-
 UPDATE Cars SET TotalCost = TotalCost + 100 WHERE Id = 3 or Id = 4
 UPDATE    Cars SET Status = 'READY' WHERE    Id = 4
 UPDATE Cars SET Status = 'READY'
-
 CREATE TABLE ClonedEmployees AS SELECT * FROM Employees;
 CREATE TABLE ModifiedEmployees AS SELECT Id, CONCAT(FName," ",LName) AS FullName FROM Employees WHERE Id > 10;
 CREATE TABLE Employees(    Id int identity(1,1) primary key not null,    FName varchar(20) not null,    LName varchar(20) not null,    PhoneNumber varchar(10) not null );
@@ -179,5 +168,3 @@ strUserName = strUserName.Replace("'", "''");
 cmd.Parameters.Add("@username", strUserName); cmd.Parameters.Add("@password", strPassword);
 SELECT * FROM Users WHERE username = 'somebody' AND password = 'lol'; DROP DATABASE master;
 SQL = "SELECT * FROM Users WHERE username = ? AND password = ?"; db.execute(SQL, [user, pw]);
-
-
