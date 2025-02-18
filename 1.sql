@@ -1,39 +1,3 @@
-
-CREATE TABLE Employees (    Id int NOT NULL,    PRIMARY KEY (Id) );
-CREATE TABLE EMPLOYEE (    e1_id INT,    e2_id INT,    PRIMARY KEY (e1_id, e2_id) )
-CREATE INDEX ix_scoreboard_score ON scoreboard (score DESC);
-SELECT * FROM scoreboard ORDER BY score DESC;
-SELECT id, comment FROM orders WHERE order_state_id =  1 AND product_id = @some_value;
-CREATE INDEX Started_Orders ON orders(product_id) WHERE order_state_id = 1;
-CREATE INDEX ix_cars_employee_id ON Cars (EmployeeId);
-SELECT * FROM Cars WHERE EmployeeId = 1
-CREATE INDEX ix_cars_e_c_o_ids ON Cars (EmployeeId, CarId, OwnerId);
-SELECT * FROM Cars WHERE EmployeeId = 1 Order by CarId DESC
-SELECT * FROM Cars WHERE OwnerId = 17 Order by CarId DESC
-DROP INDEX ix_cars_employee_id ON Cars;  
-ALTER INDEX ix_cars_employee_id ON Cars DISABLE;
-ALTER INDEX ix_cars_employee_id ON Cars REBUILD;
-CREATE CLUSTERED INDEX ix_clust_employee_id ON Employees(EmployeeId, Email);  
-CREATE UNIQUE INDEX uq_customers_email ON Customers(Email);
-CREATE UNIQUE INDEX ix_eid_desc ON Customers(EmployeeID);
-CREATE INDEX ix_eid_desc ON Customers(EmployeeID Desc);
-//REBUILD INDEX
-ALTER INDEX index_name REBUILD;
-UPDATE Customers SET Email = "richard0123@example.com" WHERE id = 1;
-UPDATE Customers SET Email = "richard0123@example.com" WHERE id = 1 ON DUPLICATE KEY;
-// ROW NUMBER
-WITH cte AS ( SELECT ProjectID, ROW_NUMBER() OVER (PARTITION BY ProjectID ORDER BY InsertDate DESC) AS rn FROM ProjectNotes ) DELETE FROM cte WHERE rn > 1;
-SELECT ROW_NUMBER() OVER(ORDER BY Fname ASC) AS RowNumber,  Fname,  LName FROM Employees
-SELECT ROW_NUMBER() OVER(PARTITION BY DepartmentId ORDER BY DepartmentId ASC) AS RowNumber,  DepartmentId, Fname, LName FROM Employees
-SELECT    storeName,    COUNT(*) AS total_nr_orders,    COUNT(DISTINCT userId) AS nr_unique_customers,    AVG(orderValue) AS average_order_value,    MIN(orderDate) AS first_order,    MAX(orderDate) AS lastOrder FROM    orders GROUP BY    storeName;
-SELECT DISTINCT    storeName,    userId FROM    orders;
-WITH CTE (StudentId, Fname, LName, DOB, RowCnt) as ( SELECT StudentId, FirstName, LastName, DateOfBirth as DOB, SUM(1) OVER (Partition By FirstName, LastName, DateOfBirth) as RowCnt FROM tblStudent ) SELECT * from CTE where RowCnt > 1 ORDER BY DOB, LName
-
-SELECT    FirstName, REPLACE (Address, 'South', 'Southern') Address FROM Employees ORDER BY FirstName
-Update Employees Set city = (Address, 'South', 'Southern');
-Update Employees Set Address = (Address, 'South', 'Southern') Where Address LIKE 'South%';
-
-
 select customer, sum(case when payment_type = 'credit' then amount else 0 end) as credit, sum(case when payment_type = 'debit' then amount else 0 end) as debit from payments group by customer
 select customer, sum(case when payment_type = 'credit' then 1 else 0 end) as credit_transaction_count, sum(case when payment_type = 'debit' then 1 else 0 end) as debit_transaction_count from payments group by customer
 select sum(salary) TotalSalary from employees;
