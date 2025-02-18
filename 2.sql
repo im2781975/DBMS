@@ -302,3 +302,27 @@ INSERT INTO item (ItemID, ItemName, Category, Price) VALUES
 (6, 'Blender', 'Home Appliances', 60.00),
 (7, 'Microwave', 'Home Appliances', 120.00);
 SELECT category, COUNT(*) AS item_count FROM item GROUP BY category;
+CREATE TABLE Westerosians (
+    Id INT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    GreatHouseAllegience VARCHAR(100) NOT NULL
+);
+INSERT INTO Westerosians (Id, Name, GreatHouseAllegience) VALUES
+(1, 'Jon Snow', 'Stark'),
+(2, 'Eddard Stark', 'Stark'),
+(3, 'Arya Stark', 'Stark'),
+(4, 'Jaime Lannister', 'Lannister'),
+(5, 'Cersei Lannister', 'Lannister'),
+(6, 'Tyrion Lannister', 'Lannister'),
+(7, 'Daenerys Targaryen', 'Targaryen'),
+(8, 'Viserys Targaryen', 'Targaryen'),
+(9, 'Robert Baratheon', 'Baratheon'),
+(10, 'Stannis Baratheon', 'Baratheon'),
+(11, 'Renly Baratheon', 'Baratheon'),
+(12, 'Theon Greyjoy', 'Greyjoy'),
+(13, 'Euron Greyjoy', 'Greyjoy');
+SELECT GreatHouseAllegience AS House, COUNT(*) AS Number_of_Westerosians FROM Westerosians GROUP BY GreatHouseAllegience;
+SELECT GreatHouseAllegience AS House, COUNT(*) AS Number_of_Westerosians 
+FROM Westerosians GROUP BY GreatHouseAllegience ORDER BY Number_of_Westerosians DESC;
+
+    
