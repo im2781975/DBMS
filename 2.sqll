@@ -1,14 +1,12 @@
+
 SELECT * FROM Items WHERE Price < 10
-SELECT * FROM Cars WHERE TotalCost IN (100, 200, 300)
-SELECT * FROM Cars WHERE TotalCost = 100 OR TotalCost = 200 OR TotalCost = 300
+
 SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
 select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
 select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
-SELECT * FROM TableName FETCH FIRST 20 ROWS ONLY;
-SELECT * FROM TableName FETCH FIRST 20 ROWS ONLY;
-SELECT * FROM TableName LIMIT 20;
+
 SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS FETCH NEXT 20 ROWS ONLY;
-SELECT * FROM TableName LIMIT 20, 20;
+
 SELECT Id, Col1 FROM TableName ORDER BY Id OFFSET 20 ROWS
 SELECT * FROM TableName LIMIT 20, 42424242424242;
 //Exits
