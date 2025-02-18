@@ -81,6 +81,7 @@ INSERT INTO Cars ([Id], [CustomerId], [EmployeeId], [Model], [Status], [TotalCos
     ('2', '1', '2', 'Ford F-150', 'READY', '200'),   
     ('3', '2', '1', 'Ford Mustang', 'WAITING', '100'),   
     ('4', '3', '3', 'Toyota Prius', 'WORKING', '1254')
+SELECT * FROM Cars WHERE status = 'READY'
 CREATE TABLE Authors(
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(70) NOT NULL,   
