@@ -1,11 +1,6 @@
-SELECT * FROM Employees WHERE DepartmentId = 1
 SELECT * FROM Items WHERE Price < 10
-SELECT * FROM Employees WHERE DepartmentId = 1 AND ManagerId = 1
-SELECT * FROM Employees WHERE DepartmentId = 2 OR ManagerId = 2
 SELECT * FROM Cars WHERE TotalCost IN (100, 200, 300)
 SELECT * FROM Cars WHERE TotalCost = 100 OR TotalCost = 200 OR TotalCost = 300
-SELECT * FROM Employees WHERE FName LIKE 'John'
-SELECT * FROM Employees WHERE FName like 'John%'
 SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
 select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
 select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
@@ -20,12 +15,6 @@ SELECT * FROM TableName LIMIT 20, 42424242424242;
 SELECT * FROM Customer WHERE EXISTS ( SELECT * FROM Order WHERE Order.CustomerId=Customer.Id )
 SELECT * FROM Customer WHERE NOT EXISTS ( SELECT * FROM Order WHERE Order.CustomerId = Customer.Id )
 //JOIN
-SELECT e.FName AS "Employee", m.FName AS "Manager" 
-FROM Employees e JOIN Employees m ON e.ManagerId = m.Id
-select * from a INNER JOIN b on a.a = b.b; select a.*,b.* from a,b where a.a = b.b;
-select * from a LEFT OUTER JOIN b on a.a = b.b;
-select * from a RIGHT OUTER JOIN b on a.a = b.b;
-select * from a FULL OUTER JOIN b on a.a = b.b;
 
 CREATE TABLE A (   
     X varchar(255) PRIMARY KEY); 
