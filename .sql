@@ -2063,6 +2063,56 @@ SELECT DISTINCT StoreName, UserId FROM Orders;
 SELECT FirstName, REPLACE(Address, 'South', 'Southern') AS Address FROM Employees ORDER BY FirstName;
 UPDATE Employees SET Address = REPLACE(Address, 'South', 'Southern') WHERE Address LIKE 'South%';
 
+CREATE TABLE Department (
+    Dept_Code CHAR(5) PRIMARY KEY,
+    Dept_Name VARCHAR(20) UNIQUE
+);
+INSERT INTO Department VALUES ('CS205', 'Computer Science');
+CREATE TABLE Programming_Courses (
+    Dept_Code CHAR(5),
+    Prg_Code CHAR(9) PRIMARY KEY,
+    Prg_Name VARCHAR(50) UNIQUE,
+    FOREIGN KEY (Dept_Code) REFERENCES Department(Dept_Code)
+);
+INSERT INTO Programming_Courses VALUES ('CS300', 'FDB-DB001', 'Database Systems');
+INSERT INTO Programming_Courses VALUES ('CS205', 'FDB-DB001', 'Database Systems');
+INSERT INTO Programming_Courses VALUES ('CS205', 'DB2-DB002', 'Database Systems II');
+CREATE TABLE SuperHeros (
+    ID INT PRIMARY KEY,
+    Name NVARCHAR(MAX) NOT NULL
+);
+CREATE TABLE HeroPowers (
+    ID INT NOT NULL PRIMARY KEY,
+    Name NVARCHAR(MAX) NOT NULL,
+    HeroId INT REFERENCES SuperHeros(ID)
+);
+CREATE SEQUENCE orders_seq START WITH 1000 INCREMENT BY 1;
+CREATE TABLE Orders (
+    Order_UID INT PRIMARY KEY,
+    Customer INT
+);
+INSERT INTO Orders (Order_UID, Customer) VALUES (NEXT VALUE FOR orders_seq, 1032);
+UPDATE Orders SET Order_UID = NEXT VALUE FOR orders_seq WHERE Customer = 581;
+SELECT NEXT VALUE FOR orders_seq;
+SELECT Managers.Id, Employees.Salary 
+FROM (
+    SELECT Id FROM Employees WHERE ManagerId IS NULL
+) AS Managers JOIN Employees ON Managers.Id = Employees.Id;
+SELECT Id, FName, LName, 
+       (SELECT COUNT(*) FROM Cars WHERE Cars.CustomerId = Customers.Id) AS NumberOfCars FROM Customers;
+SELECT * FROM Employees WHERE Salary = (SELECT MAX(Salary) FROM Employees);
+SELECT EmployeeId FROM Employee AS eOuter 
+WHERE Salary > ( SELECT AVG(Salary) 
+    FROM Employee AS eInner WHERE eInner.DepartmentId = eOuter.DepartmentId
+);
+SELECT * FROM Employees WHERE EmployeeID NOT IN (SELECT EmployeeID FROM Supervisors);
+SELECT * FROM Employees AS e LEFT JOIN Supervisors AS s ON s.EmployeeID = e.EmployeeID WHERE s.EmployeeID IS NULL;
+SELECT * FROM (
+    SELECT city, temp_hi - temp_lo AS temp_var FROM weather
+) AS w 
+WHERE temp_var > 20;
+SELECT name, pop2000 FROM cities WHERE pop2000 < (SELECT AVG(pop2000) FROM cities);
+
 --
 --
 --
