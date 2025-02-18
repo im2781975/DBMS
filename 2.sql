@@ -442,6 +442,7 @@ CREATE TABLE YourTable (
 INSERT INTO ItemSales (Id, ItemId, Price) VALUES
 (1, 101, 5.00), (2, 102, 12.00),
 (3, 103, 22.00), (4, 104, 9.50), (5, 105, 18.75);
+SELECT * From ItemSales WHERE Quantity BETWEEN 10 AND 17
 INSERT INTO DEPT (ID, REGION, CITY, DEPARTMENT, EMPLOYEES_NUMBER) VALUES
 (1, 'North', 'New York', 'MARKETING', 50),
 (2, 'South', 'Los Angeles', 'SALES', 40),
