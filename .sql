@@ -1213,7 +1213,13 @@ SELECT * from a INNER JOIN b on a.a = b.b; SELECT a.*,b.* from a,b WHERE a.a = b
 SELECT * from a LEFT OUTER JOIN b on a.a = b.b;
 select * from a RIGHT OUTER JOIN b on a.a = b.b;
 select * from a FULL OUTER JOIN b on a.a = b.b;
-
+SELECT * FROM Employees FULL JOIN Departments ON Employees.DepartmentID = Departments.ID;
+WITH RECURSIVE MyDescendants AS (
+    SELECT Name, Parent FROM People WHERE Name = 'John Doe'
+    UNION ALL
+    SELECT People.Name, People.Parent FROM People JOIN MyDescendants ON People.Parent = MyDescendants.Name
+)
+SELECT * FROM MyDescendants;
 SELECT Id, SUM (Salary) FROM Employees GROUP BY Id
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
