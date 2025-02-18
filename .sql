@@ -1902,6 +1902,165 @@ ON DELETE CASCADE;
 DELETE FROM T_Client WHERE CLI_ID = x;
 GRANT SELECT, UPDATE ON Employees TO User1, User2;
 REVOKE SELECT, UPDATE ON Employees FROM User1, User2;
+CREATE TABLE Employees (
+    Id INT NOT NULL PRIMARY KEY,
+    EmployeeId INT UNIQUE, 
+    FName VARCHAR(50),
+    LName VARCHAR(50),
+    Email VARCHAR(100) UNIQUE
+);
+CREATE TABLE Employee (
+    e1_id INT NOT NULL,
+    e2_id INT NOT NULL,
+    PRIMARY KEY (e1_id, e2_id),
+    FOREIGN KEY (e1_id) REFERENCES Employees(Id),
+    FOREIGN KEY (e2_id) REFERENCES Employees(Id)
+);
+CREATE TABLE Scoreboard (
+    ScoreId INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeId INT,
+    Score INT NOT NULL
+);
+CREATE TABLE Orders (
+    OrderId INT PRIMARY KEY,
+    Order_State_Id INT NOT NULL,
+    Product_Id INT NOT NULL,
+    Comment VARCHAR(255)
+);
+CREATE TABLE Cars (
+    CarId INT PRIMARY KEY,
+    EmployeeId INT NOT NULL,
+    OwnerId INT NOT NULL,
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(Id)
+);
+CREATE TABLE Customers (
+    CustomerId INT PRIMARY KEY,
+    EmployeeId INT,
+    Email VARCHAR(100) UNIQUE NOT NULL
+);
+CREATE INDEX ix_scoreboard_score ON Scoreboard (Score DESC);
+SELECT * FROM Scoreboard ORDER BY Score DESC;
+CREATE INDEX Started_Orders ON Orders(Product_Id) WHERE Order_State_Id = 1;
+SELECT Id, Comment FROM Orders WHERE Order_State_Id = 1 AND Product_Id = @some_value;
+CREATE INDEX ix_cars_employee_id ON Cars (EmployeeId);
+SELECT * FROM Cars WHERE EmployeeId = 1;
+CREATE INDEX ix_cars_e_c_o_ids ON Cars (EmployeeId, CarId, OwnerId);
+SELECT * FROM Cars WHERE EmployeeId = 1 ORDER BY CarId DESC;
+SELECT * FROM Cars WHERE OwnerId = 17 ORDER BY CarId DESC;
+DROP INDEX ix_cars_employee_id ON Cars;  
+ALTER INDEX ix_cars_employee_id ON Cars DISABLE;
+ALTER INDEX ix_cars_employee_id ON Cars REBUILD;
+CREATE CLUSTERED INDEX ix_clust_employee_id ON Employees(EmployeeId, Email);
+CREATE UNIQUE INDEX uq_customers_email ON Customers(Email);
+CREATE UNIQUE INDEX ix_eid_desc ON Customers(EmployeeId);
+CREATE INDEX ix_eid_desc ON Customers(EmployeeId DESC);
+CREATE TABLE Employees (
+    Id INT NOT NULL PRIMARY KEY,
+    EmployeeId INT UNIQUE, 
+    FName VARCHAR(50),
+    LName VARCHAR(50),
+    Email VARCHAR(100) UNIQUE
+);
+CREATE TABLE Employee (
+    e1_id INT NOT NULL,
+    e2_id INT NOT NULL,
+    PRIMARY KEY (e1_id, e2_id),
+    FOREIGN KEY (e1_id) REFERENCES Employees(Id),
+    FOREIGN KEY (e2_id) REFERENCES Employees(Id)
+);
+CREATE TABLE Scoreboard (
+    ScoreId INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeId INT,
+    Score INT NOT NULL
+);
+CREATE TABLE Orders (
+    OrderId INT PRIMARY KEY,
+    Order_State_Id INT NOT NULL,
+    Product_Id INT NOT NULL,
+    Comment VARCHAR(255)
+);
+CREATE TABLE Cars (
+    CarId INT PRIMARY KEY,
+    EmployeeId INT NOT NULL,
+    OwnerId INT NOT NULL,
+    FOREIGN KEY (EmployeeId) REFERENCES Employees(Id)
+);
+CREATE TABLE Customers (
+    CustomerId INT PRIMARY KEY,
+    EmployeeId INT,
+    Email VARCHAR(100) UNIQUE NOT NULL
+);
+CREATE INDEX ix_scoreboard_score ON Scoreboard (Score DESC);
+SELECT * FROM Scoreboard ORDER BY Score DESC;
+CREATE INDEX Started_Orders ON Orders(Product_Id) WHERE Order_State_Id = 1;
+SELECT Id, Comment FROM Orders WHERE Order_State_Id = 1 AND Product_Id = @some_value;
+CREATE INDEX ix_cars_employee_id ON Cars (EmployeeId);
+SELECT * FROM Cars WHERE EmployeeId = 1;
+CREATE INDEX ix_cars_e_c_o_ids ON Cars (EmployeeId, CarId, OwnerId);
+SELECT * FROM Cars WHERE EmployeeId = 1 ORDER BY CarId DESC;
+SELECT * FROM Cars WHERE OwnerId = 17 ORDER BY CarId DESC;
+DROP INDEX ix_cars_employee_id ON Cars;  
+ALTER INDEX ix_cars_employee_id ON Cars DISABLE;
+ALTER INDEX ix_cars_employee_id ON Cars REBUILD;
+CREATE CLUSTERED INDEX ix_clust_employee_id ON Employees(EmployeeId, Email);
+CREATE UNIQUE INDEX uq_customers_email ON Customers(Email);
+CREATE UNIQUE INDEX ix_eid_desc ON Customers(EmployeeId);
+CREATE INDEX ix_eid_desc ON Customers(EmployeeId DESC);
+
+CREATE TABLE Customers (
+    Id INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE NOT NULL
+);
+CREATE TABLE Employees (
+    EmployeeId INT IDENTITY(1,1) PRIMARY KEY,
+    FName VARCHAR(50) NOT NULL,
+    LName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Address VARCHAR(255),
+    City VARCHAR(50)
+);
+CREATE TABLE Orders (
+    OrderId INT PRIMARY KEY,
+    StoreName VARCHAR(100),
+    UserId INT NOT NULL,
+    OrderValue DECIMAL(10,2),
+    OrderDate DATE
+);
+CREATE TABLE ProjectNotes (
+    ProjectID INT NOT NULL,
+    InsertDate DATETIME NOT NULL
+);
+CREATE TABLE tblStudent (
+    StudentId INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DateOfBirth DATE
+);
+ALTER INDEX index_name ON Customers REBUILD;
+CREATE UNIQUE INDEX uq_customers_email ON Customers(Email);
+UPDATE Customers SET Email = 'richard0123@example.com' WHERE Id = 1;
+INSERT INTO Customers (Id, Email) 
+VALUES (1, 'richard0123@example.com') ON DUPLICATE KEY UPDATE Email = 'richard0123@example.com';
+WITH CTE AS (
+    SELECT StudentId, FirstName, LastName, DateOfBirth AS DOB,
+        COUNT(*) OVER (PARTITION BY FirstName, LastName, DateOfBirth) AS RowCnt FROM tblStudent
+)
+SELECT * FROM CTE WHERE RowCnt > 1 ORDER BY DOB, LName;
+WITH cte AS ( 
+    SELECT ProjectID,  ROW_NUMBER() OVER (PARTITION BY ProjectID ORDER BY InsertDate DESC) AS rn 
+    FROM ProjectNotes
+) 
+DELETE FROM ProjectNotes WHERE ProjectID IN (
+    SELECT ProjectID FROM cte WHERE rn > 1
+);
+SELECT StoreName,    
+    COUNT(*) AS TotalNrOrders,    
+    COUNT(DISTINCT UserId) AS NrUniqueCustomers, AVG(OrderValue) AS AverageOrderValue,    
+    MIN(OrderDate) AS FirstOrder, MAX(OrderDate) AS LastOrder 
+FROM Orders GROUP BY StoreName;
+SELECT DISTINCT StoreName, UserId FROM Orders;
+SELECT FirstName, REPLACE(Address, 'South', 'Southern') AS Address FROM Employees ORDER BY FirstName;
+UPDATE Employees SET Address = REPLACE(Address, 'South', 'Southern') WHERE Address LIKE 'South%';
 
 --
 --
