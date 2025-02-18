@@ -27,6 +27,7 @@ VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22') ;
 UPDATE Employees SET ManagerId = NULL WHERE Id = 4
 INSERT INTO Employees (Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, Salary, HireDate)
 VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22');
+SELECT Id, SUM (Salary) FROM Employees GROUP BY Id
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
 SELECT * FROM Employees ORDER BY LName
