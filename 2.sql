@@ -448,3 +448,13 @@ ORDER BY CASE
         ELSE Date2 
     END;
 --                --
+CREATE TABLE T_Whatever (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    SomeField VARCHAR(255) NOT NULL
+);
+INSERT INTO T_Whatever (SomeField) VALUES
+('Hello World'), ('Sample Text'),
+('Searchable Data'), ('Another Example'),
+('Special \% Character');
+SELECT * FROM T_Whatever 
+WHERE SomeField LIKE CONCAT('%', @in_SearchText, '%') ESCAPE '\';
