@@ -1381,6 +1381,13 @@ INSERT INTO Cars ([Id], [CustomerId], [EmployeeId], [Model], [Status], [TotalCos
 SELECT * FROM Cars WHERE status = 'READY'
 SELECT * FROM Cars  WHERE status IN ( 'Waiting', 'Working' )
 SELECT * FROM Cars  WHERE ( status = 'Waiting' OR status = 'Working' )
+SELECT * FROM Cars WHERE TotalCost IN (100, 200, 300)
+SELECT * FROM Cars WHERE TotalCost = 100 OR TotalCost = 200 OR TotalCost = 300
+SELECT * FROM Cars FETCH FIRST 20 ROWS ONLY;
+SELECT * FROM Cars FETCH FIRST 20 ROWS ONLY;
+SELECT * FROM Cars LIMIT 20;
+SELECT * FROM Cars LIMIT 20, 20;
+
 CREATE TABLE Authors(
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(70) NOT NULL,   
