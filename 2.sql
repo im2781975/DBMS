@@ -240,4 +240,19 @@ INSERT INTO Orders (OrderID, OrderName, CustomerID, OrderDate) VALUES
 SELECT "OrderName", OrderID FROM Orders;
 SELECT [OrderName], OrderID FROM Orders;
 SELECT `OrderName`, OrderID FROM Orders;
+CREATE TABLE item (
+    ItemID INT PRIMARY KEY,
+    ItemName VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(10,2)
+);
+INSERT INTO item (ItemID, ItemName, Category, Price) VALUES
+(1, 'Laptop', 'Electronics', 800.00),
+(2, 'Smartphone', 'Electronics', 500.00),
+(3, 'Tablet', 'Electronics', 300.00),
+(4, 'T-Shirt', 'Clothing', 20.00),
+(5, 'Jeans', 'Clothing', 40.00),
+(6, 'Blender', 'Home Appliances', 60.00),
+(7, 'Microwave', 'Home Appliances', 120.00);
+SELECT category, COUNT(*) AS item_count FROM item GROUP BY category;
 
