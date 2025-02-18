@@ -1511,6 +1511,7 @@ INSERT INTO Countries (ISO, ISO3, ISONumeric, CountryName, Capital, ContinentCod
     ('US', 'USA', 840, 'United States', 'Washington', 'NA', 'USD'),   
     ('ZW', 'ZWE', 716, 'Zimbabwe', 'Harare', 'AF', 'ZWL')
 SELECT DISTINCT ContinentCode FROM Countries;
+SELECT COUNT(ContinentCode) AllCount ,COUNT(DISTINCT ContinentCode) SingleCount FROM Countries;
 CREATE TABLE Product (
     Id INT PRIMARY KEY,
     ProductName VARCHAR(255) NOT NULL,
