@@ -13,6 +13,12 @@ ORDER BY hire_date DESC;
 INSERT INTO employees (first_name, last_name, department, hire_date) 
 VALUES ('Jane', 'Smith', 'HR', CURDATE());
 GRANT SELECT, UPDATE ON employees TO user_name;
+-- Create a cloned table with the same structure and data
+SELECT * INTO ClonedEmployees FROM employees;
+SELECT employee_id, CONCAT(first_name, ' ', last_name) AS FullName 
+INTO ModifiedEmployees 
+FROM employees 
+WHERE employees_id > 10;
 -- Create the database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS GeeksForGeeks;
 USE GeeksForGeeks;
