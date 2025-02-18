@@ -1332,6 +1332,7 @@ INSERT INTO employees (EmployeeID, Name, Department, Income) VALUES
 (6, 'Frank', 'Sales', 1300.00),
 (7, 'Grace', 'Accounting', 950.00),
 (8, 'Hannah', 'Sales', 1100.00);
+SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
 SELECT department, AVG(income) AS avg_income FROM employees GROUP BY department;
 SELECT department, AVG(income) AS avg_income FROM employees WHERE department <> 'Accounting' GROUP BY department;
 SELECT department, AVG(income) AS avg_income FROM employees WHERE department <> 'Accounting' GROUP BY department HAVING AVG(income) > 1000;
