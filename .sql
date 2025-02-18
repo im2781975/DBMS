@@ -1863,6 +1863,45 @@ BEGIN CATCH
     ROLLBACK TRANSACTION;
     THROW;
 END CATCH;
+CREATE TABLE Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
+    FName VARCHAR(50) NOT NULL,
+    LName VARCHAR(50) NOT NULL,
+    PhoneNumber VARCHAR(15) NOT NULL,
+    DepartmentID INT NULL
+);
+CREATE TABLE Department (
+    DepartmentID INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL
+);
+CREATE TABLE T_Client (
+    CLI_ID INT PRIMARY KEY,
+    ClientName VARCHAR(100) NOT NULL
+);
+CREATE TABLE T_Room (
+    RoomID INT PRIMARY KEY,
+    RM_CLI_ID INT NOT NULL,
+    FOREIGN KEY (RM_CLI_ID) REFERENCES T_Client (CLI_ID) 
+);
+SELECT * FROM Department D CROSS APPLY (SELECT * FROM Employees E WHERE E.DepartmentID = D.DepartmentID) A; 
+GO
+SELECT * FROM Department D INNER JOIN Employees E ON D.DepartmentID = E.DepartmentID;
+SELECT * FROM Department D OUTER APPLY (SELECT * FROM Employees E WHERE E.DepartmentID = D.DepartmentID) A; 
+GO
+SELECT * FROM Department D LEFT OUTER JOIN Employees E ON D.DepartmentID = E.DepartmentID;
+GO
+DELETE FROM Employees WHERE FName = 'John';
+TRUNCATE TABLE Employees;
+DELETE FROM Source WHERE EXISTS (SELECT 1 FROM Target WHERE Source.ID = Target.ID);
+DROP TABLE IF EXISTS MyTable;
+DROP DATABASE IF EXISTS Employees;
+ALTER TABLE dbo.T_Room  
+ADD CONSTRAINT FK_T_Room_T_Client 
+FOREIGN KEY (RM_CLI_ID) REFERENCES dbo.T_Client (CLI_ID) 
+ON DELETE CASCADE;
+DELETE FROM T_Client WHERE CLI_ID = x;
+GRANT SELECT, UPDATE ON Employees TO User1, User2;
+REVOKE SELECT, UPDATE ON Employees FROM User1, User2;
 
 --
 --
