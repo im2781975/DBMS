@@ -42,6 +42,28 @@ SELECT FName as "SELECT", LName as "WHERE" FROM Employees
 SELECT FName AS "SELECT", LName AS [WHERE] FROM Employees  
 SELECT FName AS FirstName, LName AS LastName FROM Employees ORDER BY LastName DESC
 SELECT FName AS SELECT, LName AS FROM FROM   Employees ORDER BY LastName DESC
+CREATE TABLE Managers (
+    Id INT PRIMARY KEY,
+    Fname VARCHAR(50),
+    LName VARCHAR(50)
+);
+INSERT INTO Managers (Id, Fname, LName) VALUES
+(1, 'Alice', 'Smith'),
+(2, 'Bob', 'Johnson');
+INSERT INTO Employees (Id, Fname, LName, ManagerId, DepartmentId, Salary, HireDate) VALUES
+(101, 'John', 'Doe', 1, 10, 60000, '2023-01-10'),
+(102, 'Jane', 'Doe', 2, 20, 65000, '2022-05-15'),
+(103, 'Tom', 'Brown', 1, 30, 70000, '2021-09-20');
+SELECT e.Fname, e.LName FROM Employees e;
+SELECT e.Fname, e.LName, m.Fname AS ManagerFirstName
+FROM Employees e
+JOIN Managers m ON e.ManagerId = m.Id;
+SELECT e.Fname, e.LName, m.Fname AS ManagerFirstName
+FROM Employees e
+JOIN Managers m ON e.ManagerId = m.Id;
+SELECT Fname, LName, ManagerFirstName
+FROM Employees
+NATURAL JOIN (SELECT Id AS ManagerId, Fname AS ManagerFirstName FROM Managers) m;
 CREATE TABLE Departments(    
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(25) NOT NULL,
