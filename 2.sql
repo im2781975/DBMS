@@ -163,3 +163,33 @@ SELECT TOP 10 Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPric
 SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC LIMIT 10
 SELECT Id, ProductName, UnitPrice, Package FROM Product WHERE ROWNUM <= 10 ORDER BY UnitPrice DESC    
 
+CREATE TABLE TableName (
+    Id INT PRIMARY KEY,
+    Col1 INT NOT NULL
+);
+INSERT INTO TableName (Id, Col1) VALUES
+(1, 30), (2, 45), (3, 50), (4, 75), (5, 100), (6, 150);
+SELECT 
+    CASE 
+        WHEN Col1 < 50 THEN 'under' 
+        ELSE 'over' 
+    END AS threshold 
+FROM TableName;
+SELECT    
+    CASE 
+        WHEN Col1 < 50 THEN 'under'         
+        WHEN Col1 > 50 AND Col1 < 100 THEN 'between'         
+        ELSE 'over'    
+    END AS threshold
+FROM TableName;
+SELECT    
+    CASE 
+        WHEN Col1 < 50 THEN 'under'         
+        ELSE            
+            CASE 
+                WHEN Col1 > 50 AND Col1 < 100 THEN Col1     
+                ELSE 'over' 
+            END   
+    END AS threshold
+FROM TableName;
+
