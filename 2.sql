@@ -173,14 +173,34 @@ INSERT INTO Books(Id, Title) VALUES
     (6, 'Pride and Prejudice'),    
     (7, 'Professional ASP.NET 4.5 in C# and VB')
 SELECT * FROM Books;
-CREATE TABLE BooksAuthors(
-    AuthorId INT NOT NULL,    
-    BookId  INT NOT NULL,    
-    FOREIGN KEY (AuthorId) REFERENCES Authors(Id),   
-    FOREIGN KEY (BookId) REFERENCES Books(Id) 
+CREATE TABLE BooksAuthors (
+    BookId INT,
+    AuthorId INT,
+    PRIMARY KEY (BookId, AuthorId),
+    FOREIGN KEY (BookId) REFERENCES Books(Id),
+    FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
 );
-INSERT INTO BooksAuthors(BookId, AuthorId)
-VALUES (1, 1), (2, 1), (3, 1), (4, 2), (5, 2), (6, 3), (7, 4), (7, 5), (7, 6),    (7, 7), (7, 8) ;
+INSERT INTO Authors (Id, Name) VALUES
+(1, 'J.K. Rowling'),
+(2, 'George R.R. Martin'),
+(3, 'J.R.R. Tolkien'),
+(4, 'Isaac Asimov'),
+(5, 'Stephen King');
+INSERT INTO Books (Id, Title) VALUES
+(1, 'Harry Potter and the Philosopher\'s Stone'),
+(2, 'A Game of Thrones'),
+(3, 'The Hobbit'),
+(4, 'Foundation'),
+(5, 'It'),
+(6, 'Good Omens');
+INSERT INTO BooksAuthors (BookId, AuthorId) VALUES
+(1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+(6, 1), (6, 2), (6, 3), (6, 4); 
+SELECT  a.Id, a.Name, COUNT(*) AS BooksWritten FROM BooksAuthors ba  
+INNER JOIN Authors a ON a.Id = ba.AuthorId GROUP BY a.Id, a.Name HAVING COUNT(*) > 1;
+SELECT b.Id, b.Title, COUNT(*) AS NumberOfAuthors FROM BooksAuthors ba  
+INNER JOIN Books b ON b.Id = ba.BookId GROUP BY b.Id, b.Title HAVING COUNT(*) > 3;
+
 --            Countries table
 CREATE TABLE Countries ( 
     Id INT NOT NULL AUTO_INCREMENT,    
