@@ -40,3 +40,37 @@ SELECT CAST(12345 AS VARBINARY(10))
 SELECT CAST('ABC' AS CHAR(10))
 SELECT CAST('ABC' AS VARCHAR(10)) 
 SELECT CAST('ABCDEFGHIJKLMNOPQRSTUVWXYZ' AS CHAR(10))
+
+SELECT 'Hello' || 'World' || '!';
+SELECT CONCAT('Hello', 'World');
+SELECT CONCAT('Hello', 'World', '!');
+SELECT CONCAT('Foo', CAST(42 AS VARCHAR(5)), 'Bar'); 
+SELECT CONCAT(CONCAT('Foo', 42), 'Bar') FROM dual;
+SELECT 'Foo' + CAST(42 AS VARCHAR(5)) + 'Bar';
+SELECT LEN('Hello ');
+SELECT DATALENGTH('Hello ');
+DECLARE @str varchar(100) = 'Hello '
+SELECT DATALENGTH(@str)
+DECLARE @nstr nvarchar(100)
+SELECT DATALENGTH(@nstr)
+SELECT LTRIM('  Hello  ') 
+SELECT RTRIM('  Hello  ') 
+SELECT LTRIM(RTRIM('  Hello  '))
+SELECT UPPER('HelloWorld') 
+SELECT LOWER('HelloWorld') 
+SELECT value FROM STRING_SPLIT('Lorem ipsum dolor sit amet.', ' ');
+SELECT REPLACE( 'Peter Steve Tom', 'Steve', 'Billy' )
+SELECT 'bedded' REGEXP '[a-f]'
+SELECT 'beam' REGEXP '[a-f]'
+SELECT SUBSTRING('Hello', 1, 2) 
+SELECT SUBSTRING('Hello', 3, 3)
+DECLARE @str1 VARCHAR(10) = 'Hello', @str2 VARCHAR(10) = 'FooBarBaz'; 
+SELECT SUBSTRING(@str1, LEN(@str1) - 2, 3) 
+SELECT SUBSTRING(@str2, LEN(@str2) - 2, 3)
+SELECT STUFF('FooBarBaz', 4, 3, 'Hello')
+SELECT LEFT('Hello',2)  
+SELECT RIGHT('Hello',2)
+SELECT SUBSTR('Hello',1,2)  
+SELECT SUBSTR('Hello',LENGTH('Hello')-2+1,2)
+SELECT REVERSE('Hello')
+SELECT REPLICATE ('Hello',4)
