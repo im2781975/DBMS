@@ -1,4 +1,3 @@
-SELECT * FROM Items WHERE Price < 10
 SELECT * FROM TableName t WHERE EXISTS ( SELECT 1 FROM TableName1 t1 where t.Id = t1.Id)
 select customerId from orders where productID in (2,3) group by customerId having count(distinct productID) = 2
 select customerId from orders group by customerId having sum(case when productID = 2 then 1 else 0 end) > 0 and sum(case when productID = 3 then 1 else 0 end) > 0
