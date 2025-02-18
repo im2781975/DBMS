@@ -1203,6 +1203,17 @@ VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22') ;
 UPDATE Employees SET ManagerId = NULL WHERE Id = 4
 INSERT INTO Employees (Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, Salary, HireDate)
 VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22');
+SELECT * FROM Employees WHERE DepartmentId = 1
+SELECT * FROM Employees WHERE DepartmentId = 1 AND ManagerId = 1
+SELECT * FROM Employees WHERE DepartmentId = 2 OR ManagerId = 2
+SELECT * FROM Employees WHERE FName LIKE 'John'
+SELECT * FROM Employees WHERE FName like 'John%'
+SELECT e.FName AS "Employee", m.FName AS "Manager" FROM Employees e JOIN Employees m ON e.ManagerId = m.Id
+SELECT * from a INNER JOIN b on a.a = b.b; SELECT a.*,b.* from a,b WHERE a.a = b.b;
+SELECT * from a LEFT OUTER JOIN b on a.a = b.b;
+select * from a RIGHT OUTER JOIN b on a.a = b.b;
+select * from a FULL OUTER JOIN b on a.a = b.b;
+
 SELECT Id, SUM (Salary) FROM Employees GROUP BY Id
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
