@@ -29,6 +29,19 @@ INSERT INTO Employees (Id, FName, LName, PhoneNumber, ManagerId, DepartmentId, S
 VALUES (5, 'Jane', 'Doe', NULL, NULL, 2, 800, '2016-07-22');
 SELECT * FROM Employees WHERE ManagerId IS NULL;
 SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
+
+SELECT * FROM Employees WHERE ManagerId IS NULL;
+SELECT * FROM Employees WHERE ManagerId IS NOT NULL;
+SELECT FName AS "First Name", LName AS "Last Name" FROM Employees  
+SELECT FName AS "First Name",LName AS [Last Name] FROM Employees  
+SELECT FName "First Name", LName "Last Name" FROM Employees
+SELECT FName AS FirstName, LName AS LastName FROM Employees  
+SELECT FullName = FName + ' ' + LName,
+SELECT FName + ' ' + LName As FullName
+SELECT FName as "SELECT", LName as "WHERE" FROM Employees
+SELECT FName AS "SELECT", LName AS [WHERE] FROM Employees  
+SELECT FName AS FirstName, LName AS LastName FROM Employees ORDER BY LastName DESC
+SELECT FName AS SELECT, LName AS FROM FROM   Employees ORDER BY LastName DESC
 CREATE TABLE Departments(    
     Id INT NOT NULL AUTO_INCREMENT,   
     Name VARCHAR(25) NOT NULL,
