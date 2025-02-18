@@ -42,6 +42,17 @@ SELECT FName as "SELECT", LName as "WHERE" FROM Employees
 SELECT FName AS "SELECT", LName AS [WHERE] FROM Employees  
 SELECT FName AS FirstName, LName AS LastName FROM Employees ORDER BY LastName DESC
 SELECT FName AS SELECT, LName AS FROM FROM   Employees ORDER BY LastName DESC
+SELECT AVG(Salary) FROM Employees
+SELECT AVG(Salary) FROM Employees where DepartmentId = 1
+SELECT AVG(Salary) FROM Employees GROUP BY DepartmentId
+SELECT AVG(Salary) FROM Employees GROUP BY DepartmentId
+SELECT MIN(Salary) FROM Employees
+SELECT MAX(Salary) FROM Employees
+SELECT Count(*) FROM Employees
+SELECT Count(*) FROM Employees where ManagerId IS NOT NULL
+Select Count(ManagerId) from Employees
+Select Count(DISTINCT DepartmentId) from Employees
+SELECT SUM(Salary) FROM Employees
 CREATE TABLE Managers (
     Id INT PRIMARY KEY,
     Fname VARCHAR(50),
