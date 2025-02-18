@@ -290,6 +290,8 @@ INSERT INTO Product (Id, ProductName, UnitPrice, Package) VALUES
 (10, 'Webcam', 80.00, 'Box'),
 (11, 'External Hard Drive', 200.00, 'Box'),
 (12, 'SSD', 250.00, 'Box');
+select * from Product where Id in (1,8,3)
+select * from Product where Id = 1 or Id = 8 or Id = 3
 SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC FETCH FIRST 10 ROWS ONLY
 SELECT Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC OFFSET 5 ROWS FETCH FIRST 10 ROWS ONLY
 SELECT TOP 10 Id, ProductName, UnitPrice, Package FROM Product ORDER BY UnitPrice DESC
