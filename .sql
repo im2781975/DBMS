@@ -1809,6 +1809,61 @@ ALTER TABLE Employees ADD CONSTRAINT pk_EmployeeID PRIMARY KEY (ID);
 ALTER TABLE EMPLOYEES ADD pk_EmployeeID PRIMARY KEY (ID, FName)
 ALTER TABLE Employees ALTER COLUMN StartingDate DATETIME NOT NULL DEFAULT (GETDATE())
 ALTER TABLE Employees DROP CONSTRAINT DefaultSalary
+	CREATE TABLE Employees (
+    EmployeeID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    FirstName VARCHAR(20) NOT NULL,
+    LastName VARCHAR(20) NOT NULL,
+    PhoneNumber VARCHAR(10) NOT NULL,
+    CityID INT NOT NULL,
+    FOREIGN KEY (CityID) REFERENCES Cities(CityID)
+);
+CREATE TABLE Cities (
+    CityID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    Name VARCHAR(20) NOT NULL,
+    Zip VARCHAR(10) NOT NULL
+);
+SELECT * INTO NewTable FROM OldTable;
+CREATE TABLE NewTable LIKE OldTable;
+INSERT INTO NewTable SELECT * FROM OldTable;
+CREATE FUNCTION FirstWord (@input VARCHAR(1000)) 
+RETURNS VARCHAR(1000) AS 
+BEGIN
+    DECLARE @output VARCHAR(1000);
+    SET @output = SUBSTRING(@input, 1, 
+        CASE CHARINDEX(' ', @input) 
+            WHEN 0 THEN LEN(@input) + 1 
+            ELSE CHARINDEX(' ', @input) - 1 
+        END);
+    RETURN @output;
+END;
+BEGIN TRANSACTION;
+BEGIN TRY
+    INSERT INTO dbo.Sale (Price, SaleDate, Quantity) 
+    VALUES (5.2, GETDATE(), 1);
+
+    INSERT INTO dbo.Sale (Price, SaleDate, Quantity) 
+    VALUES (5.2, 'not a date', 1); -- This will cause an error
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    THROW; -- Properly raises the error
+END CATCH;
+BEGIN TRANSACTION;
+BEGIN TRY
+    INSERT INTO dbo.Sale (Price, SaleDate, Quantity) 
+    VALUES (5.2, GETDATE(), 1);
+
+    INSERT INTO dbo.Sale (Price, SaleDate, Quantity) 
+    VALUES (5.2, GETDATE(), 1);
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    THROW;
+END CATCH;
+
 --
 --
 --
