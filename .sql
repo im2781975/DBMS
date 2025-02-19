@@ -2196,8 +2196,62 @@ CREATE TABLE SalesTerritoryHistory (
 );
 SELECT TerritoryID, StartDate, BusinessEntityID, LAST_VALUE(BusinessEntityID) 
     OVER(ORDER BY TerritoryID) AS LastValue FROM SalesTerritoryHistory;
+CREATE TABLE Employee (
+    BusinessEntityID INT PRIMARY KEY,
+    JobTitle VARCHAR(255),
+    SickLeaveHours INT
+);
+SELECT BusinessEntityID, JobTitle, SickLeaveHours, 
+    PERCENT_RANK() OVER(PARTITION BY JobTitle ORDER BY SickLeaveHours DESC) AS "Percent Rank", 
+    CUME_DIST() OVER(PARTITION BY JobTitle ORDER BY SickLeaveHours DESC) AS "Cumulative Distribution" FROM Employee;
+SELECT BusinessEntityID, JobTitle, SickLeaveHours,       
+    CUME_DIST() OVER(PARTITION BY JobTitle ORDER BY SickLeaveHours ASC) AS "Cumulative Distribution",       
+    PERCENTILE_DISC(0.5) WITHIN GROUP(ORDER BY SickLeaveHours) 
+           OVER(PARTITION BY JobTitle) AS "Percentile Discreet",       
+    PERCENTILE_CONT(0.5) WITHIN GROUP(ORDER BY SickLeaveHours) 
+           OVER(PARTITION BY JobTitle) AS "Percentile Continuous" FROM Employee;
+CREATE TABLE SalesPerson (
+    BusinessEntityID INT PRIMARY KEY,
+    SalesYTD DECIMAL(15,2)
+);
+SELECT BusinessEntityID, SalesYTD, 
+       LEAD(SalesYTD, 1, 0) OVER(ORDER BY BusinessEntityID) AS "Lead value", 
+    LAG(SalesYTD, 1, 0) OVER(ORDER BY BusinessEntityID) AS "Lag value" FROM SalesPerson;
 
---
+--CREATE TABLE payments (
+    id INT PRIMARY KEY,
+    customer VARCHAR(255),
+    payment_type VARCHAR(50), 
+    amount DECIMAL(10,2)
+);
+SELECT customer, 
+       SUM(CASE WHEN payment_type = 'credit' THEN amount ELSE 0 END) AS credit, 
+       SUM(CASE WHEN payment_type = 'debit' THEN amount ELSE 0 END) AS debit 
+FROM payments 
+GROUP BY customer;
+SELECT customer, 
+       SUM(CASE WHEN payment_type = 'credit' THEN 1 ELSE 0 END) AS credit_transaction_count, 
+       SUM(CASE WHEN payment_type = 'debit' THEN 1 ELSE 0 END) AS debit_transaction_count 
+FROM payments 
+GROUP BY customer;
+CREATE TABLE customer (
+    customer_id INT PRIMARY KEY,
+    customer_first_name VARCHAR(255),
+    customer_last_name VARCHAR(255)
+);
+SELECT customer_id, LOWER(customer_last_name) FROM customer;
+CREATE TABLE items (
+    id INT PRIMARY KEY,
+    name VARCHAR(255),
+    tag VARCHAR(255)
+);
+SELECT id, name, tag, 
+       COUNT(*) OVER (PARTITION BY tag) > 1 AS flag 
+FROM items;
+SELECT id, name, tag, 
+       (SELECT COUNT(tag) FROM items B WHERE tag = A.tag) > 1 AS flag 
+FROM items A;
+
 --
 --
 select customer, sum(case when payment_type = 'credit' then amount else 0 end) as credit, sum(case when payment_type = 'debit' then amount else 0 end) as debit from payments group by customer
