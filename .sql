@@ -2251,6 +2251,32 @@ FROM items;
 SELECT id, name, tag, 
        (SELECT COUNT(tag) FROM items B WHERE tag = A.tag) > 1 AS flag 
 FROM items A;
+DECLARE @DateFrom DATETIME = '2016-06-01 06:00'
+DECLARE @DateTo DATETIME = '2016-07-01 06:00'
+DECLARE @IntervalDays INT = 7
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    FName VARCHAR(255),
+    LName VARCHAR(255),
+    ManagerID INT NULL,  -- NULL for top-level managers
+    FOREIGN KEY (ManagerID) REFERENCES Employees(ID) ON DELETE SET NULL
+);
+WITH Numbers(i) AS (
+    SELECT 1 UNION ALL SELECT i + 1 FROM Numbers WHERE i < 5
+) 
+SELECT i FROM Numbers;
+WITH RECURSIVE ManagedByJames(Level, ID, FName, LName) AS (
+    SELECT 1, ID, FName, LName FROM Employees WHERE ID = 1    
+    UNION ALL SELECT ManagedByJames.Level + 1, Employees.ID, Employees.FName, Employees.LName FROM Employees    
+    JOIN ManagedByJames ON Employees.ManagerID = ManagedByJames.ID  
+) 
+SELECT * FROM ManagedByJames;
+WITH RECURSIVE ManagersOfJonathon AS (  
+    SELECT * FROM Employees WHERE ID = 4  
+    UNION ALL SELECT Employees.* FROM Employees  
+    JOIN ManagersOfJonathon ON Employees.ID = ManagersOfJonathon.ManagerID  
+)
+SELECT * FROM ManagersOfJonathon;
 
 --
 --
