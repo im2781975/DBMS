@@ -76,3 +76,10 @@ SELECT REVERSE('Hello')
 SELECT REPLICATE ('Hello',4)
 SELECT INSTR('FooBarBar', 'Bar') 
 SELECT INSTR('FooBarBar', 'Xar') 
+SELECT DATENAME (weekday,'2017-01-14') as Datename
+SELECT GETDATE() as Systemdate
+SELECT DATEADD (day, 20, '2017-01-14') AS Added20MoreDays
+SELECT PARSE('Monday, 13 August 2012' AS datetime2 USING 'en-US') AS 'Date in English'
+SELECT CHOOSE(2, 'Human Resources', 'Sales', 'Admin', 'Marketing' ) AS Result;
+SELECT SIGN(-20) AS 'Sign'
+SELECT POWER(50, 3) AS Result
