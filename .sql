@@ -2114,6 +2114,88 @@ SELECT * FROM (
 ) AS w 
 WHERE temp_var > 20;
 SELECT name, pop2000 FROM cities WHERE pop2000 < (SELECT AVG(pop2000) FROM cities);
+CREATE TABLE employees (
+    EmployeeId INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Age INT,
+    Salary DECIMAL(10,2),
+    DepartmentId INT,
+    ManagerId INT
+);
+SELECT SUM(Salary) AS TotalSalary FROM employees;
+SELECT DepartmentId, SUM(Salary) AS TotalSalary FROM employees GROUP BY DepartmentId;
+SELECT COUNT(*) AS TotalRows FROM employees;
+SELECT DepartmentId, COUNT(*) AS NumEmployees FROM employees GROUP BY DepartmentId;
+SELECT COUNT(ManagerId) AS mgr FROM employees;
+SELECT MIN(Age) FROM employees;
+SELECT MAX(Age) FROM employees;
+CREATE TABLE Data (
+    id INT,
+    status VARCHAR(50),
+    status_time TIMESTAMP,
+    PRIMARY KEY (id, status_time)
+);
+CREATE TABLE operations (
+    date DATE,
+    amount DECIMAL(10,2)
+);
+SELECT A.id, A.status, B.status AS prev_status, A.status_time, B.status_time AS prev_status_time 
+FROM Data A, Data B 
+WHERE A.id = B.id 
+AND B.status_time = (
+    SELECT MAX(status_time) 
+    FROM Data 
+    WHERE status_time < A.status_time 
+    AND id = A.id
+)
+AND A.status = 'THREE' 
+AND NOT B.status = 'TWO';
+SELECT date, amount, 
+    SUM(amount) OVER (ORDER BY date ASC) AS running 
+FROM operations ORDER BY date ASC;
+CREATE TABLE operations (
+    date DATE,
+    amount DECIMAL(10,2)
+);
+SELECT date, amount, SUM(amount) OVER (ORDER BY date ASC)
+    AS running FROM operations ORDER BY date ASC;
+CREATE TABLE your_data_set (
+    your_columns VARCHAR(255)
+);
+SELECT your_columns, COUNT(*) OVER() 
+    AS Ttl_Rows FROM your_data_set;
+CREATE TABLE city_population (
+    city_name VARCHAR(255),
+    population INT
+);
+SELECT city_name, AVG(population) AS avg_population 
+    FROM city_population WHERE city_name = 'NEW YORK CITY';
+CREATE TABLE SalesOrderHeader (
+    SalesOrderID INT PRIMARY KEY,
+    OrderDate DATE,
+    ShipDate DATE
+);
+SELECT SalesOrderID,DATEDIFF(DAY, OrderDate, ShipDate) 
+    AS 'Processing time'FROM SalesOrderHeader;
+CREATE TABLE SalesPerson (
+    BusinessEntityID INT PRIMARY KEY,
+    SalesYTD DECIMAL(15,2)
+);
+SELECT BusinessEntityID, SalesYTD,IIF(SalesYTD > 200000, 'Bonus', 'No Bonus') AS 'Bonus?' FROM SalesPerson;
+CREATE TABLE SalesTaxRate (
+    StateProvinceID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    TaxRate DECIMAL(5,2)
+);
+SELECT StateProvinceID, Name, TaxRate,       FIRST_VALUE(StateProvinceID) OVER(ORDER BY TaxRate ASC) 
+    AS FirstValue FROM SalesTaxRate;
+CREATE TABLE SalesTerritoryHistory (
+    TerritoryID INT,
+    StartDate DATE,
+    BusinessEntityID INT
+);
+SELECT TerritoryID, StartDate, BusinessEntityID, LAST_VALUE(BusinessEntityID) 
+    OVER(ORDER BY TerritoryID) AS LastValue FROM SalesTerritoryHistory;
 
 --
 --
